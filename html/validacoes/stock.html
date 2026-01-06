@@ -1,0 +1,901 @@
+<!doctype html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp(); </script>
+	
+	
+	<style>
+		
+		#tituloTable01{ height: 60px; border: none;}
+		#tituloTable01 td{vertical-align: middle;}
+		.identificadorDoUsuario a {margin-right: 5px;}
+		
+		#td_TituloDoCliente{ text-transform: uppercase; }
+	
+		
+                #nomeDoCliente{text-shadow: 1px 1px #fff , -1px -1px #fff ,-1px 1px #fff , 1px -1px #fff ; margin-bottom: 10px;font-size: 23px;}
+            #nomeDoCliente:hover{color: red;}
+            .classTelWhatsSms{position: relative ; width: 170px;height: 25px; margin: 5px; padding-top: 3px; border-radius: 17px; overflow: hidden; background-color: rgb(11, 141, 65); color: white; font-size: 20px;}
+            .imgSms , .imgWhatsApp{position: absolute; width: 20px;top: 0px;  height: 20px; border-radius: 17px; padding: 2px; margin: 2px; background-color: blueviolet;}
+            .imgWhatsApp { left: 0px;}
+            .imgSms{right: 0px;}
+            .outrosIcones{height: 28px; width: 28px; margin: 5px; background-color: white; border-radius: 13px;overflow: hidden; }
+            .outrosIcones img{height: 22px; width: 22px; margin: 2px;background-color: rgb(11, 141, 65); border-radius: 13px;overflow: hidden;padding: 1px; }
+		
+		#nomeDoOperador{ max-width:100px; background-color: red;}
+		#searchBar table :hover{cursor: pointer}
+		#firstSearchResult{top: 40px; padding: 5px;}
+		
+		#td_searchString .searchString{border-bottom-left-radius: 18px;border-top-left-radius: 18px; border: 1px solid pink; border-right: none;}
+		#td_firstSearchSelectSelected select {border: 1px solid pink; border-left: none; }
+                
+		#conteudoDiv01 table {max-width: 700px;}
+		
+		#tituloTable01 img:hover,#tituloTable01 input:hover, #tituloTable01 select:hover, .tb_servicos:hover { box-shadow: 1px 1px #aaa , -1px -1px #aaa ,-1px 1px #aaa , 1px -1px #aaa ; }
+		
+		.tb_servicos{background-color: white; padding: 4%; margin: 4px; width: 90%; font-size: 11px; text-transform: uppercase; border: none; border-radius: 4px; text-align: left;}
+		.tb_servicos div{width: 100%;  text-align: left; font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif";color: blueviolet;}
+		
+		.tb_servicos div{cursor: default;}
+		
+		.classNovoRegisto{width: 100%; margin-bottom: 20px;}
+		.classNovoRegisto button {width: 150px; }
+		
+		.botaoValidacaoNo{padding: 15px;border: 2px solid red; color: red; margin: 5px;font-size: 100%;}
+		.botaoValidacaoOk{padding: 15px;border: 2px solid darkgreen; color: darkgreen; margin: 5px;font-size: 100%;}
+		.botaoValidacaoOk:hover, .botaoValidacaoNo:hover{border-bottom-width: 6px;}
+		
+		#novaOpcaoDeOrigem{text-align: left;width: 100%;}
+		#novaOpcaoDeOrigem p {margin:5px;border:none;width: 100%;text-align: left; background-color: #eee; padding: 7px; font-size: 14px; }
+		#novaOpcaoDeOrigem p:hover { background-color: blueviolet; color: white;}
+		#novaOpcaoDeOrigem p b{font-size: 110%;text-transform: uppercase;}
+                
+                .info_ { margin-top: 5px; width: 24px;height: 24px;border-radius: 12px;text-align: center;background-color: black; color: white;text-transform: lowercase;font-size: 18px; font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";overflow: hidden;}
+	
+		
+		#menuLateral td {cursor: default;}
+                
+            @media screen and (max-width : 755px){
+                #conteudoDiv01{width: 99%;overflow: hidden;}
+                #conteudoDiv01 table {width: 98%; overflow: hidden; margin-left: 0px;margin-right: 0px;}                
+                #conteudoDiv01  .tabelaDeResultados{ width: 98%; overflow: hidden; margin-left: 0px;margin-right: 0px;}
+                #conteudoDiv01  .tabelaDeResultados td { max-width: 70%;}
+                
+                #searchBar {margin-left: 0px ; margin-right: 0px; width: auto; max-width: 99%; float: none; align-items: center;  }
+                #searchBar td{ width: auto;  }
+                #searchBar .searchString{border-bottom-left-radius: 18px;border-top-left-radius: 18px; border: 1px solid pink; border-right: none;width: auto;}
+		#searchBar select {border: 1px solid pink; border-left: none; width: auto; }
+                #titulo {width: 99%;padding: 0px; min-height: 60px;}
+                #alertaDeDivida h3{padding-top: 23px; }
+                #alertaDeDivida{width: 80%;position: fixed;bottom: 0px;height: auto; max-height: 50%; display: none;right: 0; }
+                #alertaDeDivida #alertaDeDivida_Div01{width: 80%; margin-left: 0px; }
+
+            }
+		
+		
+	</style>
+	
+	
+<title> Validação do consumo de stock </title>
+	
+</head>
+
+<body>
+	
+	
+<div id="alertas" class="centralizarDiv alertas" style="display: none;">
+    
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('html/notificacao/recebidas.html')" ></button>
+     
+	
+	</div<div id="alertas" class="centralizarDiv alertas" style="display: none;">
+		<div id="alertasDiv01" align="center">
+			<img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+			<p class="resutado">  </p>
+	  </div>
+	</div>
+	
+	<div id="titulo" class=" backGround03">
+            
+            <table id="tituloTable01" style="width: 97%;z-index: 80;margin: 0 auto;margin-right: 1%;margin-left: 1%;"  >
+                <thead><tr>
+
+                    <td style="width: 70%;"></td>
+
+                    <td id="td_searchString"  align="center" style="width: 13%;position: relative;">
+                            <input class="searchString" id="searchString" type="number" onKeyUp="getFirstSearch(this)"  >
+                            <div id="firstSearchResult" class="firstSearchResult backGround03" style=" position: absolute ; display:none;">
+                                    <img src="../../img/cruz.png" onClick="$('#firstSearchResult').slideUp(), $('#firstSearchResult .firstSearchResultDiv01').html('')"  class="botaoSair" alt=""/>
+                                    <div class="firstSearchResultDiv01">	</div>					
+                            </div>
+                    </td>
+                    <td id="td_firstSearchSelectSelected" style="width: 10%;">
+                            <select id="firstSearchSelected" onChange="firstSearchSelectSelected(this)"><!-- Aterar o type do input -->
+                                    <option>Id da ficha</option><option>Telefone</option><option>Data(aaaa-mm-dd)</option>
+                            </select>
+                    </td>
+                </tr></thead>
+            </table> 
+            <div style="width: 96%;" align="center" id="td_TituloDoCliente" ></div>
+	</div>
+	
+	
+	
+	
+	
+	<div style=" width: 100%; height: 100%;display: flex; flex-direction: row; margin-bottom: 40px;">
+		
+
+		<div id="corpo">
+
+			<div id="resultado">
+
+				<div id="barra" style="display: none;background-color: transparent;">
+					<div id="barraDiv01" style="position: relative;" class="backGround02">
+						<img src="../../img/cruz.png" onClick="fecharBarra()"  class="botaoSair" alt=""/>
+						<div id="barraDiv02">
+						</div>
+					</div>				
+				</div>
+
+				<div id="conteudo">
+					<div id="conteudoDiv01">
+
+
+				</div>
+			</div>		
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<div id="menuRodapeCirculo" class="backGround01" ></div>
+	<div id="menuRodapeBotoes" class="backGround01"  style="width: 260px">
+		<div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                        <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                        <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                        <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                        <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+                </div></div></div></div>
+                <button style="width: 120px" onClick='novaPagina("servicos.html"),$("#menuRodapeBotoes").fadeOut()' >Servicos</button>
+		<button style="width: 120px" onClick='novaPagina("pagamentos.html"),$("#menuRodapeBotoes").fadeOut()' >Pagamentos</button>
+                <button style="width: 120px" onClick='novaPagina("stock.html"),$("#menuRodapeBotoes").fadeOut()' >Stock</button>
+		<button style="width: 120px" onClick='novaPagina("financeira.html"),$("#menuRodapeBotoes").fadeOut()' >Financeira</button>
+		
+            </div>
+	<img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+	
+</body>
+	
+<script>
+	
+	
+	
+$(document).ready(function() {
+	
+	aguarde(true);
+	
+	getUser();
+
+	var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + 				rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+});
+
+	
+	
+
+	
+function getUser(){
+	
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/validacoes/getUser.php",
+		data: { 'url':window.location.href },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+		   //console.log(data);
+			if(data.status){
+				app.operador = data.operador ? data.operador : false
+                                app.email = data.email ? data.email : false
+                                app.telefone = data.telefone ? data.telefone : false;				
+                                app.imagem = data.imagem ? data.imagem : false
+                                app.id_do_operador = data.id ? data.id : false
+                                app.estado = data.estado ? data.estado : false
+                                app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                                app.categoria = data.categoria ? data.categoria : false
+                                app.funcao = data.funcao ? data.funcao : false
+                                app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                                if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                                if(app.operador)$("#nomeDoOperador").text(app.operador);
+                    
+				$("#dadosDoOperador").fadeIn();
+				
+				if(data.id_do_cliente){
+					firstSearchResultClicked ( false,{ 'bd':'netcoaos_cachv3' ,'id_do_cliente':data.id_do_cliente } )
+				}
+                                
+                                aguarde();
+                                if(app.estado < 2){                                    
+                                    alerta("Voce não esta autorizado ! ! !");
+                                    setTimeout(function (){
+                                         window.location = "../../index.html?di="+app.id_do_operador+"&op="+app.operador ;
+                                    },5000)
+                                }
+
+				
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+			}
+		}
+	});
+
+	stopDefaultEvent();
+	
+}
+
+	
+	
+	
+
+function getFirstSearch(thi){
+	if(thi.value.length > 3  ){
+		
+		var width = parseFloat($("#td_searchString").css("width")) + parseFloat($("#td_firstSearchSelectSelected").css("width"));
+		width = width - 10;
+		$("#firstSearchResult").css("width",width+"px");
+		
+		switch ($("#firstSearchSelected").val().toLowerCase()){
+			case "telefone".toLowerCase() :getFirstSearchCliente(thi,'telefone','clientes','firstSearchResult'); break;
+			case "Id da ficha".toLowerCase() : getFirstSearchCliente(thi,'id','servicos','firstSearchResult'); break;
+			case "Data(aaaa-mm-dd)".toLowerCase() : getFirstSearchCliente(thi,'data','servicos','firstSearchResult'); break;
+			default : "Selecione";  break;
+		}
+	}else if($("#firstSearchSelected").val() == "Id da ficha" ){
+		getFirstSearchCliente(thi,'id','servicos','firstSearchResult');
+	}
+}
+
+
+
+
+
+
+function getFirstSearchCliente(thi,campo,tabela,idDoResultado){
+	
+	if(thi.value && campo){
+		
+		var jSon = JSON.stringify({'idDoResultado': idDoResultado,'tabela': tabela, 'bd': 'netcoaos_cachv3', 'valor': thi.value, 'coluna': campo});
+		
+		$.ajax({
+			url:"../../php/validacoes/getFirstSearch.php",
+			data: { 'dados':jSon },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+			   //console.log(data);
+				if(data.status){
+					$("#"+ idDoResultado+" .firstSearchResultDiv01").html(data.sucesso);
+					 slideUpOrDonw(thi,idDoResultado);
+
+				}else{ 
+					var erro = '<p style=" padding:20px 0px; text-shadow: 1px 1px red, -1px 1px red, -1px -1px red;color:#fff; ">'+data.erro+'</p>';
+					$("#"+ idDoResultado+" .firstSearchResultDiv01").html(erro);
+					 slideUpOrDonw(thi,idDoResultado);
+
+				}
+			}
+		});
+
+		stopDefaultEvent();
+	}
+}
+
+	
+	
+function maisResultadosFirstSearchResult(param){
+		
+	var jSon = JSON.stringify(param);
+
+	$.ajax({
+		url:"../../php/validacoes/maisResultadosFirstSearchResult.php",
+		data: { 'dados':jSon },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+		   //console.log(data);
+			if(data.status){
+				$("#"+ param.idDoResultado+" .firstSearchResultDiv01").html(data.sucesso);
+				 //slideUpOrDonw(thi,idDoResultado);
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+			}
+		}
+	});
+
+	stopDefaultEvent();
+}
+	
+	
+
+function firstSearchResultClicked(thi,param){
+
+	
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/validacoes/getFirstSearchResultClicked.php",
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+		   //console.log(data);
+			if(data.status){
+				$("#td_TituloDoCliente").html(data.titulo);
+				
+				app.id_do_cliente = data.id_do_cliente;
+				app.telefone_do_cliente = data.telefone_do_cliente;
+				app.telefone2_do_cliente = data.telefone2_do_cliente;
+				app.nome_do_cliente = data.nome_do_cliente;
+				
+				if($("#conteudoDiv01").css('display') == 'block'){
+					$("#conteudoDiv01").fadeOut(200);
+					setTimeout(function(){
+						$("#conteudoDiv01").html(data.dadosDoCliente).fadeIn();
+					},200)
+				}else{
+					$("#conteudoDiv01").html(data.dadosDoCliente).fadeIn();
+				}
+				
+				getEstesConsumiveis(param.id_do_cliente, param.id_do_servico ? param.id_do_servico : '');
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+			}
+		}
+	});
+
+	stopDefaultEvent();
+	
+}
+
+
+	
+	
+	
+function getEstesConsumiveis( id_do_cliente, id_do_servico ){
+	
+	aguarde(1);
+	stopDefaultEvent();
+	
+	$.ajax({
+            url:"../../php/validacoes/getEstesConsumiveis.php",
+            data: { 'id_do_cliente':id_do_cliente, 'id_do_servico':id_do_servico, 'operador':app.operador },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+              console.log(data);
+                if(data.status){
+                    aguarde();
+                    $("#conteudoDiv01").slideUp();
+                    setTimeout(function(){
+                            $("#conteudoDiv01").html(data.sucesso).fadeIn();
+                    },500);
+
+                    if(data.ids){
+                            app.stock.produtosConsumidos = data.ids;
+                            getHistoricos(data.ids,id_do_cliente, id_do_servico );
+                    }
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+
+	
+}
+
+
+	
+function getHistoricos( ids, id_do_cliente, id_do_servico ){
+	
+	stopDefaultEvent();
+	
+	var param = { 'id_do_cliente':id_do_cliente, 'id_do_servico':id_do_servico, 'operador':app.operador , 'ids':ids };
+	var jSon = JSON.stringify(param);
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/validacoes/getHistoricos.php",
+		data: { 'dados':jSon },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+		},
+		success: function(data){
+                    aguarde();
+		   console.log(data);
+                   console.log(ids);
+                    if(data.status){
+                        setTimeout(function(){
+                            var i = 0;
+                            while(ids[i]) {
+                                var idd = "id_de_vizualizacao"+ids[i].id_de_distino;
+                                //console.log(data[i]);
+                                //console.log(idd);
+                                var div = document.getElementById(idd);
+                                //console.log(div);
+                                if($(div)){
+                                        if(data[i]) $(div).html(data[i])
+                                }
+                                i++;
+                            }
+                        },1000);
+
+                    }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                    }
+		}
+	});
+	
+}
+	
+	
+	
+	
+function alterarErroCorrigido(id ,tabela, estado, textAreaId, bd ,id_do_cliente, id_do_servico,thi, id_do_produto, id_do_movimento_de_entrada, nome_do_produto, codigo, quantidade  ) {
+
+    stopDefaultEvent();
+
+    var i = 0;
+    var stop = false;
+    if(app.stock && app.stock.produtosConsumidos && app.stock.produtosConsumidos[i]) {
+
+        while(app.stock.produtosConsumidos[i]){
+            if(app.stock.produtosConsumidos[i].id_da_tabela_consumiveis_de_servicos == id){
+                if( ! (app.stock.produtosConsumidos[i].id_do_movimento_de_entrada && app.stock.produtosConsumidos[i].id_do_produto && app.stock.produtosConsumidos[i].nome_do_produto ) ){
+                    stop = true;
+                    break;
+                }
+            }
+
+            i++;
+        }
+    }else{
+        stop = true;
+    }
+	
+	
+    if(stop){
+        alerta("Selecione a origem deste produto");
+
+    }else{
+
+        var valor = $("#"+textAreaId).val();
+        var coluna = $("#"+textAreaId).attr('name');
+
+        if(!valor) $("#"+textAreaId).css('border','4px solid red');
+
+        if( valor && app.estado >= estado && window.confirm('Vai validar este item, por este motivo:\n ' + valor)){
+
+            var param = {'tabela': tabela, 'operador': app.operador, 'bd': bd, 'id':id, coluna: coluna, 'valor': valor, 'id_do_cliente': id_do_cliente, 'id_do_servico': id_do_servico };
+
+            aguarde(1);        
+            $.ajax({
+                url:"../../php/validacoes/alterarErroCorrigido.php",
+                data: { 'dados':JSON.stringify(param) },
+                dataType:"json",
+                async:true,
+                type:"POST",
+                error: function (data){
+                        if(navigator.onLine) { 
+                                alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                        }else{  
+                                alerta('Não há Internet') ;
+                        }
+                },
+                success: function(data){
+                    aguarde();
+                   //console.log(data);
+                    if(data.status){
+                        $(thi.parentElement).append('<button style="margin:10px;background-color:green;border:none;" ><img style="height:12px;widht:auto" src="../../img/bom.png" alt=""/></button>');
+                        keepDadosDoMovimentoDoStock( id, id_do_produto, id_do_movimento_de_entrada, nome_do_produto, codigo, quantidade );
+
+                    }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                    }
+                }
+            });
+        }
+    }
+} 
+	
+	
+
+	
+function alterarErroDetetado(id ,tabela, estado, textAreaId, bd ,id_do_cliente, id_do_servico,thi ) {
+	
+	stopDefaultEvent();
+	
+	var valor = $("#"+textAreaId).val();
+	var coluna = $("#"+textAreaId).attr('name');
+	
+	if(!valor) $("#"+textAreaId).css('border','4px solid red');
+	
+	if( valor && app.estado >= estado && window.confirm('Vai regeitar este item, por este motivo \n ' + valor)){
+
+		var param = {'tabela': tabela, 'operador': app.operador, 'bd': bd, 'id':id, coluna: coluna, 'valor': valor, 'id_do_cliente': id_do_cliente, 'id_do_servico': id_do_servico }
+
+		aguarde(1);        
+                $.ajax({
+                    url:"../../php/validacoes/alterarErroDetetado.php",
+                    data: { 'dados':JSON.stringify(param) },
+                    dataType:"json",
+                    async:true,
+                    type:"POST",
+                    error: function (data){
+                            if(navigator.onLine) { 
+                                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                            }else{  
+                                    alerta('Não há Internet') ;
+                            }
+                    },
+                    success: function(data){
+                        aguarde();
+                       //console.log(data);
+                            if(data.status){
+                                    $(thi.parentElement).append('<button style="margin:10px 0px;background-color:red;border:none;" ><img style="height:16px;widht:auto" src="../../img/cruz.png" alt=""/></button>');
+
+                            }else{ 
+                                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                            }
+                    }
+		});
+	}
+	
+} 
+	
+	
+
+	
+function validar_servico(id ,tabela, estado, bd ,id_do_cliente, id_do_servico,thi, id_do_produto, id_do_movimento_de_entrada, nome_do_produto, codigo, quantidade ) {
+	
+	stopDefaultEvent();
+	
+	var i = 0;
+	var stop = false;
+	
+	
+	if(app.stock && app.stock.produtosConsumidos && app.stock.produtosConsumidos[i]) {
+		
+		while(app.stock.produtosConsumidos[i]){
+			if(app.stock.produtosConsumidos[i].id_da_tabela_consumiveis_de_servicos == id){
+				if( ! (app.stock.produtosConsumidos[i].id_do_movimento_de_entrada && app.stock.produtosConsumidos[i].id_do_produto && app.stock.produtosConsumidos[i].nome_do_produto ) ){
+					stop = true;
+					break;
+				}
+			}
+
+			i++;
+		}
+	}else{
+		stop = true;
+	}
+	
+	if(stop){
+		alerta("Selecione a origem deste produto");
+		
+	}else{
+
+		if( app.estado >= estado && window.confirm('Dezejas validar este item ?')){
+
+			var param = {'tabela': tabela, 'operador': app.operador, 'bd': bd, 'id':id, 'id_do_cliente': id_do_cliente, 'id_do_servico': id_do_servico }
+
+			aguarde(1);        
+                        $.ajax({
+				url:"../../php/validacoes/validar_servico.php",
+				data: { 'dados':JSON.stringify(param) },
+				dataType:"json",
+				async:true,
+				type:"POST",
+				error: function (data){
+					if(navigator.onLine) { 
+						alerta('<b style="color:red">Houve um erro actualize a página</b>');
+					}else{  
+						alerta('Não há Internet') ;
+					}
+				},
+				success: function(data){
+                                    aguarde();
+				   //console.log(data);
+					if(data.status){
+						$(thi.parentElement).append('<button style="margin:10px;background-color:green;border:none;" ><img style="height:12px;widht:auto" src="../../img/bom.png" alt=""/></button>');
+						keepDadosDoMovimentoDoStock( id, id_do_produto, id_do_movimento_de_entrada, nome_do_produto, codigo, quantidade );
+
+					}else{ 
+						if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+					}
+				}
+			});
+		}
+	}
+} 
+
+	
+	
+	
+function keepDadosDoMovimentoDoStock( id, id_do_produto, id_do_movimento_de_entrada, nome_do_produto, codigo, quantidade ){
+	
+	var i = 0;
+	if(!app.stock) app.stock = [];
+	if(!app.stock.movimento) app.stock.movimento = [];
+	while(app.stock.movimento[i]){
+
+		if(app.stock.movimento[i].id == id){
+			break;
+		}else{
+			i++;
+		}
+	}
+	
+	app.stock.movimento[i] = { id:id, id_do_produto:id_do_produto, id_do_movimento_de_entrada:id_do_movimento_de_entrada, nome_do_produto:nome_do_produto, codigo:codigo, quantidade:quantidade };
+}
+	
+	
+/*	
+	
+function getUnknowProductFrom( tabela, id_do_produto, id_do_movimento_de_entrada, nome_do_produto, codigo, quantidade, id_da_tabela_consumiveis_de_servicos ){
+	
+	stopDefaultEvent();
+	
+	var param = {'tabela': tabela, 'operador': app.operador, 'id_do_produto': id_do_produto, 'id_do_movimento_de_saida':id_do_movimento_de_entrada, 'nome_do_produto': nome_do_produto, 'codigo': codigo, 'quantidade': quantidade, 'id_da_tabela_consumiveis_de_servicos': id_da_tabela_consumiveis_de_servicos }
+
+		$.ajax({
+			url:"../../php/validacoes/getUnknowProductFrom.php",
+			data: { 'dados':JSON.stringify(param) },
+			//dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+			   console.log(data);
+				if(data.status){
+					alerta(data.sucesso);
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+	
+}
+
+	
+	
+
+function upDateUnknowProduct( id, id_do_produto, id_do_movimento_de_entrada, nome_do_produto, codigo, erro_detetado, erro_corrigido){
+	
+	
+	stopDefaultEvent();
+	
+	var param = {'bd': 'netcoaos_cachv3', 'tabela': 'consumiveis_de_servicos', 'operador': app.operador, 'id_do_produto': id_do_produto, 'id_do_movimento_de_entrada':id_do_movimento_de_entrada, 'nome_do_produto': nome_do_produto, 'codigo': codigo, 'id': id, 'erro_detetado': erro_detetado, 'erro_corrigido': erro_corrigido }
+
+		$.ajax({
+			url:"../../php/validacoes/upDateUnknowProduct.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+			   console.log(data);
+				if(data.status){
+					$("#conteudoDiv01").fadeOut();
+					alerta('Entre novamente');
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+	
+}
+	
+	
+	*/
+	
+	
+
+function validacao_terminada( id_do_cliente, nome_do_cliente, id_do_servico, validacao, estado, bd, kit , detalhes_do_servico, data_de_saida ){
+
+    stopDefaultEvent();
+
+    var i = 0;
+    var stop = false;
+    if(app.stock && app.stock.produtosConsumidos && app.stock.produtosConsumidos[i]) {
+        
+        console.log(app.stock);
+
+        while(app.stock && app.stock.produtosConsumidos && app.stock.produtosConsumidos[i]){
+            if( ! (app.stock.produtosConsumidos[i].id_do_movimento_de_saida && app.stock.produtosConsumidos[i].id_do_produto && app.stock.movimento && app.stock.movimento[i] ) ){
+                stop = true;
+                break;
+            }
+            i++;
+        }
+    }else{
+        stop = true;
+    }
+	
+	
+    if(stop){
+            alerta("Existem produtos que não foram confirmados");
+    }else{
+
+        if( app.estado >= estado && window.confirm('Este Serviço passou pelo teu crivo ?')){
+
+            aguarde(1);
+
+            var param = {'tabela': 'validacao', 'operador': app.operador, 'bd': bd, 'id_do_cliente': id_do_cliente, 'id_do_servico': id_do_servico, 'coluna': validacao }
+
+            $.ajax({
+                url:"../../php/validacoes/validacao_terminada.php",
+                data: { 'dados':JSON.stringify(param) },
+                dataType:"json",
+                async:true,
+                type:"POST",
+                error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+                },
+                success: function(data){
+                   console.log(data);
+                    if(data.status){
+                        vistoNatabelaDeOrigem(app.stock.produtosConsumidos);                      
+
+                    }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                    }
+                }
+            });
+        }
+
+    }
+}
+	
+
+	
+	
+function vistoNatabelaDeOrigem( produtos ){	
+
+    var i = 0;
+    while(produtos[i]){
+        var daddos = produtos[i];
+        if(daddos.id_de_origem && daddos.tabela_de_origem){    
+            alterarcaoDiretaNaBD(daddos.id_de_origem, daddos.tabela_de_origem, 'estado', 1, 'netcoaos_stockv3');
+            setTimeout( alterarcaoDiretaNaBD(daddos.id_de_origem, daddos.tabela_de_origem, 'visto', app.operador, 'netcoaos_stockv3'),300);
+        }
+        i++;
+    }
+    alerta('Sucesso' );
+    $("#conteudoDiv01").fadeOut();
+           
+}
+	
+	
+
+
+
+	
+	
+	
+	
+						
+	
+function fecharBarra(){
+	$('#barra').slideUp(500,function(){
+		//$('#conteudo').css("width","100%");
+		$('#conteudo').animate("width","100%");
+	});
+}
+	
+	
+function abrirBarra(){
+	//$('#conteudo').css("width","80%");
+	$('#conteudo').animate("width","80%");
+	$('#barra').slideDown();
+}
+
+	
+	
+</script>
+	
+</html>

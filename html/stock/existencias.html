@@ -1,0 +1,584 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+	
+<style>
+	
+        #botaoDoMenuLateralEsquerdo, #botaoDoMenuLateralDireito{display: none;}
+        #botaoSairDoMenuLateral{display: none;}
+            
+	
+	#tituloTable01{ height: 60px; border: none;}
+	#tituloTable01 td{vertical-align: middle;}
+	.identificadorDoUsuario a {margin-right: 5px;}
+
+	#nomeDoOperador{ max-width:100px; background-color: red;}
+
+	#firstSearchResult{top: 60px; padding: 5px;}
+
+	#td_searchString .searchString{border-bottom-left-radius: 18px;border-top-left-radius: 18px; border: 1px solid pink; border-right: none;}
+	#td_firstSearchSelectSelected select {border: 1px solid pink; border-left: none; }
+	
+	
+
+	/*#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0; position: relative;	display: flex;justify-content: center;}
+	*/#menuDiv01{ width: 95%; max-width: 450px; }
+	#menuDiv01 div{  vertical-align: middle; align-items: center; justify-content: center; width: 120px; height: 60px; background-color: red; margin: 5px; background-color:rgb(11, 141, 65) ; color: white; border-radius: 4px; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+
+
+	#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+	#menuDiv01 div button:hover {background-color:#0c26b9;}
+	#menuDiv01 div button img {width: 20px; height: 20px; border-radius: 11px; border: 1px solid #fff;}
+	
+	#dadosDoCadastro {padding-bottom: 10px; margin: 0; margin-left: 19%;}
+	#dadosDoCadastro table {width: 100%; max-width: 400px; margin: 0 auto;}
+	#dadosDoCadastro input , #dadosDoCadastro select { width: 93%; border: 1px solid #eee; }
+	#dadosDoCadastro select { width: 98%; }
+	#dadosDoCadastro button { padding: 7px 2px; min-width: 80px; max-width: 100px; min-height: 65px; margin: 0px 1px; }
+	
+	#dadosDoCadastroDiv02{ padding: 20px;}
+
+	#menuEsquerdo{position: fixed; left: 0px; overflow: scroll; height: 97%; width: 19%; }
+	#corpo{ width: 100%;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades {background-color: cornsilk; width: 100%;color: rgb(11, 141, 65);  margin: 0; text-transform: uppercase; font-size: 10px; text-align: center; border-left: 1px solid pink; border-right: 1px solid pink;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades tr{ border:none; border-top: 1px solid pink;cursor: pointer; }
+	.menuLateral .tabelaDeProdutos_e_Quantidades tr:hover, .menuLateral tr:hover { font-weight: bold;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades td{ border:none; padding: 7px; border: none; text-shadow: 1px 1px 1px #eee;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades .imgDoProd{position: relative;padding:0px; width:55px;border:none;overflow: hidden;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades .imgDoProd img { position: absolute;margin: 0px; padding: 0; width:50px;height: 50px;top:2px;left:2px }
+	.menuLateral .tabelaDeProdutos_e_Quantidades .info_ { margin-top: 5px; width: 24px;height: 24px;border-radius: 12px;text-align: center;background-color: black; color: white;text-transform: lowercase;font-size: 18px; font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";overflow: hidden; }
+	
+	.info_ { margin-top: 5px; width: 24px;height: 24px;border-radius: 12px;text-align: center;background-color: black; color: white;text-transform: lowercase;font-size: 18px; font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";overflow: hidden; }
+	.info_:hover { background-color: rgb(11, 141, 65); cursor: pointer;}
+	
+	
+	#tituloTable01 #firstSearchResultDiv01{position: absolute; width:95%;  z-index: 10;  overflow: hidden; padding: 2%; margin-right: 1%; display: none; border-radius: 2px;}
+	#tituloTable01 .firstSearchResultDiv01{ width: 99.4%;  z-index: 10; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; overflow: hidden; }
+	#tituloTable01 .firstSearchResultDiv01 p{ width: 100%; margin: 0; padding: 0px; border: none;}
+	#tituloTable01 .firstSearchResultDiv01 .firstSearchResultInput_class { width: 98%; padding:  7px 5px ; margin: 3px 2px; border: 1px solid red; text-align: left; background-color: transparent; color: rgb(11, 141, 65); }
+	#tituloTable01 .firstSearchResultDiv01 p input { background-color: white; border: none;}
+	#tituloTable01 .firstSearchResultDiv01 p input:hover { box-shadow: 1px 1px #aaa , -1px -1px #aaa ,-1px 1px #aaa , 1px -1px #aaa ; color:darkblue;}
+	#tituloTable01 .firstSearchResultDiv01 p .firstSearchResultInput_class {background-color: white;border: none; border-radius: 2px;}
+	
+	#dadosDoCadastroDiv01{ width: 100%;}
+	#dadosDoCadastroDiv01_tb01{ width: 100%;}
+	#dadosDoCadastroDiv01_tb01 td{ width: 100%; min-width: 100px;}
+        
+        #search { display: none; z-index: 90; width: 100%; margin: 0; padding: 0; position: fixed;}        
+        #search #alertasDiv01 { box-shadow: 0 0 10px #eee;border-radius: 3px; width: 300px;}			
+        #search #alertasDiv01 #inputCodigo { margin: 5px;text-align: center;font-size: 18px;}			
+        #search #alertasDiv01 .botaoSair { position:relative;margin-bottom: 10px;}			
+           
+        
+    @media screen and (max-width : 755px){
+        #dadosDoCadastro {margin: 0px auto; width: 100%; }
+        #corpo {margin: 0px auto; width: 100%; }
+        #dadosDoCadastroDiv02 { margin: 0px auto;  }
+        #menuEsquerdo {display: none; height: 85%; width: 78%;left: 20%; max-width: 300px; z-index: 80;background-color: white;top: 40px;
+                       box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+        #botaoDoMenuLateralEsquerdo, #botaoDoMenuLateralDireito {display: block; position: fixed; top: 0px; width: 35px; height: 35px; border-radius: 18px;
+                    background-color: black;color: white;text-align: center;padding: 0px; margin: 0px;font-size: 32px;  
+                    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+        #botaoDoMenuLateralEsquerdo {left: 0px; }
+        #botaoDoMenuLateralDireito {right: 0px; }
+        #botaoSairDoMenuLateral{display: block;left: 10px;z-index: 91;top: -4px;}
+        #dadosDoCadastroDiv01_Div01{width: 100%;margin-left: 0px; margin-right: 0px;}
+        #dadosDoCadastroDiv01_Div01_tb01{width: 100%;margin-left: 0px; margin-right: 0px;}
+        
+    }
+
+</style>
+	
+<title> Existências </title>
+</head>
+
+<body>
+    
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('../../html/notificacao/recebidas.html')" >23</button>
+    
+    <div id="search" align="center" >
+        <div id="alertasDiv01" align="center" class="backGround01" >			
+            <div class="resutado">
+                <input id="inputCodigo" type="search" placeholder="Codigo" onkeyup="searchPorCodigoParaExistencia(this)" > 
+                <img  onClick="$('#search').slideToggle()" class="botaoSair"  src="../../img/cruz.png"  alt=""/>
+            </div>
+      </div>
+    </div>
+		
+	<div id="alertas" class="centralizarDiv  alertas" style="box-shadow: 0 0 10px #eee;display: none; z-index: 90;" >
+		<div id="alertasDiv01" align="center">
+			<img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+			<div class="resutado"> </div>
+	  </div>
+	</div>
+	
+	
+        <div id="botaoDoMenuLateralEsquerdo"  onClick="$('#menuEsquerdo').fadeToggle(),$('#menuDireito').fadeOut()" >O</div>
+        
+	<div id="corpoGeral" style=" width: 100%; height: 100%; margin: 0;">
+		<div class="menuLateral" id="menuEsquerdo">		</div>	
+
+		<div id="corpo" align="center" >
+                    
+                    <h4 align="center" style="margin: 15px;">
+                        Existências 
+                        <img id="botaoSearch" style="margin-left: 10px;" onClick="$('#search').slideDown(), $('#inputCodigo').focus() " alt="searchInput"   src="../../img/search.png">
+                    </h4>
+
+                    <div id="dadosDoCadastro" align="center"  >       </div>
+		</div>
+		
+	</div>
+	
+	
+	<div id="menuRodapeCirculo" class="backGround01" ></div>
+	<div id="menuRodapeBotoes" class="backGround01"  style="width: 260px;">
+		<div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                        <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                        <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                        <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                        <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+                </div></div></div></div>
+		<button style="width: 120px" onClick='novaPagina("guiaDeMarcha.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Marcha</button>
+		<button style="width: 120px" onClick='novaPagina("guiaDeCompra.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Compra</button>
+		<button style="width: 120px" onClick='novaPagina("guiaDeConsumo.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Consumo</button>
+		<button style="width: 120px" onClick='novaPagina("existencias.html"),$("#menuRodapeBotoes").fadeOut()' >Existências</button>
+		<button style="width: 120px" onClick='novaPagina("cadastrosDefeituosos.html"),$("#menuRodapeBotoes").fadeOut()' >Limpeza</button>
+		<button style="width: 120px" onClick='novaPagina("relatorios.html"),$("#menuRodapeBotoes").fadeOut()' >Relatórios</button>
+            </div>
+	<img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+
+</body>
+	
+	
+<script>
+
+$(document).ready(function(){
+
+	getUser();
+	
+	getOperadores();
+	
+	
+	var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+	
+	getProdutosParaExistencias();
+	
+});
+
+
+	
+		
+		
+function getProdutosParaExistencias(){
+
+	stopDefaultEvent();
+	
+	
+	//Resetar a selecao e os dados
+	app.stock.produtos = [];	
+	
+		
+	var param = {'bd': 'netcoaos_stockv3', 'tabela':'produto', 'operador':app.operador, 'id_do_operador': app.id_do_operador }
+
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/stock/getProdutosParaExistencias.php",
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+			console.log(data);
+			if(data.status){
+				//var heit = ($("body").css('height'));
+				aguarde();
+                                
+                                $("#menuEsquerdo").html('<h5 align="center" style="position:relative">Lista de Produtos'
+                                    +'<img id="botaoSairDoMenuLateral" onClick="botaoSairDosMenusLaterais()" class="botaoSair" src="../../img/cruz.png"  alt=""/></h5>' 
+                                    +data.sucesso );
+
+                                
+				//$("#menuEsquerdo").html('<h5 align="center">Lista de Produtos</h5>'+data.sucesso );
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+			}
+		}
+	});
+}
+
+
+
+
+function botaoSairDosMenusLaterais(){
+    $('#menuDireito').fadeOut();
+    $('#menuEsquerdo').fadeOut(); 
+    
+    setTimeout(function(){
+       document.getElementById("menuDireito").style.display = 'none'; 
+       document.getElementById("menuEsquerdo").style.display = 'none'; 
+    },600)
+    
+}
+
+	
+	
+	
+
+function selecionarProduto(id,thi){
+	
+    $(".td_produto").css('backgroundColor','transparent').css('color','rgb(148, 0, 211)');
+    setTimeout(function(){
+            $(thi).css('background-color','rgb(148, 0, 211)').css('color','rgb(254, 254, 254)');
+    },250);
+
+    var param = {'bd': 'netcoaos_stockv3',  'operador':app.operador, 'id_do_operador': app.id_do_operador, 'id_do_produto': id, }
+
+    aguarde(1);        
+    $.ajax({
+        url:"../../php/stock/getProdutoSelecionadoParaExistencias.php",
+        data: { 'dados':JSON.stringify(param) },
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+        },
+        success: function(data){
+            aguarde();
+                console.log(data);
+                if(data.status){
+                        aguarde();
+                        $("#dadosDoCadastro").html(data.sucesso).slideDown();
+
+                        getProdutosConsumidosNaoValidados(param)
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+        }
+    });
+}
+
+
+
+
+
+function  getProdutosConsumidosNaoValidados(param){
+    
+    param.bd = 'netcoaos_cachv3';
+    
+    aguarde(1);        
+    $.ajax({
+        url:"../../php/stock/getProdutosConsumidosNaoValidados.php",
+        data: { 'dados':JSON.stringify(param) },
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+        },
+        success: function(data){
+            aguarde();
+                console.log(data);
+                if(data.status){
+                        aguarde();
+                        $("#dadosDoCadastro").append(data.sucesso);
+                       
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+        }
+    });
+}
+
+
+
+	
+	
+	
+
+function searchPorCodigoParaExistencia(thi){
+    
+    //app.onkeyup = false;
+    if(!(app.onkeyup)){
+        setTimeout(function(){
+            
+            var param = {'bd': 'netcoaos_stockv3',  'operador':app.operador, 'id_do_operador': app.id_do_operador, 'codigo': thi.value, }
+
+            aguarde(1);        
+            $.ajax({
+                url:"../../php/stock/searchPorCodigoParaExistenciaNoStock.php",
+                data: { 'dados':JSON.stringify(param) },
+                dataType:"json",
+                async:true,
+                type:"POST",
+                error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+                },
+                success: function(data){
+                    aguarde();
+                    console.log(data);
+                    if(data.status){
+                        aguarde();
+                        $("#dadosDoCadastro").html("<h3> Procurando por '"+thi.value+"'</h3>"+data.sucesso+'<div id="dadosDoCadastro_2"></div>').slideDown();                        
+
+                    }else{
+                        $("#dadosDoCadastro").html("<h3> Procurando por '"+thi.value+"'</h3>"+'<div id="dadosDoCadastro_2"></div>').slideDown(); 
+                        //if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                    }
+                    app.onkeyup = false;
+
+                    searchPorCodigoParaExistenciaUsados(thi)
+                }
+            });
+            
+        },3000);
+        $("#dadosDoCadastro").html("<h3><br><br> Continue digitando...</h3>").slideDown(); 
+        app.onkeyup = true;
+    }
+	
+    
+}
+
+
+
+
+
+
+function searchPorCodigoParaExistenciaUsados(thi){
+	
+    var param = {'bd': 'netcoaos_cachv3',  'operador':app.operador, 'id_do_operador': app.id_do_operador, 'codigo': thi.value, }
+
+    aguarde(1);        
+    $.ajax({
+        url:"../../php/stock/searchPorCodigoParaExistenciaUsado.php",
+        data: { 'dados':JSON.stringify(param) },
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                    alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){
+            aguarde();
+                console.log(data);
+                if(data.status){
+                    aguarde();                   
+                    $("#dadosDoCadastro_2").html(data.sucesso).slideDown();                    
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+        }
+    });
+}
+
+
+
+
+
+
+	
+		
+	
+function getUser(){
+    if(window.location.href.indexOf('&') > -1){
+        aguarde(1)
+        $.ajax({
+            url:"../../php/ficha/getUser.php",
+            data: { 'url':window.location.href },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+
+                if(data.status){
+
+                    app.operador = data.operador ? data.operador : false
+                    app.email = data.email ? data.email : false
+                    app.telefone = data.telefone ? data.telefone : false;				
+                    app.imagem = data.imagem ? data.imagem : false
+                    app.id_do_operador = data.id ? data.id : false
+                    app.estado = data.estado ? data.estado : false
+                    app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                    app.categoria = data.categoria ? data.categoria : false
+                    app.funcao = data.funcao ? data.funcao : false
+                    app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                    if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                    if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+                    if(app.estado < 2){                                    
+                        alerta("Voce não esta autorizado ! ! !");
+                        setTimeout(function (){
+                             window.location = "../../index.html?di="+app.id_do_operador+"&op="+app.operador ;
+                        },5000);
+                    }else{
+                        getNotificacoesNaoRespondidas();
+                    }
+
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+                }
+            }
+        });
+    }
+
+    stopDefaultEvent();
+	
+}
+
+
+	
+	
+
+	
+	
+	
+	
+			
+function getOperadores(){
+
+	stopDefaultEvent();
+		
+	var param = {'bd': 'netcoaos_cachv3', 'tabela':'funcionarios', 'operador':app.operador, 'id_do_operador': app.id_do_operador }
+
+	$.ajax({
+		url:"../../php/stock/getOperadores.php",
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+		   //console.log(data);
+			if(data.status){
+				app.stock.operadores = data.sucesso ;
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+			}
+		}
+	});
+}
+
+	
+	
+	
+	
+function mostrarDetalhesDoProduto(identificador,thi){
+	
+	$(".detalhesDoProduto").fadeOut('200');
+	
+	//console.log($(".imgIndicacaoParaCima")[1].css('display'));
+	
+	var i = 0;
+	while($(".imgIndicacaoParaCima")[i]){
+		var cima = $(".imgIndicacaoParaCima")[i];
+		
+		console.log($(cima).css('display'));
+		if($(cima).css('display') == 'block'){
+			$(cima).slideUp();
+			var baixo = $(".imgIndicacaoParaBaixo")[i];
+			$(baixo).slideDown();
+		}
+		
+		i++;
+	}
+	
+	$(".imgIndicacaoParaCima").fadeOut('200');
+	$(".td_detalhes").css('backgroundColor','transparent').css('color','rgb(148, 0, 211)')
+	setTimeout(function(){
+		if(thi.children[1].style.display == 'block'){
+			$("#"+identificador).fadeOut();
+			thi.children[0].style.display = 'block';
+			thi.children[1].style.display = 'none';
+		}else{
+			$("#"+identificador).fadeIn();
+			thi.children[0].style.display = 'none';
+			thi.children[1].style.display = 'block';
+			$(thi).css('background-color','rgb(148, 0, 211)').css('color','rgb(254, 254, 254)');
+		}
+	},250);
+		
+}
+
+	
+	
+	
+function selecao(thi){
+	var clas = (thi.className);
+	$("." + clas).animate({'padding-bottom':'7px','background-color':'rgb(239, 239, 239)' , 'color': '#000'},300, function(){
+		$("." + clas).css({'background-color':'rgb(239, 239, 239)' , 'color': '#000', 'border':'none'});
+		$(thi).animate({'padding-bottom':'25px','background-color':'rgb(11, 141, 65)' , 'color': 'white'},300,function(){
+			$(thi).css({'background-color':'rgb(11, 141, 65)' , 'color': 'white', 'border':'1px solid #000', 'border-radius':'2px'});
+		});
+	});
+}
+
+
+	</script>
+</html>

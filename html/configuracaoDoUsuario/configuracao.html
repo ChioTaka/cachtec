@@ -1,0 +1,804 @@
+<!doctype html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+<title>Minha Conta</title>
+	
+
+	<style>
+		
+		body{background-color: black;}
+		#cabecalho{width: 100%; margin: 0 auto; border-bottom: 1px solid #C1C4C4; position: relative;	display: flex;justify-content: center; background-color: #E9C5F4; padding: 10px 0px;	}
+		
+		#cabecalhoDiv01 a {height: 40px; color: white;border-radius: 20px;}		
+		#cabecalhoDiv01 #cabecalhoDiv01Table{background-color: red;border-radius: 20px; margin: 0; padding: 0;}
+		#cabecalhoDiv01 #cabecalhoDiv01Table .td0{ margin: 0; padding: 0; background-color: darkolivegreen; margin: 0; }
+		#cabecalhoDiv01 #cabecalhoDiv01Table .td0 img{ margin: 2px;margin-top: 4px;  padding: 3px;height: 35px;width: 35px;  border-radius: 18px;background-color: white; }
+		#cabecalhoDiv01 #cabecalhoDiv01Table #nomeDoOperador{max-width: 180px;vertical-align: middle; background-color: rgb(11, 141, 65);height: auto;padding: 0px 8px;margin: 0; color: white;}
+		#cabecalhoDiv01 #cabecalhoDiv01Table #nomeDoOperador button{background-color: transparent;border: 1px solid #ddd; color: #ddd;}
+		#cabecalhoDiv01 #cabecalhoDiv01Table .td2{ margin: 0; padding: 0; background-color: orange; margin: 0; }
+		#cabecalhoDiv01 #cabecalhoDiv01Table .td2 img{ margin: 2px; margin-top: 4px; padding:3px;height: 35px;width: 35px; border-radius: 18px;background-color: white; }
+		#fotoDoOperador {width: 36px; height: 36px;}
+		
+		.imgUser{width: 36px; height: 36px;}
+		.imglogo {width: 80px; height: 38px;}
+
+		#paginaDeLogin, #resetarSenha{width: 100%;  }
+		.paginaDeLoginDiv01{padding:10px 20px; width: 250px; background-color: #0c26b9;position: relative; border-radius: 5px; margin: 10px;box-shadow: 0 0 10px #eee;}		
+		.paginaDeLoginDiv01 h3 {border: none; margin:auto;box-shadow: none;text-align: center; padding: 15px;} 			
+		.paginaDeLoginDiv01 input {width: 180px;margin: 5px; padding:10px;border:1px solid #555;border-radius:3px;}
+		.paginaDeLoginDiv01 button {width: 180px; height: 50px; margin: 5px; border:1px solid #555;border-radius:3px; padding: 0px;}
+		.paginaDeLoginDiv01 a { font-size: 8px; text-transform: uppercase; color: white; margin: 5px 15px;}
+		
+		#searchBar{ padding-top: 25px; width: 100% auto; }
+		
+		#searchBar table{width: 95%; max-width: 380px; padding: 3px; position: relative;border-radius: 18px;background-color: #fff;table-layout: auto; overflow: hidden;}
+		#searchBar table .td0{width: 35px;border-top-left-radius: 18px;border-bottom-left-radius: 18px;position: relative;}
+		#searchBar table .td0 img {position: absolute; top: 8px; left: 7px;}
+		#searchBar table .td1{max-width: 200px;}
+		#searchBar table .td1 input{margin: 0; width: 90%; border: 1px solid #eee; font-size: 16px; margin: 2px;}
+		#searchBar table .td2{max-width: 150px;border-top-right-radius: 15px;border-bottom-right-radius: 15px;}
+		#searchBar table .td2 select{margin: 0; width: 100%;border-top-right-radius: 18px;border-bottom-right-radius: 18px;border: 1px solid #fff; font-size: 15px;background-color: #eee;}
+		.searchBarDiv01{width: 90%; background-color: aqua;  }
+		.searchBarDiv01_div01{ width: 350px;  position: relative;  }
+		.searchBarDiv01 #firstSearchResult{position: absolute;  }
+					
+
+		#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0;}
+		#menuDiv01{ width: 95%; max-width: 450px;}
+		#menuDiv01 div{ vertical-align: middle; align-items: center; justify-content: center; margin: 5px; background-color:rgb(11, 141, 65) ; border-radius: 4px; border: none; }
+		#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; }
+		#menuDiv01 div button:hover {background-color:#0c26b9;}
+		#menuDiv01 div button img {width: 16px; height: 16px; border-radius: 11px; border: 1px solid #fff;}
+		
+		#menuEsquerdo{position: fixed; top: 74px; left: 2px;  border-radius: 3px; overflow: hidden;}
+		#menuEsquerdo div{ border-bottom: 1px solid pink;background-color: cornsilk; text-align: center;}
+		#menuEsquerdo div button{ width: 145px;margin: 2px; border-radius: 2px; background-color: transparent; border: 2px solid white;text-transform: uppercase;}
+		#menuEsquerdo div button:hover{color: white; background-color: blueviolet;}
+		#corpo{ width: 69%;}
+		.menuLateral .tabelaDeProdutos_e_Quantidades {background-color: cornsilk; width: 100%;color: rgb(11, 141, 65);  margin: 0; text-transform: uppercase; font-size: 10px; text-align: center; border-left: 1px solid pink; border-right: 1px solid pink;}
+		
+                .info_ { margin-top: 5px; width: 24px;height: 24px;border-radius: 12px;text-align: center;background-color: black; color: white;text-transform: lowercase;font-size: 18px; font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";overflow: hidden; }
+                .info_:hover { background-color: rgb(11, 141, 65); cursor: pointer;}
+
+		#perfil {padding: 20px;}
+		/*#perfil table {   max-width: 500px; border-radius: 4px; overflow: hidden;  margin-bottom: 20px; border: none; } */
+		#perfil table {  background-color:cornsilk; max-width: 500px; border-radius: 4px; overflow: hidden; border: 1px solid rgb(11, 141, 65); margin-bottom: 20px; }
+		#perfil td{position: relative;width: 45%;padding: 10px; border: 1px solid rgb(11, 141, 65)}
+		
+		
+		#perfil .td02 { color: white; text-shadow: 1px 1px #555; padding: 10px 5px ; margin: 0; background-color: rgb(11, 141, 65);}
+		#perfil .td02 #nome_do_operador, #perfil .td02 #tel1_do_operador, #perfil .td02 #tel2_do_operador{ font-size: 100%; }
+		#perfil .td02 div{ padding-bottom: 5px;}
+		
+		#perfil td a{ padding: 8px; }
+		#perfil td button{  }
+		
+		
+		#configDiv01 table {max-width: 500px;}
+		
+		#perfilDiv01 .miniTabGetGuia {width: 100%;}
+		#perfilDiv01 .miniTabGetGuia, #perfilDiv01 .miniTabGetGuia td, #perfilDiv01 .miniTabGetGuia tr{ border: none; padding: 0 ;margin: 0; background-color: transparent;}
+		#perfilDiv01 .miniTabGetGuia td{padding: 5px; text-align:center;}
+		#perfilDiv01 .miniTabGetGuia .imagemGetGuia {position: relative; width: 50px;}
+		#perfilDiv01 .miniTabGetGuia .imagemGetGuia img {position: absolute; top: 1px; left: 1px; width: 45px; height: auto;border-radius: 23px; border: 1px solid #fff;}
+		#perfilDiv01 .relatorio, #perfilDiv01 .relatorio td, #perfilDiv01 .relatorio tr{ border: none; padding: 0 ;margin: 0; background-color: transparent; font-size: 12px; color: #555;}
+		#perfilDiv01 .relatorio  {width: 100%;}
+		#perfilDiv01 .relatorio td {padding-left: 5px;text-align: center;}
+		#perfilDiv01 .miniTabGetGuia  p {color:#444;font-size:12px;padding:0;margin:0;text-align: center; text-shadow: 1px 1px #eff;}
+		
+		.tabelaDeResultados { margin: 0 auto; margin-top: 40px; width: 99%; padding: 0;  }
+
+	</style>
+
+</head>
+
+
+
+<body class="backGround02">
+    
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('../../html/notificacao/recebidas.html')" ></button>
+    
+	
+    <div id="alertas" class="centralizarDiv  alertas" style="box-shadow: 0 0 10px #eee;display: none; z-index: 90;" >
+        <div id="alertasDiv01" align="center">
+            <img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+            <div class="resutado"> </div>
+        </div>
+    </div>
+	
+
+	
+	
+	
+    <div id="resetarSenha" class="alertas" >
+        <div align="center" >
+            <form id="formularioDeSenha" onsubmit="resetarSenha()" >
+                <div  class="paginaDeLoginDiv01">
+                    <img onClick="$('#resetarSenha').fadeOut()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+                    <h3 >Alterar a Senha </h3>
+                     <input id="telefoneReset" class="input" type="tel" placeholder="Telefone" >				 
+                    <input id="codigoReset" type="password" placeholder="Senha actual" >
+                    <input id="codigo1" name="codigo1" class="input" type="password" placeholder="Nova Senha" >
+                     <input id="codigo2" name="codigo2" class="input" type="password" placeholder="Repita a nova Senha" >
+                    <button type="submit"><img src="../../img/ok.png" alt=""/></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+	
+	
+
+	
+	
+    <div id="cabecalho" align="center" class="backGround03">
+        <div id="cabecalhoDiv01"  class="identificadorDoUsuario"  align="center">
+            <table id="cabecalhoDiv01Table"><tr>
+                <td class="backGround02 td0" >
+                        <img id="fotoDoOperador" onClick="$('#perfilTable').fadeIn(),$('#datas').fadeOut()" src="../../img/user.svg" alt=""/>
+                </td>
+                <td id="nomeDoOperador" align="center" >
+                        <button onClick="$('#paginaDeLogin').fadeIn()"> Entrar na minha conta</button>
+                </td>
+                <td class="backGround01 td2" >
+                        <img  src="../../img/mail-violeta.png" alt=""/>
+                </td>
+            </tr></table>
+        </div>		
+    </div>
+	
+	
+
+	<div id="config" class="backGround02" align="center" style="width: 100%;height: 100%;position: relative;">		
+
+		<div id="corpo" align="center" style="width: 100%;">			
+			<div id="perfil">				
+				<table id="perfilTable"><tbody>
+					<tr>
+						<td class="td01" align="center" >
+                                                    <a href="#" onClick="$('#idFile').click()">alterar</a>
+                                                    <input name="imagem" type="file" id="idFile" style="display: none;" onChange="getImagem(this)" >						                                                    
+                                                    <div style="width: 100%;">
+                                                        <img  onClick="mostrarImagemDoProduto(this)" id="foto_do_operador" style="width: 100%;height: auto;"  src="../../img/user.svg" alt=""/>
+                                                    </div>
+                                                    
+                                                </td>
+						<td class="td02" align="left" >                                                    
+							<div id="nome_do_operador"></div> 
+							<div id="tel1_do_operador"></div>
+							<div id="tel2_do_operador"></div>
+                                                        <div id="email_do_operador" style="font-size: 80%;"></div>
+							<div id="funcao_do_operador"></div> 
+							<div id="categoria_do_operador"></div> 
+							<div ><button onClick="getFormDosDadosPessoais()">Editar Dados</button></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+                                                    <div id="dadosDosParentas"></div>
+                                                    <a href="#" onClick="getFormDosParentes()">CRIAR LISTA DE CONTACTO DE PESSOAS PROXIMAS</a>
+						</td>
+					</tr>
+				</tbody></table>
+				
+				<div id="datas" style="display:none ;width: 100%; max-width:500px; ">
+                                    <div>
+					<h6 style="padding: 0;margin: 0;">Data Inicial</h6>
+					<input type="date" id="dataIni" >
+                                    </div>
+                                    <br>
+                                    <div>				
+					<h6 style="padding: 0;margin: 0;">Data Final</h6>
+					<input type="date" id="dataFin" >
+                                    </div>
+                                    <br>
+                                    <div>                              
+                                        <button onClick="getMeusDados('',this)" style=" bottom: 10px; left: 18px;padding: 10px;" > OK </button>
+                                    </div>                                    
+                                </div>
+				
+				<div id="perfilDiv01" align="center">	</div>
+				
+			</div>			
+		</div>		
+	</div>
+
+
+
+
+    <div id="menuRodapeCirculo" class="backGround01" ></div>
+    <div id="menuRodapeBotoes" class="backGround01" style="width: auto;max-width: 308px;" >
+            <div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                    <img onClick='novaPagina("../configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                    <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                    <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                    <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+            </div></div></div></div>
+        <button style="width: 93px;" onClick="getMeusDados('getServicos',this),$('#menuRodapeBotoes').fadeOut()">Serviços</button>
+        <button style="width: 93px;" onClick="getMeusDados('getGuias',this),$('#menuRodapeBotoes').fadeOut()">Guias</button>
+        <button style="width: 93px;" onClick="getMeusDados('getRenumeracoes',this),$('#menuRodapeBotoes').fadeOut()">Renumeração</button>
+        <button style="width: 93px;" onClick="verMeusServicos(),$('#menuRodapeBotoes').fadeOut()">Requisições</button>
+        <button style="width: 93px;" onClick="$('#menuRodapeBotoes').fadeOut()">Advertencias</button>
+        <button style="width: 93px;" onClick="getMeusDados('getStock',this),$('#menuRodapeBotoes').fadeOut()">Stock</button>
+        <button style="width: 93px;" onClick="verMeusServicos(),$('#menuRodapeBotoes').fadeOut()">Funções</button>
+        <button style="width: 93px;" onClick="verMeusServicos(),$('#menuRodapeBotoes').fadeOut()">Meta Diaria</button>
+        <button style="width: 93px;" onClick="getPresencas(),$('#menuRodapeBotoes').fadeOut()">Presenca</button>            
+            
+    </div>
+    <img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+</body>
+
+<script>
+
+
+
+
+
+$(document).ready(function() {
+
+	var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + 				rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+	
+	getUser();
+	
+	
+
+});
+
+	
+	
+	
+function verMeusServicos(thi){
+	
+	
+}	
+	
+	
+	
+	
+function getMeusDados(file,thi){
+	
+	if(!app.configuracoes){ app.configuracoes = {}; }
+	if(file == ''){ file = app.configuracoes.file; 	}
+	app.configuracoes.file = file;
+	
+	stopDefaultEvent();
+	
+	aguarde(1);
+
+	var param = {'bd': 'netcoaos_stockv3', 'operador':app.operador, 'id_do_operador': app.idPrincipal,'dataIni':$("#dataIni").val(),'dataFin':$("#dataFin").val() };
+
+	aguarde(1);        
+        $.ajax({
+            url:"../../php/configuracaoDoUsuario/"+file+".php",
+            data: { 'dados':JSON.stringify(param) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                    if(data.status){
+                        $("#perfilDiv01").html(data.sucesso ).fadeIn();				
+                        $("#perfilTable").fadeOut();
+                        aguarde();
+                    }else{ 
+                            if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                    }
+                    if($("#datas").css("display") != 'table'){ $("#datas").fadeIn();}
+            }
+	});			
+
+}
+
+
+
+
+	
+function getPresencas(fromFrom){
+
+    stopDefaultEvent();
+
+    if(fromFrom){
+        var ano = document.getElementById("ano").value;
+        var mes = document.getElementById("mes").value;        
+    }else{
+        var ano = false;
+        var mes = false;
+    }
+    var dados = JSON.stringify( { 'operador': app.operador, 'bd': 'netcoaos_cachv3','id_do_operador':app.id_do_operador, ano:ano,mes:mes});
+    aguarde(1);
+    $.ajax({
+        url:"../../php/configuracaoDoUsuario/getPresencas.php",
+        data: { dados : dados},
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                    alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){
+           console.log(data);
+            if(data.status){
+               //$("#dadosDoCadastroDiv02").html('<div>'+data.sucesso+'</div>' );
+               $("#perfilDiv01").html(data.form+'<div id="dadosDoCadastroDiv02"><div>'+data.sucesso+'</div></div>').fadeIn();
+               $("#perfilTable").fadeOut();
+                aguarde();
+
+            }else{ 
+                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+            }
+        }
+    });
+
+}
+	
+
+
+
+
+
+function AbrirGuia(numero_da_guia){	
+    if( app.estado && app.estado > 0 ){
+        aguarde(1);
+        window.location= "../stock/validarGuia.html?di="+app.id_do_operador+"&op="+app.operador+"&numero_da_guia="+numero_da_guia; 
+    }
+    stopDefaultEvent();	
+}
+
+	
+function AbrirServico(id_do_cliente){
+    aguarde(1);
+    window.location= "../fichas/fichaDeServico.html?di="+app.id_do_operador+"&op="+app.operador+"&id_do_cliente="+id_do_cliente;   
+    stopDefaultEvent();	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+function selecao(thi){
+	var clas = (thi.className);
+	$("." + clas).css('background-color','rgb(138, 43, 226)');
+	$("." + clas).css('color', '#000');
+	$(thi).css('background-color','rgb(11, 141, 65)');
+	$(thi).css('color','white');
+	//thi.style.backgroundColor = 'rgb(11, 141, 65)';
+}
+	
+
+	
+	
+	
+function getImagem(thi){
+    if( $("#idFile") && $("#idFile").val()&& $("#idFile").val().length > 4 ){
+        var file_ = $("#idFile");
+        enviarImagem(app.idPrincipal, 'funcionarios', '5' , thi, 'netcoaos_cachv3','imagem');                
+        setTimeout(function (){                    
+                getUser();                    
+        },4000)
+    }
+}
+
+	
+	
+	
+	
+	
+	
+	
+		
+		
+	
+function getUser(){
+
+    if( window.location.href.indexOf('?di=') > -1 ){
+    var href = window.location.href;
+
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/configuracaoDoUsuario/getUser.php",
+            data: { 'url':href.replace("#","") },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                if(data.status){
+
+                    app.operador = data.operador ? data.operador : false
+                    app.email = data.email ? data.email : false
+                    app.telefone = data.telefone ? data.telefone : false;				
+                    app.imagem = data.imagem ? data.imagem : false
+                    app.id_do_operador = data.id ? data.id : false
+                    app.estado = data.estado ? data.estado : false
+                    app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                    app.categoria = data.categoria ? data.categoria : false
+                    app.funcao = data.funcao ? data.funcao : false
+                    app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                    if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                    if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+
+                    if(app.imagem)$("#foto_do_operador").attr('src','../../'+app.imagem);				
+                    if(app.operador)$("#nome_do_operador").text(app.operador);
+                    if(app.telefone)$("#tel1_do_operador").text(app.telefone);				
+                    if(app.telefone_2)$("#tel2_do_operador").text(app.telefone_2);
+                    if(app.email)$("#email_do_operador").text(app.email);			
+                    if(app.funcao)$("#funcao_do_operador").text(app.funcao);
+                    if(app.categoria)$("#categoria_do_operador").text(app.categoria);
+
+                    getNotificacoesNaoRespondidas();
+                    getDadosDosParentes();
+
+                    $("#dadosDoOperador").fadeIn();
+                    if($("#datas").css("display") == 'table'){ $("#datas").fadeOut();}
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+                }
+            }
+        });
+    }
+
+    stopDefaultEvent();	
+	
+}
+
+
+
+function getDadosDosParentes(){
+    
+    var param = {'tabela': 'funcionarios_contactos', 'id_do_operador': app.idPrincipal, 'operador': app.operador, 'bd': 'netcoaos_cachv3'  }
+
+	aguarde(1);        
+        $.ajax({
+            url:"../../php/configuracaoDoUsuario/getDadosDosParentes.php",
+            data: { 'dados':JSON.stringify(param) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                if(data.status){
+                        $("#dadosDosParentas").html(data.sucesso ).fadeIn();         
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> Cadastre no minimo dois contactos proximos </b>');
+                }
+            }
+    });
+
+
+}
+
+	
+	
+function getFormDosDadosPessoais(){
+
+	stopDefaultEvent();
+
+	var param = {'tabela': 'funcionarios', 'id_do_operador': app.idPrincipal, 'bd': 'netcoaos_cachv3', 'select': [],  }
+
+	aguarde(1);        
+        $.ajax({
+            url:"../../php/configuracaoDoUsuario/getFormDosDadosPessoais.php",
+            data: { 'dados':JSON.stringify(param) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                if(data.status){
+                        $("#perfilDiv01").html(data.sucesso ).fadeIn();				
+                        $("#perfilTable").fadeOut();	
+                        if($("#datas").css("display") == 'table'){ $("#datas").fadeOut();}
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+    });
+
+
+	
+}
+	
+
+
+
+
+	
+function getFormDosParentes(){
+
+    stopDefaultEvent();
+
+
+    var select = [{'nome':'afinidade',valor:[{'nome':'Pai'},{'nome':'Mãe'},{'nome':'Esposo'},{'nome':'Esposa'},{'nome':'Irmão'},{'nome':'Irmã'},{'nome':'Primo'},{'nome':'Prima'},{'nome':'Tio'},{'nome':'Tia'},
+                {'nome':'Cunhado'},{'nome':'Cunhada'},{'nome':'Avô'},{'nome':'filho'},{'nome':'Filha'},{'nome':'Neto'},{'nome':'Neta'},{'nome':'Amigo'},{'nome':'Amiga'},]}]
+
+    var param = {'tabela': 'funcionarios_contactos', 'operador': app.operador, 'id_do_operador': app.id_do_operador, 'bd': 'netcoaos_cachv3', 'select': select }
+
+    aguarde(1);        
+    $.ajax({
+        url:"../../php/configuracaoDoUsuario/getFormDosParentes.php",
+        data: { 'dados':JSON.stringify(param) },
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                    alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){
+            aguarde();
+           console.log(data);
+           if(data.status){
+                $("#perfilDiv01").html(data.sucesso ).fadeIn();				
+                $("#perfilTable").fadeOut();	
+                if($("#datas").css("display") == 'table'){ $("#datas").fadeOut();}
+
+            }else{ 
+                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+            }
+            
+        }
+    });
+
+
+}
+
+
+
+
+function adicionarParent(thi){
+    
+    stopDefaultEvent();
+
+    var dadosDoForm = checkFormulario(false, 'formAddParentes', ['nome','telefone'])
+    if( dadosDoForm){
+        aguarde(1);
+        $.ajax({
+            url:"../../php/configuracaoDoUsuario/adicionarParent.php",
+            data: { 'dados':JSON.stringify(dadosDoForm) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+               console.log(data);
+                if(data.status){
+                        thi.style.backgroundColor = "green";
+                        document.getElementById('formAddParentes').reset();
+                        getDadosDosParentes();
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+
+            }
+        });
+    }
+
+    
+}
+		
+
+
+
+function trocarParente(id){
+    if(confirm('Pretende remover este contacto da sua lista ?')){
+        alterarcaoDiretaNaBD(id ,'funcionarios_contactos', 'estado', '0', 'netcoaos_cachv3');
+        getFormDosParentes();
+        
+    }
+}
+	
+
+	
+function resetarSenha(){
+	
+    var tel = $("#telefoneReset").val(), pass = $("#codigoReset").val(), codigo2 = $("#codigo2").val(), codigo1 = $("#codigo1").val();
+    if(tel && pass){
+
+        if(codigo1 == codigo2){
+            
+            aguarde(1);
+
+            aguarde(1);        
+            $.ajax({
+                url:"../../php/configuracaoDoUsuario/resetarSenha.php",
+                data: { 'telefone': tel , 'codigo': pass, 'novoCodigo': codigo1 },
+                dataType:"json",
+                async:true,
+                type:"POST",
+                error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+                },
+                success: function(data){
+                    aguarde();
+                   console.log(data);
+                    if(data.status){
+                        alerta('<b style="color:green"> Senha alterada com sucesso para <br>'+codigo1+'</b>');
+                        $("#resetarSenha").fadeOut();
+                        setTimeout(function (){
+                             window.location = "../../index.html"; 
+                        },3000);
+                        
+                        
+                    }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+                    }
+                }
+            });
+        }else{
+                alerta('<b style="color:red">Insira corretamente a nova senha  </b>');
+                $("#codigo2").val("");
+                $("#codigo1").val("");
+        }
+
+    }else{
+            alerta("prencha os campos");
+    }
+
+     stopDefaultEvent();
+
+}
+
+
+	
+	
+	
+	
+
+	
+function alterarConfiguracaoDoUsuario(id ,tabela, estado, thi, bd ) {
+
+    stopDefaultEvent();
+
+    if( app.estado >= estado && window.confirm('Dezeja alterar '+thi.name +'\nPara ' + thi.value)){
+
+        var param = {'tabela': tabela, 'operador': app.operador, 'bd': 'netcoaos_cachv3', 'id':id, coluna: thi.name, 'valor': thi.value,'estado': estado }
+
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/configuracaoDoUsuario/alterar.php",
+            data: { 'dados':JSON.stringify(param) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                    if(data.status){
+                            alerta('Coluna ' +thi.name+ '<br> Alterada para '+ thi.value )
+
+                    }else{ 
+                            if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                    }
+
+                    if($("#datas").css("display") == 'table'){ $("#datas").fadeOut();}
+            }
+        });
+    }
+
+	
+}
+	
+	
+	
+
+</script>
+
+
+
+</html>
+
+
+

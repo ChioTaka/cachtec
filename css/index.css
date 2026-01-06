@@ -1,0 +1,147 @@
+/* CSS Document */
+
+body {background-color:white; padding: 0; margin: 0;font-size: 17px; font-family: Arial , "Arial"; width: 100%;}
+input, button, select {padding: 7px; margin: 0;}
+table, caption, tbody, tfoot, thead, tr, td, th{margin: 0;padding: 0;border: 0;font-size: 100%;font:inherit;vertical-align: baseline;font-family: Arial , "Arial";}
+table{border-collapse: collapse; border-spacing: 0;font-family: Arial , "Arial"; }
+
+
+
+.alertas { width: 98%; margin: 0 auto; text-align: center; z-index: 15; position: fixed; margin-top: 20px; display: none;  }
+#alertas { width: 98%;}
+#alertas #alertasDiv01{ position: relative; width: 90%; max-width: 600px; padding: 15px; padding-right: 40px; border: 5px solid red; border-radius: 5px; background-color: white;}
+.botaoSair{ position: absolute ; right: 5px; top: 5px; border-radius: 17px; height: 35px; width: 35px; background-color: red; }
+.botaoSair:hover{background-color: rgba(241, 120, 20, 0.938);}
+
+
+
+#notificacoesNaoRespondidas{box-shadow: 0 0 10px #eee;display:none ; z-index: 90;position: absolute; right: 0px; top: 40%; border-top-left-radius:25px; 
+                            border-bottom-left-radius: 25px; width: 30px;height: 50px; background-color: crimson; color: white; font-size: 20px; 
+                            font-weight: 300; border:1px solid white;border-right: none; text-align: center;}
+#notificacoesNaoRespondidas :hover{right: -5px;}
+
+
+.identificadorDoUsuario{display: flex; flex-direction: row; margin-left: 3px;}
+.identificadorDoUsuario a {height: 35px; border-radius: 16px; overflow: hidden; background-color: rgb(22, 86, 223);display: flex; flex-direction: row; text-decoration: none; }
+.identificadorDoUsuario a i {padding: 3px; font-size: 12px; color: white; text-decoration: none;}
+.imgUser {width: 31px; height: 31px; border-radius: 17px;  margin: 2px; background-color: white;}
+.imglogo {width: 71px; height: 35px; background-color: white; border-radius: 5px; margin: 0px; padding: 0px;}
+.searchString { border: 1px solid pink; border-right: none; padding: 8px; margin-left: 3px;}
+
+
+.firstSearchResult{width: 99.4%;  z-index: 10; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; overflow: hidden; }
+#firstSearchResult .firstSearchResultDiv01 p{ width: 100%; margin: 0; padding: 0px;}
+#firstSearchResult .firstSearchResultDiv01 input { width: 98%; padding:  7px 5px ; margin: 3px 2px; border: 1px solid #CFD0E7; text-align: left; background-color: rgb(11, 141, 65);color: rgb(11, 141, 65);}
+#firstSearchResult .firstSearchResultDiv01 input:hover {background-color: rgb(20, 168, 236); color: white;}
+
+
+
+#conteudoDiv01 .tabelaDeResultados { table-layout: auto; margin:auto; margin-top: 10px; background-color: aqua; width: 100%; }
+#conteudoDiv01 .tabelaDeResultados thead th {text-align: center; background-color:rgb(23, 71, 230); padding: 10px; text-transform: uppercase; color: white; font-weight: bold; border-top-left-radius: 4px;}
+
+.tabelaDeResultados thead td, .tabelaDeResultados thead th{ vertical-align: middle;width: auto;table-layout: auto; padding: 10px; font-weight: bold; color: rgb(11, 141, 65); font-size: 110%; text-shadow:1px 1px -1px #eee; }
+.tabelaDeResultados tr{ vertical-align: middle;width: auto;table-layout: auto; }
+.tabelaDeResultados tbody tr{ background-color: white; border: 1px solid pink; }
+.tabelaDeResultados tbody td{ padding: 6px;  }
+.tdValor{ text-transform: uppercase; background-color: white;}
+.tdValor div{ width: 100% auto;color: rgb(45, 208, 248);}
+.tdValor input{ background-color: transparent;  margin: 0 auto; width: 100% auto; }
+.tdNome{ text-transform: lowercase; background-color: cornsilk; color: #444; font-size: 90%;}
+
+
+
+
+
+
+#menuLateral {background-color: cornsilk; width: 8%; border-right: 1px solid pink;color: rgb(47, 153, 224); overflow: hidden; }
+#menuLateral table{ text-transform: uppercase; font-size: 10px; margin-bottom: 45px; width: 100%;}
+#menuLateral tr{ border: 1px solid pink; border-right: none;}
+#menuLateral td{padding: 7px;}
+#menuLateral td img{width: 15px; height: 15px;}
+#menuLateral td:hover{background-color: rgb(54, 158, 243); color: white;}
+
+
+
+
+
+
+
+#corpo{ padding-bottom: 40px;  z-index: 5; width: 91%;}
+
+
+
+
+/*#resultado{ width: 100%; height: 100%;display: flex; flex-direction: row;}
+
+#barra{  width: 100%; height: 100%; color: rgb(11, 141, 65);}
+#barraDiv01{ padding: 7px; border-radius: 5px;}
+#barra .firstSearchResult{background-color: transparent;}
+
+*/
+
+
+
+#conteudo{ background-color: white; width: 100%; height: 100%;}
+
+
+#conteudoDiv01{ padding: 7px;}
+
+#conteudoDiv01 .preResultado{  border-bottom: 1px solid #ddd; width: 98%; margin: 0px 5px; padding: 10px;}
+#conteudoDiv01 .preResultado p {padding: 0; margin: 0;}
+#conteudoDiv01 .preResultado .nome{font-size: 22px; margin: 15px;}
+#conteudoDiv01 .preResultado .marca{font-weight: bold;margin: 0px;padding: 0px;padding-top: 5px;padding-left: 3px;}
+#conteudoDiv01 .preResultado .servicos{padding-bottom: 10px;}
+#conteudoDiv01 .preResultado .servicos input{ background-color: rgb(22, 77, 230); border-radius: 10px; margin: 3px; color: white; padding: 5px; margin-right: 10px; border: none;} 
+#conteudoDiv01 .preResultado .servicos input:hover { background-color:rgb(32, 174, 230);  }
+
+
+
+
+
+
+
+
+#menuRodapeCirculo{position: fixed;bottom: 2px; left: 2px;width: 80px; height: 80px; border-radius: 50px; opacity: 0.3; z-index: 90;}
+#menuRodapeCirculo:hover{ opacity:1}
+#menuRodapeBotoes{position: fixed;bottom: 60px; left: 42px; border-radius: 5px;padding: 3px;display: none; z-index: 90;}
+#menuRodapeBotoes #menuRapido  {position: absolute; top: -40px; width: 100%; }
+#menuRodapeBotoes #menuRapido div img {max-width: 35px; max-height: 35px; border-radius: 18px;background-color: rgb(11, 141, 65); margin: 3px;border:2px solid #ddd; 
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+        
+#menuRodapeBotoes .menuRodapeBotoes_div01 {width: 80%; max-width: 400px;}
+#menuRodapeBotoes p, #menuRodapeBotoes button{background-color: white;padding: 7px 3px;margin: 3px;border: 1px solid #fff; border-radius: 3px;}
+#menuRodapeBotoes p:hover, #menuRodapeBotoes button:hover{background-color: rgb(13, 62, 223); color: white;}
+#menuRodapeLogo{margin:0px; padding: 0; width: 70px;height: 30px;position: fixed;bottom: 27px; left: 7px; z-index: 90;}
+#menuRodapeLogo:hover{background-color: white;}
+
+
+
+
+
+#rodape{ position: fixed; bottom: 0px; left: 0px; width: 100%; z-index: 20;  }
+#rodape p { padding: 7px; margin: 0 ; text-align: center; color: white;}
+#rodape button{text-transform: uppercase; font-size: 9px; margin-top: 2px; margin-left: 2px; background-color:rgb(11, 141, 65) ; color: white; border-radius: 4px; border: none; }
+#rodape button:hover {background-color:cornsilk ; color: rgb(24, 118, 226); border-radius: 4px; }
+
+
+#aguarde{width: 100%;}
+#aguarde table{padding: 0px; margin: 0px;}
+#aguarde table td{ height: 60px; width: 28px; position: relative ;}
+#aguarde button{ position: absolute; color: white; background-color: rgb(17, 111, 233); border: 1px solid white; margin-left: 1px; top: 13px;left: 1px; }
+
+.fastViewStock  {overflow: scroll; max-height: 400px;}
+.fastViewStock td{padding: 5px; background-color: white;}
+.fastViewStock tr{padding: 2px; border-bottom: 1px solid #ddd;}
+.fastViewStock td img {}
+
+.centralizarDiv {width: 100%;margin: 0;	padding: 0;	display: -moz-box;	-moz-box-pack: center;	-moz-box-align: center;	/* Safari and hrome */	display: -webkit-box;	-webkit-box-pack: center;	-webkit-box-align: center;	/* W3C */	box-pack: center;	box-align: center;	margin-left: auto;	margin-right: auto;	display: flex;	flex-direction: row;	flex-wrap: wrap;	justify-content: center;}
+
+
+@media screen and (max-width : 755px){
+    #dadosDoCadastro {margin-left: 0px; margin-right: 0px; width: 100%; }
+    #corpo {margin-left: 0px; margin-right: 0px; width: 100%; }
+    #dadosDoCadastroDiv02 { margin-left: 0px; margin-right: 0px;  }    
+    #dadosDoCadastroDiv01{width: 100%;margin-left: 0px; margin-right: 0px;}   
+    .tabelaDeResultados{width: 100%; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px;}
+
+}

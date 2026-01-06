@@ -1,0 +1,628 @@
+<!doctype html>
+<html>
+<head>	
+<script>
+	
+	
+function checkDadosDoCliente(servico_para,tipo_de_servico, thi){
+
+    thi.children[0].checked = true;
+
+
+    
+	var tabela = false;
+	alerta();
+	
+	if(servico_para){
+		if(document.getElementById("radio01").checked){
+
+			if(servico_para == 'MÓVEL') { tabela = 'movel'; }else{  tabela = 'imovel';  }
+                        
+		}else if(document.getElementById("radio02").checked){
+			if(servico_para == 'MÓVEL') { tabela = 'movel'; }else{  tabela = 'imovel';  }
+                        var manutancao = '<tr><td class="tdNome" >Motivo da intervenção</td><td class="tdValor" ><input name="motivo_da_intervencao" type="text" ></td></tr>' ;
+		}else{
+			alerta('Selecciona também entre<br>Instalação e Manutenção');
+		}
+	}else if(tipo_de_servico){
+		
+		if(document.getElementById("radio03").checked){
+			if(servico_para == 'MÓVEL') { tabela = 'movel'; }else{  tabela = 'imovel';  }
+                        
+		}else if(document.getElementById("radio04").checked){
+			if(servico_para == 'MÓVEL') { tabela = 'movel'; }else{  tabela = 'imovel';  }
+		}else{
+			alerta('Selecciona também entre<br>Movel (Carro) ou Imóvel(Casa)');
+		}
+	}
+
+	if(tabela){
+             console.log(document.getElementById("radio02").checked);
+            console.log($("#radio02").attr("checked"));
+            var manutencao = '';
+            if(document.getElementById("radio02").checked){
+                var manutencao = '<tr><td class="tdNome" >Motivo da intervenção</td><td class="tdValor" ><input name="motivo_da_intervencao" type="text" ></td></tr>' ;
+            }
+            
+            var i = 0;                
+            var opt = '<select name="servico" onChange="selectOutro(this),getDadosDoMovelOuImovel(this,\''+tabela+'\')" ><option value=""> Selecione </option>';
+            while(app.servicos[i] ){
+
+                if(app.servicos[i].servico_para == servico_para){
+                    opt = opt + '<option>'+app.servicos[i].nome+'</option>';
+                }
+                i ++;
+            }
+
+            opt = opt + '</select>';
+
+            $("#divSelectServico").html('<table width="100%" class="tabelaDeResultados"><tbody>'+manutencao+'<tr><td class="tdNome" > Serviço </td><td class="tdValor" >'+opt+'</td></tr></tbody></table>' ).
+                append('<div id="divGetDadosDoMovelOuImovel" style="width:100% ;margin: 0; padding: 0;"></div>');
+		
+	}
+
+}
+	
+
+
+		
+function getDadosDoMovelOuImovel(thi , tabela){
+
+	var i = 0;
+	var opt = '<select name="kit" onChange="selectOutro(this),getDadosDoPagamento(this,\''+tabela+'\')" ><option> Selecione </option>';
+	var kit = false;
+	while(app.servicos[i] ){
+		if(app.servicos[i].nome == thi.value){
+			kit = app.servicos[i].kit;
+			break;
+		}
+		i ++;
+	}
+	console.log(kit);
+	
+	if(kit){
+		
+		i = 0;
+		while(kit[i] ){
+			opt = opt + '<option>'+kit[i].nome+'</option>';
+			i ++;
+		}
+	}else{ opt = opt + '<option value="" >Não Existe</option>'; }
+	
+	opt = opt + '</select>';
+	
+
+	var param = {'tabela': tabela, 'operador': app.operador, 'bd': 'netcoaos_cachv3', 'id_do_cliente': $("#id_do_cliente_NovaFicha").val() }
+
+	aguarde(1);        
+        $.ajax({
+		url:'../../php/ficha/novaFicha/getDadosDoMovelOuImovel.php',
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+		   //console.log(data);
+			if(data.status){
+				
+				
+				
+				$("#divGetDadosDoMovelOuImovel").html( (data.antigos ? data.antigos : '') + data.novo ).
+				append('<table id="kit" style="display:none;" width="100%" class="tabelaDeResultados"><tbody><tr><td class="tdNome" >Kit</td><td class="tdValor" >'+opt+'</td></tr></tbody></table>'+
+					   '<div id="divGetDadosDopagamento" style="width:100% ;margin: 0; padding: 0;"></div>');
+				if(!data.antigos){
+					$("#novo").slideDown();
+					$("#kit").slideDown();
+				}
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+			}
+		}
+	});
+
+}
+
+	
+	
+function selecionarMovelOuImovel(thi){
+	if(thi.value){
+		
+	}else{
+		$("#novo").slideDown();
+		$("#antigo").slideUp();
+	}
+	$("#kit").slideDown();
+	
+}
+	
+	
+	
+
+		
+function getDadosDoPagamento(thi , tabela){
+	
+	var select = [{'nome':'forma_de_pagamento',valor:[{nome:'TPA'},{nome:'TRANSFERÊNCIA'},{nome:'DINHEIRO'},{nome:'OUTRO'},]},
+						{'nome':'tipo_de_pagamento',valor:[{nome:'A PRONTO'},{nome:'PARCELADO'},{nome:'A CRÉDITO'},{nome:'OUTRO'},]},]
+
+	var param = {'tabela': 'pagamento', 'operador': app.operador, 'bd': 'netcoaos_cachv3', 'select': select }
+	
+	aguarde(1);        
+        $.ajax({
+		url:'../../php/ficha/novaFicha/getDadosDoPagamento.php',
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+		   //console.log(data);
+			if(data.status){
+				var qtd = '<table width="100%" class="tabelaDeResultados"><tbody><tr><td class="tdNome" > quantidade </td><td class="tdValor" ><input type="number" name="quantidade" value="1" ></td></tr></tbody></table>'
+				$("#divGetDadosDopagamento").html( qtd + data.dadosDoCliente ).
+				append('<table width="100%" class="tabelaDeResultados"><tbody><tr><td class="tdNome">Recomendação</td><td class="tdValor"><input type="text" placeholder="Recomendações , ou o motivo do agendamento" name="recomendacao" ></td></tr></tbody></table>'+
+					   '<div align="center"  style="padding:10px;" > <button style="padding10px;margin:10px;" onClick="location.reload();">Sair</button> <input type="submit" style="padding:10px; margin:10px;" value="ENVIAR" > </div>');
+				
+				inserirValor_a_pagar(thi);
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+			}
+		}
+	});
+
+}
+
+	
+	
+
+function criarVariaveisDaFicha(){
+	
+	stopDefaultEvent();
+	
+	var serialize = $("#formularioNovaFicha input");
+	var validacaoImportante = true;
+	var validacao = true;
+	var i = 0;
+	
+	while(serialize[i]){
+		if(serialize[i].name == 'telefone' && (!(serialize[i].value && serialize[i].value.length > 8)) ){
+			alerta("Preencha o campo " + serialize[i].name ); 
+			validacaoImportante = false;
+			$(serialize[i]).css('border-color','red');
+			break; 
+			
+		}else if(serialize[i].name == 'origem' && (!(serialize[i].value && serialize[i].value.length > 8)) ){
+			alerta("Preencha o campo " + serialize[i].name ); 
+			validacaoImportante = false;
+			$(serialize[i]).css('border-color','red');
+			break; 
+			
+		}else if(!(serialize[i].value)){
+			 validacao = false;
+		 }
+		i++;
+	}
+	
+	
+	if(validacaoImportante && validacao){
+		criarNovaFicha();		
+	}else if(validacaoImportante && window.confirm("Parece que tem campos em branco, \nDeseja continuar mesmo assim ?")){
+		criarNovaFicha();		
+	}
+	
+}
+
+	
+	
+	
+
+function criarNovaFicha(){
+	
+	var serialize = $("#formularioNovaFicha").serializeArray();
+	var json = JSON.stringify({'serialize':serialize, 'operador':app.operador,'bd': 'netcoaos_cachv3', });
+	
+	//console.log(json);
+
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/ficha/novaFicha/criarNovaFicha.php",
+		data: { 'dados':json },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+		},
+		success: function(data){
+                    aguarde();
+		   console.log(data);
+                    if(data.status){
+                        var notificacao = data.notificacao ? data.notificacao : false;
+                        
+                        var fichas ='';
+                        var i = 0;
+                        while(data.numeroDasFichas[i]){
+                            fichas = fichas + '<br>Ficha número '+data.numeroDasFichas[i];
+                            i++;
+                        }
+                        
+                        //firstSearchResultClicked ( false,{ 'bd': 'netcoaos_cachv3', 'id_do_servico':data.numeroDasFichas[0], 'id_do_cliente':data.id_do_cliente } );
+                        if(notificacao){ 
+                            var notiWha = data.notiWhat ? data.notiWhat : false; 
+                            setTimeout(function (){
+                                var msn = '<p id="notificacao_" align="left">'+notificacao+'</p>\n\
+                                    <div align="center"><button style="padding10px;margin:3px;">Sms</button>\n\
+                                        <button style="padding10px;margin:3px;" onClick="whatsApp(\'923690939\',\''+notiWha+'\')">WhatsApp</button>\n\
+                                        <button style="padding10px;margin:3px;" onClick="location.reload();">Sair</button>\n\
+                                    </div>';
+                                alerta( '<h4>Agendamento feito' + fichas +'</h4>' + msn  );
+
+                            },2000) ;
+                        }
+                        
+                        $("#divSelectServico").html('');
+
+                    }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+                    }
+		}
+	});
+
+	stopDefaultEvent();
+	
+}
+
+
+	
+	
+
+
+	
+function firstSearchForInputResultClicked(thi,arr){
+
+	$("#telefoneNovaFicha").val(arr.telefone);
+	$("#telefone_2NovaFicha").val(arr.telefone_2);
+	$("#id_do_cliente_NovaFicha").val(arr.id_do_cliente);
+	
+	$("#nomeNovaFicha").val(arr.nome);
+
+	if($("#novaFichaFirstSearchNomeResult").css('display') == 'block'){$("#novaFichaFirstSearchNomeResult").slideUp();}
+	if($("#novaFichaFirstSearchTelefoneResult").css('display') == 'block'){$("#novaFichaFirstSearchTelefoneResult").slideUp();}
+
+}
+
+	
+	
+
+
+function getFirstSearchClienteParaNovaFicha(thi,campo,idDoResultado){
+	
+	if(thi.value && campo && thi.value.length > 3){
+		
+		var jSon = JSON.stringify({'idDoResultado': idDoResultado,'tabela': 'clientes', 'bd': 'netcoaos_cachv3', 'valor': thi.value, 'coluna': campo});
+		
+		$.ajax({
+			url:"../../php/ficha/novaFicha/getFirstSearchClienteParaNovaFicha.php",
+			data: { 'dados':jSon },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+			   console.log(data);
+				if(data.status){
+					$("#"+ idDoResultado+" .firstSearchResultDiv01").html(data.sucesso);
+					 slideUpOrDonw(thi,idDoResultado);
+
+				}else{ 
+					if($("#novaFichaFirstSearchNomeResult").css('display') == 'block'){$("#novaFichaFirstSearchNomeResult").slideUp();}
+					if($("#novaFichaFirstSearchTelefoneResult").css('display') == 'block'){$("#novaFichaFirstSearchTelefoneResult").slideUp();}
+					$("#id_do_cliente_NovaFicha").val("");
+				}
+			}
+		});
+
+		
+	}else{
+		$("#id_do_cliente_NovaFicha").val("");
+	}
+	
+	stopDefaultEvent();
+}
+	
+	
+	
+function maisResultadosFirstSearchResultParaNovaFicha(param){
+		
+	var jSon = JSON.stringify(param);
+
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/ficha/novaFicha/maisResultadosFirstSearchResultParaNovaFicha.php",
+		data: { 'dados':jSon },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+		   //console.log(data);
+			if(data.status){
+				$("#"+ param.idDoResultado+" .firstSearchResultDiv01").html(data.sucesso);
+				 //slideUpOrDonw(thi,idDoResultado);
+
+			}else{ 
+				if($("#novaFichaFirstSearchNomeResult").css('display') == 'block'){$("#novaFichaFirstSearchNomeResult").slideUp();}
+				if($("#novaFichaFirstSearchTelefoneResult").css('display') == 'block'){$("#novaFichaFirstSearchTelefoneResult").slideUp();}
+
+			}
+		}
+	});
+
+	stopDefaultEvent();
+}
+	
+	
+	
+	
+	
+
+	
+	
+function inserirValor_a_pagar(thi){
+	
+    setTimeout(function(){
+
+        var k = 0, i = 0;
+        var servico = $("select[name='servico']").val() ;
+        var tipo = $("input[name='tipo_de_servico']");
+        while(tipo[i]){
+            if( tipo[i].checked){
+                var tipo_de_servico = tipo[i].value;
+                tipo_de_servico = ((tipo_de_servico == "MANUTENÇÃO") ? 'manutencao' : 'instalacao');
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+        var para = $("input[name='servico_para']");       
+        while(para[i]){
+            if( para[i].checked ){
+                var servico_para = para[i].value;
+                break;
+            }
+            i++;
+        }
+
+
+
+
+        i = 0;
+        while(app.servicos[i]){
+            if( app.servicos[i].nome == servico && app.servicos[i].servico_para == servico_para  ){
+                var kit = app.servicos[i].kit;
+                
+                while(kit[k]){
+                    
+                    if( kit[k].nome == thi.value){
+
+                        $("input[name='valor_unitario']").val(kit[k][tipo_de_servico]);
+                        $("input[name='quantidade']").val(1);
+                        $("input[name='valor_a_pagar']").val(kit[k][tipo_de_servico]);
+
+                        $("input[name='valor_pago']").change(function(){
+                            calculoDoValorAPagar($("input[name='quantidade']").val(),$("input[name='valor_unitario']").val(),$("input[name='descontos']").val(),this.value );
+
+                        });
+
+                        $("input[name='quantidade']").change(function(){
+                            calculoDoValorAPagar(this.value,$("input[name='valor_unitario']").val(),$("input[name='descontos']").val(),$("input[name='valor_pago']").val() );
+
+                        });
+
+                        $("input[name='descontos']").change(function(){
+                            calculoDoValorAPagar($("input[name='quantidade']").val(),$("input[name='valor_unitario']").val(),this.value,$("input[name='valor_pago']").val() );
+
+                        });
+
+                        $("input[name='valor_unitario']").change(function(){
+                            calculoDoValorAPagar($("input[name='quantidade']").val(),this.value,$("input[name='descontos']").val(),$("input[name='valor_pago']").val() );
+
+                        })
+
+                        $("input[name='descontos']").focus();
+
+                        break;
+                    } 
+                    k++;	
+                }
+                break;
+            }
+            i++;
+        }
+
+    },700);
+
+} 
+
+
+
+
+
+function calculoDoValorAPagar(qtd,vUnit,desconto,pago ){
+    
+    qtd  = (parseFloat(qtd) ? parseFloat(qtd) : 0);
+    vUnit  = (parseFloat(vUnit) ? parseFloat(vUnit) : 0);
+    desconto  = (parseFloat(desconto) ? parseFloat(desconto) : 0);
+    pago = (parseFloat(pago) ? parseFloat(pago) : 0);
+    
+    $("input[name='valor_a_pagar']").val( ( ( qtd * vUnit ) - desconto ) - pago );
+}
+	
+	
+</script>
+	
+<style>
+	
+#novaFicha .firstSearchResult{position: absolute; top: 40px;left: 0px; width: 99.4%; border: 1px solid pink; border-top: none; background-color: white;}
+#novaFicha .tabelaDeResultados { margin: 0; padding: 0;}
+#novaFicha .tabelaDeResultados tr { border-left: none; border-right: none; margin: 0; padding: 0;}
+#novaFicha .tabelaDeResultados i { font-size: 12px; }
+#novaFicha .tabelaDeResultados tbody td b { border: 1px solid #666; font-size: 14px; font-weight: normal; padding: 7px; border-radius: 2px;margin-left: 15px; background-color: white;}
+
+
+#conteudoDiv01 #novaFicha tr, #conteudoDiv01 #novaFicha td{ background-color: #eee; padding: 7px;}
+#conteudoDiv01 #novaFicha td #firstSearchNomeResult, #conteudoDiv01 #novaFicha td #firstSearchTelefoneResult{ position: absolute; top: 40px; left: 0px;}
+#conteudoDiv01 #novaFicha .tdNome { width: 140px; }
+#conteudoDiv01 #novaFicha .tdValor input{ width: 93%; background-color: white; border: 1px solid #555;}
+#conteudoDiv01 #novaFicha .tdValor select{ width: 97%;}
+#conteudoDiv01 #novaFicha .tdValor .inputHalf{ min-width: 44%; width: 145px;margin-bottom: 3px;}
+
+#conteudoDiv01 #novaFicha i{ padding: 0px 12px; background-color: yellow; color: red; border-radius: 14px;font-size: 24px; font-family: "sans-serif";}
+#conteudoDiv01 #novaFicha i:hover{  background-color:rgb(11, 141, 65);color: white; cursor: pointer;}
+
+#novaFicha .firstSearchResult{background-color: #eee;}
+#novaFicha .firstSearchResultDiv01{width: 99.4%;  z-index: 10; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; overflow: hidden; }
+#novaFicha .firstSearchResultDiv01 p{ width: 100%; margin: 0; padding: 0px; border: none;}
+#novaFicha .firstSearchResultDiv01 .firstSearchResultInput_class { width: 98%; padding:  7px 5px ; margin: 3px 2px; border: 1px solid red; text-align: left; background-color: transparent; color: rgb(11, 141, 65); }
+#novaFicha .firstSearchResultDiv01 p input:hover { box-shadow: 1px 1px #aaa , -1px -1px #aaa ,-1px 1px #aaa , 1px -1px #aaa ; color:darkblue;}
+	.firstSearchResultInput_class {background-color: yellow; color: goldenrod;}
+
+
+</style>
+	
+</head>	
+
+	
+<div id="novaFicha" align="center">
+	<form id="formularioNovaFicha" method="post" onSubmit="criarVariaveisDaFicha()" style="max-width: 550px;" >
+		
+	<table class="tabelaDeResultados" width="100%" >
+		<thead><tr><th colspan="3">Criar Ficha de serviço</th></tr></thead>
+		<tbody>
+			<tr>
+                            <td class="tdNome">Telefones</td>
+                            <td colspan="2" style="position: relative;"  class="tdValor">
+
+                                <input id="telefoneNovaFicha" class="inputHalf " 
+                                           onKeyUp="getFirstSearchClienteParaNovaFicha(this,'telefone','novaFichaFirstSearchTelefoneResult')" type="text" name="telefone" placeholder="Telefone 1">
+
+                                <input id="telefone_2NovaFicha" class="inputHalf " type="text" name="telefone_2" placeholder="Telefone 2">
+                                <input id="id_do_cliente_NovaFicha" type="hidden" name="id_do_cliente" >
+
+                                <div id="novaFichaFirstSearchTelefoneResult" class="firstSearchResult" style="display:none;">
+                                        <img src="../../img/cruz.png" onClick="$('#novaFichaFirstSearchTelefoneResult').slideUp(), $('#novaFichaFirstSearchTelefoneResult .firstSearchResultDiv01').html('')"  class="botaoSair" alt=""/>
+                                        <div class="firstSearchResultDiv01"></div>						
+                                </div>
+
+                            </td>
+			</tr>
+			<tr>
+                            <td class="tdNome">Nome</td>
+                            <td colspan="2" style="position: relative;"  class="tdValor">
+
+                                <input id="nomeNovaFicha" onKeyUp="getFirstSearchClienteParaNovaFicha(this,'nome','novaFichaFirstSearchNomeResult')" class="inputFull " type="text" name="nome" placeholder="Nome do cliente">
+
+                                <div id="novaFichaFirstSearchNomeResult" class="firstSearchResult" style="display:none;">
+                                        <img src="../../img/cruz.png" onClick="$('#novaFichaFirstSearchNomeResult').slideUp(), $('#novaFichaFirstSearchNomeResult .firstSearchResultDiv01').html('')"  class="botaoSair" alt=""/>
+                                        <div class="firstSearchResultDiv01"></div>	
+                                </div>
+
+                            </td>
+			</tr>							
+			<tr>
+                            <td class="tdNome">Origem</td>
+                            <td colspan="2" class="tdValor">
+                                    <select class="selectFull " id="selectOrigemDoCliente" onChange="selectOutro(this)" name="origem"></select>
+                            </td>
+			</tr>
+			<tr>
+                            <td class="tdNome">Local do serviço</td>
+                            <td colspan="2" class="tdValor"><input class="inputFull " type="text" name="local_do_servico" placeholder="Local do serviço"></td>
+			</tr>
+			<tr>
+                            <td class="tdNome">Data e hora</td>
+                            <td colspan="2" class="tdValor">
+                                    <input id="data" class="inputHalf " type="date" name="data" placeholder="Data">
+                                    <input class="inputHalf " type="time" name="hora" placeholder="Hora">
+                            </td>
+			</tr>
+			<tr>
+                            <td colspan="3" align="center"  > 
+                                <table style="width: 100%; border: none;"><tr style="border: none;">
+                                    <td width="50%" align="center" class="tdNome"> 
+                                        <div align="center" class="centralizarDiv" style="padding: 5px; background-color: rgb(11, 141, 65); max-width: 230px;border-radius: 4px; ">
+
+                                            <div onClick="checkDadosDoCliente(false,'INSTALAÇÃO',this)" style=" padding: 5px; margin: 5px; width: 85px; font-size: 14px; background-color: white; border-radius: 3px;"> 
+                                                <input id="radio01" type="radio" name="tipo_de_servico" value="INSTALAÇÃO"> Instalação 
+                                            </div>
+
+                                            <div onClick="checkDadosDoCliente(false,'MANUTENÇÃO',this)" style=" padding: 5px; margin: 5px; width: 100px; font-size: 14px; background-color: white; border-radius: 3px;"> 
+                                                <input id="radio02" type="radio" name="tipo_de_servico" value="MANUTENÇÃO"> Manutenção 
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td width="45%" align="center" class="tdNome" > 
+                                        <div align="center" class="centralizarDiv" style="padding: 5px; background-color: rgb(11, 141, 65); max-width: 160px;border-radius: 4px; ">
+
+                                            <div onClick="checkDadosDoCliente('MÓVEL',false,this)" style=" padding: 5px; margin: 5px; width: 55px; font-size: 14px; background-color: white; border-radius: 3px;"> 
+                                                <input id="radio03" type="radio" name="servico_para" value="MÓVEL"> Móvel 
+                                            </div>
+                                            <div onClick="checkDadosDoCliente('IMÓVEL',false,this)" style=" padding: 5px; margin: 5px; width: 60px; font-size: 14px; background-color: white; border-radius: 3px;"> 
+                                                <input id="radio04" type="radio" name="servico_para" value="IMÓVEL"> Imóvel 
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr></table>					
+                            </td>
+			</tr>
+		</tbody>
+		</table>
+		
+		<div id="divSelectServico" style="margin: 0; padding: 0;"></div>
+
+		
+	</form>
+
+
+
+</div>
+
+</html>
+

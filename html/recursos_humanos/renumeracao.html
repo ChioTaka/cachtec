@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+	
+<style>
+
+	/*#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0; position: relative;	display: flex;justify-content: center;}
+	*/#menuDiv01{ width: 95%; max-width: 450px; }
+	#menuDiv01 div{  vertical-align: middle; align-items: center; justify-content: center; width: 120px; height: 60px; background-color: red; margin: 5px; background-color:rgb(11, 141, 65) ; color: white; border-radius: 4px; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+
+
+	#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+	#menuDiv01 div button:hover {background-color:#0c26b9;}
+	#menuDiv01 div button img {width: 20px; height: 20px; border-radius: 11px; border: 1px solid #fff;}
+	
+	#dadosDoCadastro {padding-bottom: 20px;}
+	#dadosDoCadastro table {width: 100%; max-width: 400px; margin: 0 auto;}
+	#dadosDoCadastro input , #dadosDoCadastro select { width: 93%; border: 1px solid #eee; }
+	#dadosDoCadastro select { width: 98%; }
+	#dadosDoCadastro button { padding: 7px 2px; min-width: 80px; max-width: 100px; min-height: 65px; margin: 0px 1px; }
+	
+	#dadosDoCadastroDiv02{ padding: 20px;}
+	.divValoresDaRenu{padding:5px;background-color:#eee;border-radius:3px;margin:2px; border-radius: 3px;color: #0c26b9;border-color: #0c26b9;}
+	.divValoresDaRenu:hover {background-color:#0c26b9; color: white;}
+        #alfabeto{position: fixed; right: 1px;top: 20px; display: none;}
+        #alfabeto div { width: 20px; padding: 4px; margin: 4px; font-size: 16px; border-radius: 13px; background-color: pink; color: #777;opacity: 0.5}
+        #alfabeto div:hover { opacity: 1; }
+        
+</style>
+	
+<title>Renumeraçao</title>
+</head>
+
+<body>
+    	
+	<div id="alertas" class="centralizarDiv  alertas" style="box-shadow: 0 0 10px #eee;display: none; z-index: 90;" >
+		<div id="alertasDiv01" align="center">
+			<img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+			<div class="resutado"> </div>
+	  </div>
+	</div>
+	
+			
+	
+	<div id="dadosDoCadastro" align="center" >
+            
+            <h3 align="center" >RENUMERAÇÃO<br>Selecione o funcionário</h3>
+            
+                <div id="funcionarios" ></div>
+                
+                <div class="centralizarDiv">
+                    <b style="margin: 5px;">Data Inicial<br>
+                        <input type="date" id="data_inicial" placeholder="Data Inicial" style="width: auto;" >
+                    </b>
+                    <b style="margin: 5px;">Data Final<br>
+                        <input type="date" id="data_final" placeholder="Data Final" style="width: auto;" >   
+                    </b>
+                </div>
+                
+                
+                <div><button onClick="chekIfNovo(this)" style="margin: 10px;"> OK </button></div>
+                <div id="alfabeto">
+                    <div>A</div><div>B</div><div>C</div><div>D</div><div>E</div><div>F</div><div>G</div><div>H</div><div>I</div><div>J</div><div>K</div><div>L</div>
+                    <div>M</div><div>N</div><div>O</div><div>P</div><div>Q</div><div>R</div><div>S</div><div>T</div><div>U</div><div>V</div><div>W</div><div>X</div><div>Y</div><div>Z</div>
+                </div>
+                
+                <div id="dadosDoCadastroDiv01" ></div>
+               
+		
+	</div>
+    
+        <div id="menuRodapeCirculo" class="backGround01" ></div>
+        <div id="menuRodapeBotoes" class="backGround01" style="max-width: 250px;" >
+		<div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                        <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                        <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                        <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                        <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+                </div></div></div></div>
+                <button style="width: 110px" onClick='novaPagina("acessos.html"),$("#menuRodapeBotoes").fadeOut()' > Acessos </button>
+                <button style="width: 110px" onClick='novaPagina("advertencias.html"),$("#menuRodapeBotoes").fadeOut()' > Adevertencias </button>               
+                <button style="width: 110px" onClick='novaPagina("bonus.html"),$("#menuRodapeBotoes").fadeOut()' > Bonus </button>
+                <button style="width: 110px" onClick='novaPagina("descontos.html"),$("#menuRodapeBotoes").fadeOut()'> Descontos </button>						
+                <button style="width: 110px" onClick='novaPagina("documentos.html"),$("#menuRodapeBotoes").fadeOut()'> Documentos </button>
+                <button style="width: 110px" onClick='novaPagina("horários.html"),$("#menuRodapeBotoes").fadeOut()'> Horarios </button>
+                <button style="width: 110px" onClick='novaPagina("presencas.html"),$("#menuRodapeBotoes").fadeOut()'> Presenças </button>
+                <button style="width: 110px" onClick='novaPagina("renumeracao.html"),$("#menuRodapeBotoes").fadeOut()'> Renumeração </button>
+            </div>
+	<img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+</body>
+	
+	
+<script>
+
+$(document).ready(function(){
+
+	getUser();
+        
+        var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+        
+        var alfa =  document.getElementById('alfabeto').getElementsByTagName('div'),i = 0;       
+        while(alfa[i]){
+            $(alfa[i]).click(function (){               
+                document.getElementById("_"+this.textContent).focus()
+            });
+            
+           i++;
+        }
+	
+});
+
+
+	
+	
+	
+	
+function selecao(thi){
+	//console.log($(thi).css('border'));
+	////console.log($(thi).css('color'));
+	var clas = (thi.className);
+	$("." + clas).animate({'padding-bottom':'7px','background-color':'rgb(239, 239, 239)' , 'color': '#000'},300, function(){
+		$("." + clas).css({'background-color':'rgb(239, 239, 239)' , 'color': '#000', 'border':'none'});
+		$(thi).animate({'padding-bottom':'25px','background-color':'rgb(11, 141, 65)' , 'color': 'white'},300,function(){
+			$(thi).css({'background-color':'rgb(11, 141, 65)' , 'color': 'white', 'border':'1px solid #000', 'border-radius':'2px'});
+		});
+	});
+	
+}
+	
+	
+function getFuncionarios(){
+
+    stopDefaultEvent();
+	
+    $.ajax({
+        url:"../../php/recursos_humanos/getFuncionarios.php",
+        data: { 'operador': app.operador, 'bd': 'netcoaos_cachv3','estado':1 },
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                    alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){
+           console.log(data);
+            if(data.status){
+                $("#funcionarios").html('<div>'+data.sucesso+'</div>' );
+               
+            }else{ 
+                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+            }
+        }
+    });
+
+}
+	
+
+
+
+
+
+
+function chekIfNovo(thi){
+    
+   if( app.estado > 2 ){
+        
+        var i = 0;
+        var cat = [],funcoes = [];
+        while(app.rh.categorias[i]){
+            cat[i] = {};
+            cat[i].nome = app.rh.categorias[i].nome;
+            i++;
+        }
+        i = 0;
+        while(app.rh.funcoes[i]){
+            funcoes[i] = {};
+            funcoes[i].nome = app.rh.funcoes[i].nome;
+            i++;
+        }
+        
+        var select = [
+            {'nome':'categoria',valor:cat},
+            {'nome':'funcao',valor:funcoes},
+       ]
+                                      
+        var param = { 'operador': app.operador, 'bd': 'netcoaos_cachv3', 'select':select, 'rh':app.rh,  'nome_do_funcionario':$("#selectAcesso").val(), 
+            'data_final': $("#data_final").val(), 'data_inicial': $("#data_inicial").val(),}
+
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/recursos_humanos/getRenumeracao.php",
+            data: { 'dados':JSON.stringify(param) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+                aguarde();
+                console.log(data);
+                if(data.status){
+                    $("#dadosDoCadastroDiv01").html('<br><div style="width:100%">'+data.sucesso+'</div>');
+                   
+                    $("#data_final").val(data.data_final);
+                    $("#data_inicial").val(data.data_inicial);
+                    $("#alfabeto").fadeIn();
+                    
+
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+
+        
+    }
+}
+
+
+
+
+function fastViewInRenumeracao(tabela,id){
+	
+    aguarde(1);
+    stopDefaultEvent();
+
+    $.ajax({
+        url:"../../php/recursos_humanos/fastViewInRenumeracao.php",
+        data: { 'tabela':tabela, 'id':id, 'operador':app.operador },
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                    alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){
+           console.log(data);
+            if(data.status){
+                    alerta(data.sucesso,1);
+
+            }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+            }
+        }
+    });
+}
+
+
+
+
+		
+	
+function getUser(){
+    
+    stopDefaultEvent();
+    if(window.location.href.indexOf('&') > -1){
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/ficha/getUser.php",
+            data: { 'url':window.location.href },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+                aguarde();
+                console.log(data);
+                    if(data.status){
+
+                    app.operador = data.operador ? data.operador : false
+                    app.email = data.email ? data.email : false
+                    app.telefone = data.telefone ? data.telefone : false;				
+                    app.imagem = data.imagem ? data.imagem : false
+                    app.id_do_operador = data.id ? data.id : false
+                    app.estado = data.estado ? data.estado : false
+                    app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                    app.categoria = data.categoria ? data.categoria : false
+                    app.funcao = data.funcao ? data.funcao : false
+                    app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                    if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                    if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+                    if(app.estado > 3){
+                        getFuncionarios();
+                    }else{
+                        alerta("Voce não esta autorizado ! ! !");
+                        setTimeout(function (){
+                             window.location = "../../index.html?di="+app.id_do_operador+"&op="+app.operador ;
+                        },5000)
+                    }
+                    //getStockDosTecnicos();
+
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+                }
+            }
+        });
+    }
+
+	
+	
+}
+
+	</script>
+</html>

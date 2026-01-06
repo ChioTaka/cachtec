@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+	
+<style>
+
+	/*#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0; position: relative;	display: flex;justify-content: center;}
+	*/#menuDiv01{ width: 95%; max-width: 450px; }
+	#menuDiv01 div{  vertical-align: middle; align-items: center; justify-content: center; width: 120px; height: 60px; background-color: red; margin: 5px; background-color:rgb(11, 141, 65) ; color: white; border-radius: 4px; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+
+
+	#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+	#menuDiv01 div button:hover {background-color:#0c26b9;}
+	#menuDiv01 div button img {width: 20px; height: 20px; border-radius: 11px; border: 1px solid #fff;}
+	
+	#dadosDoCadastro {padding-bottom: 20px;}
+	#dadosDoCadastro table {width: 100%; max-width: 400px; margin: 0 auto;}
+	#dadosDoCadastro input , #dadosDoCadastro select { width: 93%; border: 1px solid #eee; }
+	#dadosDoCadastro select { width: 98%; }
+	#dadosDoCadastro button { padding: 7px 2px; min-width: 80px; max-width: 100px; min-height: 65px; margin: 0px 1px; }
+	
+	#dadosDoCadastroDiv02{ padding: 20px;}
+        
+        .botaoCheckBox {width: 210px; height: auto; font-size: 12px; padding: 10px; padding-top: 0px; margin: 10px; background-color: #eee; text-align: center;
+                        border: 1px solid #ddd; border-radius: 5px; }
+        .botaoCheckBox input {margin: 10px;border: 3px solid #ddd;font-size: 22px;  }
+        .botaoCheckBox:hover{border: 1px solid #AAA }
+	/*#dadosDoCadastro button:visited { padding: 20px; }
+	#dadosDoCadastro button:hover { padding: 20px; }
+*/
+</style>
+	
+<title>Notificações</title>
+</head>
+
+<body>
+    	
+	<div id="alertas" class="centralizarDiv  alertas" style="box-shadow: 0 0 10px #eee;display: none; z-index: 90;" >
+		<div id="alertasDiv01" align="center">
+			<img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+			<div class="resutado"> </div>
+	  </div>
+	</div>
+	
+			
+	
+    <div id="dadosDoCadastro" align="center"   >
+        
+        <div >
+            <form id="formNoti" onsubmit="enviarNotificacao(this)">
+		<h3 align="center" >QUEM SERÁ NOTIFICADO</h3>
+                <div id="dadosDoCadastroDiv01" ></div>
+                <div class="centralizarDiv backGround01" style="padding: auto;max-width: 600px;width: 98%;">
+                    <div style="width: 150px;margin: 5px 20px;padding: 10px;">
+                        <div style="text-align: left;font-size: 10px;"><b style="">Data Inicial</b></div>
+                        <input  id="data_inicial" type="date" name="data_inicial" />
+                    </div>
+                     <div style="width: 150px;margin: 5px 20px;padding: 10px;">
+                        <div style="text-align: left;font-size: 10px;"><b style="">Data Final</b></div>
+                        <input  id="data_final" type="date" name="data_final" />
+                    </div>
+                    
+                    <br><br>
+                    <div style=" width: 95%;padding-bottom: 20px;" align="center">
+                        <div style="text-align: left;font-size: 10px;margin-left: 10px;"><b style="">Escreva aqui</b></div>
+                        <textarea name="notificacao" id="notificacao" style="width: 93%; padding: 10px; min-height: 60px;" ></textarea>
+                        <br><br>
+                        <button type="submit" id="botaoGo" >Enviar Notificação </button>
+                    </div>
+                </div>
+            </form>
+        </div>		
+    </div>
+
+    <div id="menuRodapeCirculo" class="backGround01" ></div>
+    <div id="menuRodapeBotoes" class="backGround01" style="max-width: 260px;" >
+        <div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+        </div></div></div></div>
+        <button style="width: 120px" onClick='novaPagina("nova.html"),$("#menuRodapeBotoes").fadeOut()' > Nova </button>
+        <button style="width: 120px" onClick='novaPagina("recebidas.html"),$("#menuRodapeBotoes").fadeOut()' > Recebidas </button>
+        <button style="width: 120px" onClick='novaPagina("departamento.html"),$("#menuRodapeBotoes").fadeOut()' > Departamento </button>
+        <button style="width: 120px" onClick='novaPagina("alertas.html"),$("#menuRodapeBotoes").fadeOut()' > Não Respondidas </button>
+        <button style="width: 120px" onClick='novaPagina("enviadas.html"),$("#menuRodapeBotoes").fadeOut()' > Enviadas </button>        
+        <button style="width: 120px" onClick='novaPagina("todas.html"),$("#menuRodapeBotoes").fadeOut()' > Todas </button>
+    </div>
+    <img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+</body>
+	
+	
+<script>
+
+$(document).ready(function(){
+
+	getUser();
+        
+        var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+	
+});
+
+
+	
+	
+	
+	
+function selecao(thi){
+	//console.log($(thi).css('border'));
+	////console.log($(thi).css('color'));
+	var clas = (thi.className);
+	$("." + clas).animate({'padding-bottom':'7px','background-color':'rgb(239, 239, 239)' , 'color': '#000'},300, function(){
+		$("." + clas).css({'background-color':'rgb(239, 239, 239)' , 'color': '#000', 'border':'none'});
+		$(thi).animate({'padding-bottom':'25px','background-color':'rgb(11, 141, 65)' , 'color': 'white'},300,function(){
+			$(thi).css({'background-color':'rgb(11, 141, 65)' , 'color': 'white', 'border':'1px solid #000', 'border-radius':'2px'});
+		});
+	});
+	
+}
+	
+        
+	
+function getFuncionarios(){
+
+    stopDefaultEvent();
+	
+    var param = {'operador': app.operador, 'bd': 'netcoaos_cachv3' ,'grupos': app.rh.funcoes ,'tabela': 'notificacao'}		
+			
+    $.ajax({
+        url:"../../php/notificacao/getFuncionarios.php",
+        data: { 'dados':JSON.stringify(param) },       
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                    alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){
+           console.log(data);
+            if(data.status){
+                $("#dadosDoCadastroDiv01").html('<div>'+data.sucesso+'</div><br><div id="dadosDoCadastroDiv02"></div>' );
+               
+            }else{ 
+                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+            }
+        }
+    });
+
+}
+	
+
+
+
+
+     
+ function checkSelectedName(thi){
+     if(thi.style.backgroundColor == 'green' && thi.children[0].checked == true ){
+         thi.children[0].checked = false;
+         thi.style.backgroundColor = 'red';
+         thi.style.color = '#ddd';
+     }else{
+         thi.children[0].checked = true;
+         thi.style.backgroundColor = 'green';
+         thi.style.color = '#fff';
+     }     
+ }      
+   
+
+
+	
+	
+function enviarNotificacao(thi){
+    
+    stopDefaultEvent();
+    var i = 0;
+    var tabelas = [];
+    
+    var nom = document.getElementsByClassName("nome_de_distino"); 
+    var dep = document.getElementsByClassName("departamento"); 
+   
+    var nome_de_distino = []; 
+    var departamento = []; 
+    var i = 0;
+    var n = 0;
+    var d = 0;
+   
+    while(nom[i]){        
+        if(nom[i].checked == true){           
+            nome_de_distino[n] = nom[i].name;
+            n ++;
+        }
+        i ++;
+    } 
+    
+    i = 0;
+    while(dep[i]){        
+        if(dep[i].checked == true){           
+            departamento[d] = dep[i].name;
+            d ++;
+        }
+        i ++;
+    }   
+
+
+    if( $("#notificacao").val() && (d > 0 || n > 0) ){
+         
+        var param = {'operador': app.operador,'id_do_operador': app.id_do_operador, 'bd': 'netcoaos_cachv3' ,'departamento': departamento ,'nome_de_distino': nome_de_distino , 
+            'tabela': 'notificacao', 'data_inicial': $("#data_inicial").val() , 'data_final': $("#data_final").val() , 'notificacao': $("#notificacao").val(), 'data_de_envio':new Date() , }		
+			
+      
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/notificacao/enviarNotificacao.php",
+            data: { 'dados':JSON.stringify(param) },  
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                if(data.status){                    
+                    alerta(data.sucesso);
+                    document.getElementById('formNoti').reset();
+                    document.getElementById('botaoGo').style.backgroundColor = 'green';                       
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+    }else{
+        alerta("Existem campos para preencher,<br>Verifique");
+    }
+
+}
+
+	
+
+
+		
+	
+function getUser(){
+    
+    stopDefaultEvent();
+    if(window.location.href.indexOf('&') > -1){
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/ficha/getUser.php",
+            data: { 'url':window.location.href },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+                aguarde();
+                console.log(data);
+                    if(data.status){
+
+                    app.operador = data.operador ? data.operador : false
+                    app.email = data.email ? data.email : false
+                    app.telefone = data.telefone ? data.telefone : false;				
+                    app.imagem = data.imagem ? data.imagem : false
+                    app.id_do_operador = data.id ? data.id : false
+                    app.estado = data.estado ? data.estado : false
+                    app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                    app.categoria = data.categoria ? data.categoria : false
+                    app.funcao = data.funcao ? data.funcao : false
+                    app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                    if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                    if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+                    if(app.estado > 0){
+                        getFuncionarios();
+                    }else{
+                        alerta("Voce não esta autorizado ! ! !");
+                    }                   
+
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+                }
+            }
+        });
+    }
+
+	
+	
+}
+
+	</script>
+</html>

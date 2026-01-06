@@ -1,0 +1,960 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+	
+<style>
+	
+	
+	#tituloTable01{ height: 60px; border: none;}
+	#tituloTable01 td{vertical-align: middle; }
+	.identificadorDoUsuario a {margin-right: 5px;}
+
+	#total_a_pagar{ position: fixed;top: 0px;width: 100%; padding: 5px;}
+	#total_a_pagar table{ padding: 5px;}
+	#total_a_pagar td div{ background-color: #222;color: white;padding: 2px ;margin: 0px 3px;border-radius: 2px; }
+	#total_a_pagar input{ width: 85px;text-align: center;border-radius: 4px; margin: 2px; }
+	
+	
+
+	/*#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0; position: relative;	display: flex;justify-content: center;}
+	*/#menuDiv01{ width: 95%; max-width: 450px; }
+	#menuDiv01 div{  vertical-align: middle; align-items: center; justify-content: center; width: 120px; height: 60px; background-color: red; margin: 5px; background-color:rgb(11, 141, 65) ; color: white; border-radius: 4px; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+
+
+	#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+	#menuDiv01 div button:hover {background-color:#0c26b9;}
+	#menuDiv01 div button img {width: 20px; height: 20px; border-radius: 11px; border: 1px solid #fff;}
+	
+	#dadosDoCadastroDiv01 .miniTabGetGuia, #dadosDoCadastroDiv01 .miniTabGetGuia td, #dadosDoCadastroDiv01 .miniTabGetGuia tr{ border: none; padding: 0 ;margin: 0; background-color: transparent;}
+	#dadosDoCadastroDiv01 .miniTabGetGuia td{padding: 5px; text-align:center;}
+	#dadosDoCadastroDiv01 .miniTabGetGuia .imagemGetGuia {position: relative; width: 50px;}
+	#dadosDoCadastroDiv01 .miniTabGetGuia .imagemGetGuia img {position: absolute; top: 1px; left: 1px; width: 45px; height: auto;border-radius: 23px; border: 1px solid #fff;}
+	#dadosDoCadastroDiv01 .miniTabGetGuia .imagemGetGuia .delete{background-color: red;}
+	#dadosDoCadastroDiv01 .miniTabGetGuia .imagemGetGuia .delete:hover,
+	#dadosDoCadastroDiv01 .miniTabGetGuia .imagemGetGuia .ok:hover{border: 2px solid pink;}
+	#dadosDoCadastroDiv01 .miniTabGetGuia .imagemGetGuia .ok{background-color: #1AEAAD;}
+	#dadosDoCadastroDiv01 .miniTabGetGuia textarea{ width:96%;padding:5px;min-height: 50px; }
+	#dadosDoCadastroDiv01 .relatorio, #dadosDoCadastroDiv01 .relatorio td, #dadosDoCadastroDiv01 .relatorio tr{ border: none; padding: 0 ;margin: 0; background-color: transparent; font-size: 12px; color: #555;}
+	#dadosDoCadastroDiv01 .relatorio  {width: 100%;}
+	#dadosDoCadastroDiv01 .relatorio td {padding-left: 5px;text-align: center;}
+	#dadosDoCadastroDiv01 .miniTabGetGuia  p {color:red;font-size:12px;padding:0;margin:0;text-align: center; text-shadow: 1px 1px #eff;}
+	
+	#dadosDoCadastro {padding-bottom: 20px;}
+	#dadosDoCadastro table {width: 100%; max-width: 400px; margin: 0 auto;}
+	#dadosDoCadastro input , #dadosDoCadastro select { width: 93%; border: 1px solid #eee; }
+	#dadosDoCadastro select { width: 98%; }
+	#dadosDoCadastro button { padding: 7px 2px; min-width: 80px; max-width: 100px; min-height: 65px; margin: 0px 1px; }
+	
+	#dadosDoCadastroDiv02{ padding: 20px;}
+	/*#dadosDoCadastro button:visited { padding: 20px; }
+	#dadosDoCadastro button:hover { padding: 20px; }
+*/
+	#corpo{ width: 100%;}
+
+	
+	#tituloTable01 #firstSearchResultDiv01{position: absolute; width:95%;  z-index: 10;  overflow: hidden; padding: 2%; margin-right: 1%; display: none; border-radius: 2px;}
+	#tituloTable01 .firstSearchResultDiv01{ width: 99.4%;  z-index: 10; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; overflow: hidden; }
+	#tituloTable01 .firstSearchResultDiv01 p{ width: 100%; margin: 0; padding: 0px; border: none;}
+	#tituloTable01 .firstSearchResultDiv01 .firstSearchResultInput_class { width: 98%; padding:  7px 5px ; margin: 3px 2px; border: 1px solid red; text-align: left; background-color: transparent; color: rgb(11, 141, 65); }
+	#tituloTable01 .firstSearchResultDiv01 p input { background-color: white; border: none;}
+	#tituloTable01 .firstSearchResultDiv01 p input:hover { box-shadow: 1px 1px #aaa , -1px -1px #aaa ,-1px 1px #aaa , 1px -1px #aaa ; color:darkblue;}
+	#tituloTable01 .firstSearchResultDiv01 p .firstSearchResultInput_class {background-color: white;border: none; border-radius: 2px;}
+	
+	.invalidar, .validar{position: relative; width: 40px;}
+	.invalidar:hover{background-color: hotpink;}
+	.invalidar img , .validar img {position: absolute; top: 1px; left: 2px; width: 48px; height: auto;}
+	.validar:hover{background-color: greenyellow;}
+        
+        #outrosGuias{background-color: pink; width: 85%; max-width: 360px; padding: 20px;margin-bottom: 40px; margin-top: 40px; border:1px solid red;}
+        #outrosGuias h4{color: yellow; text-shadow: 1px 1px red , -1px -1px red ,-1px 1px red , 1px -1px red ; margin-top: 0px; padding-top: 0px; font-weight: 100; }
+        #outrosGuias b{padding: 10px; font-size: 14px; border-radius: 17px; background-color: red; color: #ddd; margin: 3px;cursor: pointer;}
+        #outrosGuias b:hover{background-color: pink;border:1px solid red;color:red;}
+
+</style>
+	
+<title> Validar Guia </title>
+</head>
+
+<body>
+    
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('html/notificacao/recebidas.html')" >23</button>
+    
+		
+	<div id="alertas" class="centralizarDiv  alertas" style="box-shadow: 0 0 10px #eee;display: none; z-index: 90; " >
+		<div id="alertasDiv01" align="center">
+			<img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+			<div class="resutado"> </div>
+	  </div>
+	</div>
+	
+	
+
+	<div class="backGround01"  id="total_a_pagar" align="center" style="display: none;width: 100%;overflow: hidden;">
+		<table align="center" >
+			<td><div>D<input onChange="setTroco()" type="number" id="valorDisponivel" placeholder="Disponibilidade"></div></td>
+			<td><div>A<input type="number" id="valorAtribuido" placeholder="Atribuido"></div></td>
+			<td><div>T<input type="number" id="troco" placeholder="Troco"></div></td>
+		</table>
+	</div>
+	
+	
+
+	<div id="corpoGeral" style=" width: 100%; height: 100%;">
+
+		<div id="corpo" align="center" style="width: 100%;">
+
+			<div id="dadosDoCadastro" align="center">
+				<div id="dadosDoCadastroDiv01">		
+
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	
+	<div id="menuRodapeCirculo" class="backGround01" ></div>
+	<div id="menuRodapeBotoes" class="backGround01" style="max-width: 260px;" >
+                <div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                        <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                        <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                        <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                        <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+                </div></div></div></div>
+		<button style="width: 120px" onClick='novaPagina("guiaDeMarcha.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Marcha</button>
+		<button style="width: 120px" onClick='novaPagina("guiaDeCompra.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Compra</button>
+		<button style="width: 120px" onClick='novaPagina("guiaDeConsumo.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Consumo</button>
+		<button style="width: 120px" onClick='novaPagina("existencias.html"),$("#menuRodapeBotoes").fadeOut()' >Existências</button>
+		<button style="width: 120px" onClick='novaPagina("cadastrosDefeituosos.html"),$("#menuRodapeBotoes").fadeOut()' >Limpeza</button>
+		<button style="width: 120px" onClick='novaPagina("relatorios.html"),$("#menuRodapeBotoes").fadeOut()' >Relatórios</button>
+            </div>
+	<img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+
+	
+</body>
+	
+	
+<script>
+
+$(document).ready(function(){
+
+	getUser();
+	
+	getOperadores();
+	
+	
+	var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+	
+	
+	
+});
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+function  validar(idDoGuia,idDoMovimento,thi){
+	
+		
+	if($('#receptor_'+idDoGuia).val() == ''){
+		$('#receptor_'+idDoGuia).css('border-color','red');
+		alerta('Selecione o receptor');
+		
+	}else if($('#detalhes_'+idDoGuia).val() == ''){
+		$('#detalhes_'+idDoGuia).css('border-color','red');
+		alerta('Descreva mais sobre esta entrega');
+		
+	}else{
+		validarEstaEntrega(idDoGuia, idDoMovimento ,$('#receptor_'+idDoGuia).val(), $('#detalhes_'+idDoGuia).val(), thi )
+	}
+}
+	
+
+function  invalidar(idDoGuia,IdDoMovimento,thi){
+	thi.parentElement.parentElement.style.backgroundColor = 'red';
+	$("#"+id).val('false');
+	document.getElementById('descricao_'+idDoGuia).style.display = 'table-row';
+}
+	
+
+
+	
+	
+
+	
+function validarEstaEntrega(idDoGuia ,idDoMovimento , receptor , detalhes ,thi) {
+	
+	stopDefaultEvent();
+	
+		if( window.confirm('Dezejas validar esta Entrega ?')){
+
+			var param = { 'operador': app.operador, 'id_do_operador': app.id_do_operador, 'bd': 'netcoaos_stockv3', 'idDoGuia':idDoGuia, 'idDoMovimento': idDoMovimento, 'nome_do_receptor': receptor, 'detalhes_do_movimento': detalhes }
+
+			aguarde(1);        
+                        $.ajax({
+				url:"../../php/stock/validarEstaEntrega.php",
+				data: { 'dados':JSON.stringify(param) },
+				dataType:"json",
+				async:true,
+				type:"POST",
+				error: function (data){
+					if(navigator.onLine) { 
+						alerta('<b style="color:red">Houve um erro actualize a página</b>');
+					}else{  
+						alerta('Não há Internet') ;
+					}
+				},
+				success: function(data){
+                                    aguarde();
+				   console.log(data);
+					if(data.status){
+						thi.parentElement.parentElement.style.backgroundColor = 'green';
+						//$(thi.parentElement).css('background-color','green');
+						//evitar dupla validação
+						$(thi).attr('onclick','validarEstaCompra()');
+
+					}else{ 
+						if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+					}
+				}
+			});
+		}
+	
+	
+} 
+
+	
+	
+	
+
+	
+	
+	
+
+	
+	
+function getGuia(numero_da_guia){
+
+	stopDefaultEvent();
+	$("#dadosDoCadastroDiv01_Div01").slideUp();
+	
+	if(numero_da_guia){
+		setTimeout(function(){
+			
+		
+
+			var select = [{'nome':'nome_do_emissor',valor:app.stock.operadores},{'nome':'nome_do_comprador',valor:app.stock.operadores},{'nome':'nome_do_receptor',valor:app.stock.operadores}];
+
+			var param = {'bd': 'netcoaos_stockv3', 'operador':app.operador, 'estado':app.estado, 'numero_da_guia':numero_da_guia, 'id_do_operador': app.id_do_operador, 'select': select };
+
+			aguarde(1);        
+                        $.ajax({
+				url:"../../php/stock/getGuia.php",
+				data: { 'dados':JSON.stringify(param) },
+				dataType:"json",
+				async:true,
+				type:"POST",
+				error: function (data){
+					if(navigator.onLine) { 
+						alerta('<b style="color:red">Houve um erro actualize a página</b>');
+					}else{  
+						alerta('Não há Internet') ;
+					}
+				},
+				success: function(data){
+                                    aguarde();
+				   console.log(data);
+					if(data.status){
+						$("#dadosDoCadastroDiv01").html(data.sucesso + '<br><br><div id="divbotoes_" style="width:100%"></div>').slideDown();
+						if(data.tabela && data.tabela == 'guia_de_compra'){
+							$("#total_a_pagar").fadeIn();
+							$("#corpoGeral").css('margin-top','65px');
+						}else{
+							$("#corpoGeral").css('margin-top','25px');
+						}
+					}else{ 
+						if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+					}
+				}
+			});
+			
+		},300);
+
+	}else{
+		alerta("Não há numero do guia selecionado");
+	}
+	
+}
+	
+
+	
+function AbrirGuia(numero_da_guia){	
+    if( app.estado && app.estado > 0 ){	
+        aguarde(1);
+        window.location= "validarGuia.html?di="+app.id_do_operador+"&op="+app.operador+"&numero_da_guia="+numero_da_guia; 
+    }
+    stopDefaultEvent();	
+}
+
+	
+
+	
+function validarEstaCompra(id ,tabela, estado, bd ,id_do_servico,thi ) {
+	
+	stopDefaultEvent();
+	
+	if(id && estado && bd){
+	
+		if( app.estado >= estado && window.confirm('Dezejas validar este item ?')){
+
+                    var param = {'tabela': tabela, 'operador': app.operador, 'id_do_operador': app.id_do_operador, 'estado': app.estado, 'bd': bd, 'id':id, 'id_do_servico': id_do_servico }
+
+                    aguarde(1);        
+                    $.ajax({
+                        url:"../../php/stock/validacao_financeira_do_guia_de_compra.php",
+                        data: { 'dados':JSON.stringify(param) },
+                        dataType:"json",
+                        async:true,
+                        type:"POST",
+                        error: function (data){
+                            if(navigator.onLine) { 
+                                alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                            }else{  
+                                alerta('Não há Internet') ;
+                            }
+                        },
+                        success: function(data){
+                            aguarde();
+                           console.log(data);
+                            if(data.status){
+                                $(thi.parentElement).css('background-color','green');
+                                setValorAtribuido(data.subTotal);
+                                //evitar dupla validação
+                                $(thi).attr('onclick','validarEstaCompra()');
+
+                            }else{ 
+                                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                            }
+                        }
+                    });
+		}
+	}else{
+		alerta('Este item ja foi validado');
+	}
+	
+} 
+
+	
+	
+	
+	
+function setTroco(){
+	var valorDisponivel = parseFloat(  $("#valorDisponivel").val() ? $("#valorDisponivel").val() : 0 )
+	var valorAtribuido = parseFloat(  $("#valorAtribuido").val() ? $("#valorAtribuido").val() : 0 )
+	$("#troco").val( valorDisponivel - valorAtribuido )
+	if($("#troco").val()<0){
+		$("#troco").css('color','red');
+	}else{
+		$("#troco").css('color','#222');
+	}
+	
+}
+	
+	
+function setValorAtribuido(valor){
+	
+	var oldVal = parseFloat( $("#valorAtribuido").val() ? $("#valorAtribuido").val() : 0 );	
+	$("#valorAtribuido").val(valor + oldVal);
+	setTimeout(setTroco(),300);
+	
+}
+	
+	
+	
+function setSubTotal(id){
+	var qtd = '#quantidade'+id;
+	qtd = parseFloat(  $(qtd).val() ? $(qtd).val() : 0 )
+	var valor = '#valor_actualizado'+id;
+	valor = parseFloat(  $(valor).val() ? $(valor).val() : 0 )
+	var sub = '#subTotal'+id;
+	
+	$(sub).html( valor * qtd );
+	
+}	
+	
+	
+
+function novoFornecedor(thi){
+	
+	stopDefaultEvent();
+	
+	if(thi.value == "OUTRO"){
+		
+		var select = []
+		var param = {'bd': 'netcoaos_stockv3', 'tabela':'produto_fornecedor', 'operador':app.operador, 'id_do_operador': app.id_do_operador,'select': select }
+
+
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/stock/getFormDoNovoFornecedor.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+			   console.log(data);
+				if(data.status){
+					var botao = '<br><div style="width:100%">'+
+									'<div style="width:100%" id="formMensagemdeErro"></div>'+
+								   '<button class="btn2" onClick="alerta()"> Cancelar Cadastro </button>'+
+									'<button class="btn2" onClick="selecao(this),cadastroSimplesDeUmNovoFornecedor(\''+thi+'\')"> Cadastrar Fornecedor </button>'+
+								   '</div>';
+					alerta( '<form id="novoForn" ><div style="max-height:500px;overflow: scroll;">'+data.sucesso+botao+'<div></form>' );
+					thi.name = "";
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+
+	}
+	
+}	
+
+	
+	
+	
+	
+	
+function cadastroSimplesDeUmNovoFornecedor(thi){
+	
+	stopDefaultEvent();
+	var camposObrigatorios = ['nome_do_fornecedor','telefone_de_contacto', 'nif', 'endereco'];
+	var formulario = checkFormulario(false,'novoForn',camposObrigatorios);
+	console.log(formulario);
+	if(formulario.status){
+		
+		formulario.tabela = 'produto_fornecedor';
+		formulario.bd = 'netcoaos_stockv3';
+		formulario.operador = app.operador;
+		formulario.id_do_operador = app.id_do_operador;
+		
+		
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/stock/cadastroSimplesDeUmNovoFornecedor.php",
+			data: { 'dados':JSON.stringify(formulario) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+			   console.log(data);
+				if(data.status){
+					aguarde(1);
+					setTimeout( window.location.reload() ,8000);
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+		
+	}else{
+		$("#formMensagemdeErro").html('<p style="color:red; max-width:450px;padding:10px;" >' + formulario.erro + '</p>');
+	}
+
+	
+}
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+function produtoComprado(classs , estado, thi, imeiUidNumero ) {
+	
+	var form = (document.getElementsByClassName(classs));
+	var camposObrigatorios = ['nome_do_comprador','nome_do_produto', 'codigo', 'quantidade', 'valor_de_compra', 'data_da_compra', 'data_de_entrada', 'detalhes_de_compra', 'id_do_fornecedor'];
+	var formulario = checkFormulario(form,false, camposObrigatorios);
+	var codigosUnicos = true;
+	
+	stopDefaultEvent();
+        
+        if(!(imeiUidNumero)) {
+            /* verificar se o produto é um rv cartão sim ou outro que precisa de codigo unico*/
+            imeiUidNumero = verificarCodigosUnicos(classs , estado, thi, form);
+        }
+        console.log(imeiUidNumero);
+	
+	if(formulario.status && formulario.id_do_fornecedor != 'OUTRO' && imeiUidNumero){
+		
+		formulario.tabela = 'produto_fornecedor';
+		formulario.bd = 'netcoaos_stockv3';
+		formulario.operador = app.operador;
+		formulario.id_do_operador = app.id_do_operador;
+		formulario.id_do_funcionario = app.id_do_operador;
+                formulario.imeiUidNumero = imeiUidNumero;
+		
+		console.log(imeiUidNumero);
+
+		aguarde(1);        
+                $.ajax({
+                    url:"../../php/stock/produtoComprado.php",
+                    data: { 'dados':JSON.stringify(formulario) },
+                    dataType:"json",
+                    async:true,
+                    type:"POST",
+                    error: function (data){
+                        if(navigator.onLine) { 
+                                alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                        }else{  
+                                alerta('Não há Internet') ;
+                        }
+                    },
+                    success: function(data){
+                        aguarde();
+                       console.log(data);
+                        if(data.status){
+                            aguarde();
+                            var btn = document.getElementById("botaoProdutoComprado");
+                            //$("#botaoProdutoComprado").css('background-color','green');
+                            $(btn.parentElement).css('background-color','green');
+                            setValorAtribuido(data.subTotal);
+                            //evitar dupla validação
+                            $(btn).attr('onclick','validarEstaCompra()');
+                            
+
+                        }else{ 
+                                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                        }
+                    }
+		});
+		
+	}else{
+		//alerta((formulario.erro) ? formulario.erro : ("Selecione o fornecedor"));
+	}
+	
+}
+
+
+
+
+function verificarCodigosUnicos(classs , estado, thi,form){
+
+    var i = 0
+    var nome_do_produto = false;
+    var quantidade = false;
+console.log(form);
+
+    
+    while(form[i]){
+        if( (form[i].name == 'nome_do_produto') && 
+                (form[i].value == 'Cartão sim' || form[i].value == 'Câmera' || form[i].value == 'Camara' || form[i].value == 'Camera' || form[i].value == 'Rv' ||
+                form[i].value == 'Modulo de alarme' || form[i].value == 'Roteador' || form[i].value == 'Repetidor' ) ){
+            nome_do_produto = form[i].value;
+           
+        }
+        if( (form[i].name == 'quantidade') ){
+            quantidade = form[i].value;
+        }
+        i++;
+    }
+
+    if(nome_do_produto){
+        app.checkProdutoName = nome_do_produto;
+        i = 0;
+        var tr = '';
+        while( i < quantidade ){
+            tr += '<tr><td> CODIGO '+(i+1)+' </td><td><input onchange="verificarExistencia(this)" class="codigos_individuais" type="text" id="'+(i+1)+'" ><div id="erro_'+(i+1)+'"></div></td></tr>' ;
+            i++;
+        }
+        if(tr.length > 1){
+            alerta('<form id="formCodigos"><table class="tabelaDeResultados">'+                    
+                    '<tr><thead><td colspan="2" style="padding:25px;">'+nome_do_produto+' (imei, uid, num)</td></thead></tr>'+tr+                    
+                    '<tr><thead><td colspan="2" style="padding:25px;">'+
+                    '<button onClick="checkImeiUidNumero(\''+classs+'\' , \''+estado+'\' , \''+thi+'\' )">ATUALIZAR CODIGOS</button>'+
+                    '</td></thead></tr></table></form>',1);
+        }
+        return false;
+    }else{
+        return [];
+    }
+}
+    
+
+
+function verificarExistencia(thi){
+
+    stopDefaultEvent();
+    $("#erro_"+thi.id).html('');
+    if(thi.value){
+        var param = {'bd': 'netcoaos_stockv3', 'operador':app.operador, 'id_do_operador': app.id_do_operador,'nome_do_produto': app.checkProdutoName, 'codigo':thi.value }       
+
+        $.ajax({
+            url:"../../php/stock/verificarExistenciaEmStock.php",
+            data: { 'dados':JSON.stringify(param) },
+                dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                    alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+                console.log(data);
+                if(data.status ){                
+                    $(thi).css('border-color','red');
+                    $("#erro_"+thi.id).html('<b style="color:red;font-size:10px;">Este codigo Já existe<br>em '+data.tabela+'</b>');                    
+                }else{
+                    verificarExistenciaNoCliente(param,thi)
+                }
+            }
+        });
+
+        
+    }
+
+}
+
+
+function verificarExistenciaNoCliente(param,thi){
+    
+    $.ajax({
+        url:"../../php/stock/verificarExistenciaNoCliente.php",
+        data: { 'dados':JSON.stringify(param) },
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){           
+           console.log(data);
+            if(data.status ){                
+                $(thi).css('border-color','red');
+                $("#erro_"+thi.id).html('<b style="color:red;font-size:10px;">Este codigo Já existe<br>em '+data.tabela+'</b>');                
+            }else{
+                $(thi).css('border-color','green');
+            }
+        }
+    });
+}
+    
+    
+    
+
+function checkImeiUidNumero(classs , estado, thi){
+    
+    stopDefaultEvent();
+
+        var seriali = document.getElementsByClassName("codigos_individuais");		
+        var nome, valor, i = 0, resp = true, imeiUidNumero = [] , id ;
+        while(seriali[i]){
+            valor = seriali[i].value;
+            nome = seriali[i].name;
+            id = seriali[i].id;
+
+            if((!(valor)) || imeiUidNumero.indexOf(valor) > -1){
+                $(seriali[i]).css('border-color','red');
+                $("#erro_"+id).html('<b style="color:red;font-size:10px;">Este codigo Esta Repetido</b>');    
+                resp = false;
+                break;
+
+            }else{ 
+                $(seriali[i]).css('border-color','green');
+                imeiUidNumero[i] = valor;
+            }
+
+            i++;
+        }
+
+
+
+        console.log(imeiUidNumero)
+        if(resp){
+            aguarde(1);
+            produtoComprado(classs , estado, thi, imeiUidNumero );
+        }
+    
+	
+}
+
+	
+	
+	
+
+	
+function validarEsteConsumo(id ,tabela, estado, bd ,id_do_servico,thi ) {
+	
+	stopDefaultEvent();
+	
+	if(id && estado && bd){
+	
+		if( app.estado >= estado && window.confirm('Dezejas validar este item ?')){
+
+			var param = {'tabela': tabela, 'operador': app.operador, 'id_do_operador': app.id_do_operador, 'bd': bd, 'id':id, 'id_do_servico': id_do_servico }
+
+			aguarde(1);        
+                        $.ajax({
+				url:"../../php/stock/validacao_de_saida_do_guia_de_consumo.php",
+				data: { 'dados':JSON.stringify(param) },
+				dataType:"json",
+				async:true,
+				type:"POST",
+				error: function (data){
+					if(navigator.onLine) { 
+						alerta('<b style="color:red">Houve um erro actualize a página</b>');
+					}else{  
+						alerta('Não há Internet') ;
+					}
+				},
+				success: function(data){
+                                    aguarde();
+				   console.log(data);
+					if(data.status){
+						$(thi.parentElement).css('background-color','green');
+						setValorAtribuido(data.subTotal);
+						//evitar dupla validação
+						$(thi).attr('onclick','validarEstaCompra()');
+
+					}else{ 
+						if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+					}
+				}
+			});
+		}
+	}else{
+		alerta('Este item ja foi validado');
+	}
+	
+} 
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	
+function getUser(){
+	if(window.location.href.indexOf('&') > -1){
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/ficha/getUser.php",
+			data: { 'url':window.location.href },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+
+				if(data.status){
+
+					app.operador = data.operador ? data.operador : false
+                                        app.email = data.email ? data.email : false
+                                        app.telefone = data.telefone ? data.telefone : false;				
+                                        app.imagem = data.imagem ? data.imagem : false
+                                        app.id_do_operador = data.id ? data.id : false
+                                        app.estado = data.estado ? data.estado : false
+                                        app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                                        app.categoria = data.categoria ? data.categoria : false
+                                        app.funcao = data.funcao ? data.funcao : false
+                                        app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                                        if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                                        if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+                                        if(app.estado < 1){                                    
+                                            alerta("Voce não esta autorizado ! ! !");
+                                            setTimeout(function (){
+                                                 window.location = "../../index.html?di="+app.id_do_operador+"&op="+app.operador ;
+                                            },5000)
+                                        }else{
+                                            if(data.numero_da_guia){
+                                                    getGuia ( data.numero_da_guia );
+                                            }
+                                        }
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+				}
+			}
+		});
+	}
+
+	stopDefaultEvent();
+	
+}
+
+
+	
+	
+
+	
+	
+	
+	
+			
+function getOperadores(){
+
+	stopDefaultEvent();
+		
+	var param = {'bd': 'netcoaos_cachv3', 'tabela':'funcionarios', 'operador':app.operador, 'id_do_operador': app.id_do_operador }
+
+	$.ajax({
+		url:"../../php/stock/getOperadores.php",
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+		   console.log(data);
+			if(data.status){
+				app.stock.operadores = data.sucesso ;
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+			}
+		}
+	});
+}
+
+	
+	
+	
+	
+function mostrarDetalhesDoProduto(identificador,thi){
+	
+	$(".detalhesDoProduto").fadeOut('200');
+	
+	//console.log($(".imgIndicacaoParaCima")[1].css('display'));
+	
+	var i = 0;
+	while($(".imgIndicacaoParaCima")[i]){
+		var cima = $(".imgIndicacaoParaCima")[i];
+		
+		console.log($(cima).css('display'));
+		if($(cima).css('display') == 'block'){
+			$(cima).slideUp();
+			var baixo = $(".imgIndicacaoParaBaixo")[i];
+			$(baixo).slideDown();
+		}
+		
+		i++;
+	}
+	
+	$(".imgIndicacaoParaCima").fadeOut('200');
+	$(".td_detalhes").css('backgroundColor','transparent').css('color','rgb(148, 0, 211)')
+	setTimeout(function(){
+		if(thi.children[1].style.display == 'block'){
+			$("#"+identificador).fadeOut();
+			thi.children[0].style.display = 'block';
+			thi.children[1].style.display = 'none';
+		}else{
+			$("#"+identificador).fadeIn();
+			thi.children[0].style.display = 'none';
+			thi.children[1].style.display = 'block';
+			$(thi).css('background-color','rgb(148, 0, 211)').css('color','rgb(254, 254, 254)');
+		}
+	},250);
+		
+}
+
+	
+	
+	
+function selecao(thi){
+	var clas = (thi.className);
+	$("." + clas).animate({'padding-bottom':'7px','background-color':'rgb(239, 239, 239)' , 'color': '#000'},300, function(){
+		$("." + clas).css({'background-color':'rgb(239, 239, 239)' , 'color': '#000', 'border':'none'});
+		$(thi).animate({'padding-bottom':'25px','background-color':'rgb(11, 141, 65)' , 'color': 'white'},300,function(){
+			$(thi).css({'background-color':'rgb(11, 141, 65)' , 'color': 'white', 'border':'1px solid #000', 'border-radius':'2px'});
+		});
+	});
+}
+
+
+	</script>
+</html>

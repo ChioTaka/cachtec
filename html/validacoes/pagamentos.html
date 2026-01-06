@@ -1,0 +1,649 @@
+<!doctype html>
+<html>
+<head>
+	
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp(); </script>
+	
+	
+	<style>
+		
+		#tituloTable01{ height: 60px; border: none;}
+		#tituloTable01 td{vertical-align: middle;}
+		.identificadorDoUsuario a {margin-right: 5px;}
+		
+		#td_TituloDoCliente{ text-transform: uppercase; }
+	
+		
+                #nomeDoCliente{text-shadow: 1px 1px #fff , -1px -1px #fff ,-1px 1px #fff , 1px -1px #fff ; margin-bottom: 10px;font-size: 23px;}
+            #nomeDoCliente:hover{color: red;}
+            .classTelWhatsSms{position: relative ; width: 170px;height: 25px; margin: 5px; padding-top: 3px; border-radius: 17px; overflow: hidden; background-color: rgb(11, 141, 65); color: white; font-size: 20px;}
+            .imgSms , .imgWhatsApp{position: absolute; width: 20px;top: 0px;  height: 20px; border-radius: 17px; padding: 2px; margin: 2px; background-color: blueviolet;}
+            .imgWhatsApp { left: 0px;}
+            .imgSms{right: 0px;}
+            .outrosIcones{height: 28px; width: 28px; margin: 5px; background-color: white; border-radius: 13px;overflow: hidden; }
+            .outrosIcones img{height: 22px; width: 22px; margin: 2px;background-color: rgb(11, 141, 65); border-radius: 13px;overflow: hidden;padding: 1px; }
+		
+		#nomeDoOperador{ max-width:100px; background-color: red;}
+		#searchBar table :hover{cursor: pointer}
+		#firstSearchResult{top: 40px; padding: 5px;}
+		
+		#td_searchString .searchString{border-bottom-left-radius: 18px;border-top-left-radius: 18px; border: 1px solid pink; border-right: none;}
+		#td_firstSearchSelectSelected select {border: 1px solid pink; border-left: none; }
+		
+		#conteudo {width: 100%; max-width: 700px;}
+		#conteudoDiv01 table {max-width: 700px;}
+		
+		#tituloTable01 img:hover,#tituloTable01 input:hover, #tituloTable01 select:hover, .tb_servicos:hover { box-shadow: 1px 1px #aaa , -1px -1px #aaa ,-1px 1px #aaa , 1px -1px #aaa ; }
+		
+		#barra{display: none;background-color: transparent;padding: 0; margin: 0; width: 100%; padding: 0px; max-width: 600px; margin: 15px;}
+		#barra #barraDiv01{ padding: 20px 0px; margin: 10px; width: 100%; position: relative;}
+		#barra #barraDiv01 button { margin: 5px;}
+		#barra #barraDiv02{padding: 0; margin: 0;width: 100%;}
+		/*#barra .firstSearchResult{padding: 0; margin: 0px; border: 1px solid pink;padding-left: 3px; width: auto;}*/
+		
+		.tb_servicos{background-color: white; padding: 4%; margin: 4px; width: 90%; font-size: 11px; text-transform: uppercase; border: none; border-radius: 4px; text-align: left;}
+		.tb_servicos div{width: 100%;  text-align: left; font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif";color: blueviolet;}
+		
+		.tb_servicos div{cursor: default;}
+		
+		.classNovoRegisto{width: 100%; margin-bottom: 20px;}
+		.classNovoRegisto button {width: 150px; border-radius: 10px; }
+		
+		.botaoValidacaoNo{padding: 15px;border: 2px solid red; color: red; margin: 5px;font-size: 100%;}
+		.botaoValidacaoOk{padding: 15px;border: 2px solid darkgreen; color: darkgreen; margin: 5px;font-size: 100%;}
+		.botaoValidacaoOk:hover, .botaoValidacaoNo:hover{border-bottom-width: 6px;}
+		
+		#menuLateral td {cursor: default;}
+		
+            @media screen and (max-width : 755px){
+                #conteudoDiv01{width: 99%;overflow: hidden;}
+                #conteudoDiv01 table {width: 98%; overflow: hidden; margin-left: 0px;margin-right: 0px;}                
+                #conteudoDiv01  .tabelaDeResultados{ width: 98%; overflow: hidden; margin-left: 0px;margin-right: 0px;}
+                #conteudoDiv01  .tabelaDeResultados td { max-width: 70%;}
+                
+                #searchBar {margin-left: 0px ; margin-right: 0px; width: auto; max-width: 99%; float: none; align-items: center;  }
+                #searchBar td{ width: auto;  }
+                #searchBar .searchString{border-bottom-left-radius: 18px;border-top-left-radius: 18px; border: 1px solid pink; border-right: none;width: auto;}
+		#searchBar select {border: 1px solid pink; border-left: none; width: auto; }
+                #titulo {width: 99%;padding: 0px; min-height: 60px;}
+                #alertaDeDivida h3{padding-top: 23px; }
+                #alertaDeDivida{width: 80%;position: fixed;bottom: 0px;height: auto; max-height: 50%; display: none;right: 0; }
+                #alertaDeDivida #alertaDeDivida_Div01{width: 80%; margin-left: 0px; }
+
+            }
+		
+	</style>
+	
+	
+<title> Validação da Despesa </title>
+	
+</head>
+
+<body>
+    
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('html/notificacao/recebidas.html')" ></button>
+    
+	
+	
+	
+	<div id="alertas" class="centralizarDiv alertas" style="display: none;">
+		<div id="alertasDiv01" align="center">
+			<img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+			<p class="resutado">  </p>
+	  </div>
+	</div>
+	
+	<div id="titulo" class=" backGround03">
+            
+            <table id="tituloTable01" style="width: 97%;z-index: 80;margin: 0 auto;margin-right: 1%;margin-left: 1%;"  >
+                <thead><tr>
+
+                    <td style="width: 70%;"></td>
+
+                    <td id="td_searchString"  align="center" style="width: 13%;position: relative;">
+                            <input class="searchString" id="searchString" type="number" onKeyUp="getFirstSearch(this)"  >
+                            <div id="firstSearchResult" class="firstSearchResult backGround03" style=" position: absolute ; display:none;">
+                                    <img src="../../img/cruz.png" onClick="$('#firstSearchResult').slideUp(), $('#firstSearchResult .firstSearchResultDiv01').html('')"  class="botaoSair" alt=""/>
+                                    <div class="firstSearchResultDiv01">	</div>					
+                            </div>
+                    </td>
+                    <td id="td_firstSearchSelectSelected" style="width: 10%;">
+                            <select id="firstSearchSelected" onChange="firstSearchSelectSelected(this)"><!-- Aterar o type do input -->
+                                    <option>Id da ficha</option><option>Telefone</option><option>Data(aaaa-mm-dd)</option>
+                            </select>
+                    </td>
+                </tr></thead>
+            </table> 
+            <div style="width: 96%;" align="center" id="td_TituloDoCliente" ></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	<div style=" width: 99%; height: 100%;display: flex; flex-direction: row; margin-bottom: 40px; z-index: 10;">
+		
+
+            <div id="corpo">
+
+                <div id="resultado" class="centralizarDiv" style="width: 99%;" >
+
+                    <div id="barra" align="center" >
+                        <div id="barraDiv01" class="backGround02">
+                                <img src="../../img/cruz.png" onClick="fecharBarra()"  class="botaoSair" alt=""/>
+                                <div id="barraDiv02" >	</div>
+                        </div>				
+                    </div>
+
+                    <div align="center" id="conteudo">
+                        <div id="conteudoDiv01">
+
+                        </div>
+                    </div>		
+                </div>
+            </div>
+		
+	</div>
+	
+	
+	<div id="menuRodapeCirculo" class="backGround01" ></div>
+	<div id="menuRodapeBotoes" class="backGround01"  style="width: 260px">
+		<div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                        <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                        <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                        <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                        <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+                </div></div></div></div>
+                <button style="width: 120px" onClick='novaPagina("servicos.html"),$("#menuRodapeBotoes").fadeOut()' >Servicos</button>
+		<button style="width: 120px" onClick='novaPagina("pagamentos.html"),$("#menuRodapeBotoes").fadeOut()' >Pagamentos</button>
+                <button style="width: 120px" onClick='novaPagina("stock.html"),$("#menuRodapeBotoes").fadeOut()' >Stock</button>
+		<button style="width: 120px" onClick='novaPagina("financeira.html"),$("#menuRodapeBotoes").fadeOut()' >Financeira</button>
+		
+            </div>
+	<img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+	
+</body>
+	
+<script>
+	
+	
+	
+$(document).ready(function() {
+	
+	aguarde(true);
+	
+	getUser();
+
+	var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + 				rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+});
+
+	
+	
+
+	
+function getUser(){
+	
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/validacoes/getUser.php",
+		data: { 'url':window.location.href },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+		   console.log(data);
+			if(data.status){
+				app.operador = data.operador ? data.operador : false
+                                app.email = data.email ? data.email : false
+                                app.telefone = data.telefone ? data.telefone : false;				
+                                app.imagem = data.imagem ? data.imagem : false
+                                app.id_do_operador = data.id ? data.id : false
+                                app.estado = data.estado ? data.estado : false
+                                app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                                app.categoria = data.categoria ? data.categoria : false
+                                app.funcao = data.funcao ? data.funcao : false
+                                app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                                if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                                if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+				$("#dadosDoOperador").fadeIn();
+				
+				if(data.id_do_cliente){
+					firstSearchResultClicked ( false,{ 'bd':'netcoaos_cachv3' ,'id_do_cliente':data.id_do_cliente } )
+				}
+
+				aguarde();
+                                
+                                if(app.estado < 3){                                    
+                                    alerta("Voce não esta autorizado ! ! !");
+                                    setTimeout(function (){
+                                         window.location = "../../index.html?di="+app.id_do_operador+"&op="+app.operador ;
+                                    },5000)
+                                }
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+			}
+		}
+	});
+
+	stopDefaultEvent();
+	
+}
+
+	
+	
+	
+
+function getFirstSearch(thi){
+	if(thi.value.length > 3  ){
+		
+		var width = parseFloat($("#td_searchString").css("width")) + parseFloat($("#td_firstSearchSelectSelected").css("width"));
+		width = width - 10;
+		$("#firstSearchResult").css("width",width+"px");
+		
+		switch ($("#firstSearchSelected").val().toLowerCase()){
+			case "telefone".toLowerCase() :getFirstSearchCliente(thi,'telefone','clientes','firstSearchResult'); break;
+			case "Id da ficha".toLowerCase() : getFirstSearchCliente(thi,'id','servicos','firstSearchResult'); break;
+			case "Data(aaaa-mm-dd)".toLowerCase() : getFirstSearchCliente(thi,'data','servicos','firstSearchResult'); break;
+			default : "Selecione";  break;
+		}
+	}else if($("#firstSearchSelected").val() == "Id da ficha" ){
+		getFirstSearchCliente(thi,'id','servicos','firstSearchResult');
+	}
+}
+
+
+
+
+
+
+function getFirstSearchCliente(thi,campo,tabela,idDoResultado){
+	
+	if(thi.value && campo){
+		
+		var jSon = JSON.stringify({'idDoResultado': idDoResultado,'tabela': tabela, 'bd': 'netcoaos_cachv3', 'valor': thi.value, 'coluna': campo});
+		
+		$.ajax({
+			url:"../../php/validacoes/getFirstSearch.php",
+			data: { 'dados':jSon },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+			   console.log(data);
+				if(data.status){
+					$("#"+ idDoResultado+" .firstSearchResultDiv01").html(data.sucesso);
+					 slideUpOrDonw(thi,idDoResultado);
+
+				}else{ 
+					var erro = '<p style=" padding:20px 0px; text-shadow: 1px 1px red, -1px 1px red, -1px -1px red;color:#fff; ">'+data.erro+'</p>';
+					$("#"+ idDoResultado+" .firstSearchResultDiv01").html(erro);
+					 slideUpOrDonw(thi,idDoResultado);
+
+				}
+			}
+		});
+
+		stopDefaultEvent();
+	}
+}
+
+	
+	
+function maisResultadosFirstSearchResult(param){
+		
+	var jSon = JSON.stringify(param);
+
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/validacoes/maisResultadosFirstSearchResult.php",
+		data: { 'dados':jSon },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+		   console.log(data);
+			if(data.status){
+				$("#"+ param.idDoResultado+" .firstSearchResultDiv01").html(data.sucesso);
+				 //slideUpOrDonw(thi,idDoResultado);
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+			}
+		}
+	});
+
+	stopDefaultEvent();
+}
+	
+	
+
+function firstSearchResultClicked(thi,param){
+
+	
+	aguarde(1);        
+        $.ajax({
+		url:"../../php/validacoes/getFirstSearchResultClicked.php",
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+                    aguarde();
+		   console.log(data);
+			if(data.status){
+				$("#td_TituloDoCliente").html(data.titulo);
+				
+				app.id_do_cliente = data.id_do_cliente;
+				app.telefone_do_cliente = data.telefone_do_cliente;
+				app.telefone2_do_cliente = data.telefone2_do_cliente;
+				app.nome_do_cliente = data.nome_do_cliente;
+				
+				if($("#conteudoDiv01").css('display') == 'block'){
+					$("#conteudoDiv01").fadeOut(200);
+					setTimeout(function(){
+						$("#conteudoDiv01").html(data.dadosDoCliente).fadeIn();
+					},200)
+				}else{
+					$("#conteudoDiv01").html(data.dadosDoCliente).fadeIn();
+				}
+				
+				getEstePagamento(param.id_do_cliente, param.id_do_servico ? param.id_do_servico : '');
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+			}
+		}
+	});
+
+	stopDefaultEvent();
+	
+}
+
+
+	
+	
+	
+function getEstePagamento( id_do_cliente, id_do_servico ){
+	
+	aguarde(1);
+	
+	$.ajax({
+		url:"../../php/validacoes/getEstePagamento.php",
+		data: { 'id_do_cliente':id_do_cliente, 'id_do_servico':id_do_servico, 'operador':app.operador },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+		   console.log(data);
+			if(data.status){
+				aguarde();
+				$("#conteudoDiv01").slideUp();
+				setTimeout(function(){
+					$("#conteudoDiv01").html(data.sucesso).fadeIn();
+				},500);
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+			}
+		}
+	});
+
+	
+}
+
+
+	
+function alterarErroCorrigido(id ,tabela, estado, textAreaId, bd ,id_do_cliente, id_do_servico,thi ) {
+
+	stopDefaultEvent();
+	
+	var valor = $("#"+textAreaId).val();
+	var coluna = $("#"+textAreaId).attr('name');
+	
+	if(!valor) $("#"+textAreaId).css('border','4px solid red');
+	
+	if( valor && app.estado >= estado && window.confirm('Vai validar este item, por este motivo:\n ' + valor)){
+
+		var param = {'tabela': tabela, 'operador': app.operador, 'bd': bd, 'id':id, coluna: coluna, 'valor': valor, 'id_do_cliente': id_do_cliente, 'id_do_servico': id_do_servico };
+
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/validacoes/alterarErroCorrigido.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+			   console.log(data);
+				if(data.status){
+					$(thi.parentElement).append('<button style="margin:10px;background-color:green;border:none;" ><img style="height:12px;widht:auto" src="../../img/bom.png" alt=""/></button>');
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+	}
+	
+} 
+	
+	
+
+	
+function alterarErroDetetado(id ,tabela, estado, textAreaId, bd ,id_do_cliente, id_do_servico,thi ) {
+	
+	stopDefaultEvent();
+	
+	var valor = $("#"+textAreaId).val();
+	var coluna = $("#"+textAreaId).attr('name');
+	
+	if(!valor) $("#"+textAreaId).css('border','4px solid red');
+	
+	if( valor && app.estado >= estado && window.confirm('Vai regeitar este item, por este motivo \n ' + valor)){
+
+		var param = {'tabela': tabela, 'operador': app.operador, 'bd': bd, 'id':id, coluna: coluna, 'valor': valor, 'id_do_cliente': id_do_cliente, 'id_do_servico': id_do_servico }
+
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/validacoes/alterarErroDetetado.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+			   console.log(data);
+				if(data.status){
+					$(thi.parentElement).append('<button style="margin:10px 0px;background-color:red;border:none;" ><img style="height:16px;widht:auto" src="../../img/cruz.png" alt=""/></button>');
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+	}
+	
+} 
+	
+	
+
+	
+function validar_servico(id ,tabela, estado, bd ,id_do_cliente, id_do_servico,thi ) {
+	
+	stopDefaultEvent();
+	
+	if( app.estado >= estado && window.confirm('Dezejas validar este item ?')){
+
+		var param = {'tabela': tabela, 'operador': app.operador, 'bd': bd, 'id':id, 'id_do_cliente': id_do_cliente, 'id_do_servico': id_do_servico }
+
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/validacoes/validar_servico.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+			   console.log(data);
+				if(data.status){
+					$(thi.parentElement).append('<button style="margin:10px;background-color:green;border:none;" ><img style="height:12px;widht:auto" src="../../img/bom.png" alt=""/></button>');
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+	}
+	
+} 
+	
+	
+
+function validacao_terminada(id_do_cliente,id_do_servico,validacao,estado,bd){
+	
+	stopDefaultEvent();
+	
+	if( app.estado >= estado && window.confirm('Este Serviço passou pelo teu crivo ?')){
+
+		var param = {'tabela': 'validacao', 'operador': app.operador, 'bd': bd, 'id_do_cliente': id_do_cliente, 'id_do_servico': id_do_servico, 'coluna': validacao }
+
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/validacoes/validacao_terminada.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+			   console.log(data);
+				if(data.status){
+					alerta('Sucesso' );
+					$("#conteudoDiv01").fadeOut();
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+	}
+	
+}
+	
+	
+						
+	
+function fecharBarra(){
+	$('#barra').slideUp(500,function(){
+		//$('#conteudo').css("width","100%");
+		$('#conteudo').animate("width","100%");
+	});
+}
+	
+	
+function abrirBarra(){
+	//$('#conteudo').css("width","80%");
+	$('#conteudo').animate("width","80%");
+	$('#barra').slideDown();
+}
+
+	
+	
+</script>
+	
+</html>

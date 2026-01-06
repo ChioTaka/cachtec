@@ -1,0 +1,1260 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+	
+<style>
+
+	/*#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0; position: relative;	display: flex;justify-content: center;}
+	*/#menuDiv01{ width: 95%; max-width: 450px; }
+	#menuDiv01 div{  vertical-align: middle; align-items: center; justify-content: center; width: 120px; height: 60px; background-color: red; margin: 5px; background-color:rgb(11, 141, 65) ; color: white; border-radius: 4px; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+
+
+	#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+	#menuDiv01 div button:hover {background-color:#0c26b9;}
+	#menuDiv01 div button img {width: 20px; height: 20px; border-radius: 11px; border: 1px solid #fff;}
+	
+	#dadosDoCadastro {padding-bottom: 20px;}
+	#dadosDoCadastro table {width: 100%; max-width: 400px; margin: 0 auto;}
+	#dadosDoCadastro input , #dadosDoCadastro select { width: 93%; border: 1px solid #eee; }
+	#dadosDoCadastro select { width: 98%; }
+	#dadosDoCadastro button { padding: 7px 2px; min-width: 80px; max-width: 100px; min-height: 65px; margin: 0px 1px; }
+	
+	#dadosDoCadastroDiv02{ padding: 20px;}
+        .linkProdutoUsado{font-size:20px;padding:5px;border-radius:18px;background-color:#000;color: orange; margin: 5px;}
+        .linkProdutoUsado:hover {;background-color:violet;color:white; }
+	/*#dadosDoCadastro button:visited { padding: 20px; }
+	#dadosDoCadastro button:hover { padding: 20px; }
+*/
+</style>
+	
+<title>Cadastro</title>
+</head>
+
+<body>
+    
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('../../html/notificacao/recebidas.html')" ></button>
+    
+		
+    <div id="alertas" class="centralizarDiv  alertas" style="box-shadow: 0 0 10px #eee;display: none; z-index: 90;" >
+            <div id="alertasDiv01" align="center">
+                    <img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+                    <div class="resutado"> </div>
+      </div>
+    </div>
+	
+	
+		
+	
+    <div id="dadosDoCadastro" align="center">
+        <h3 align="center" id="numeroDaFicha"></h3>
+        <div id="dadosDoCadastroDiv01"></div>
+        <div align="center" id="dadosDoCadastroDiv02" style="width:100%; display:none;"><button onClick="enviarCadastro()">Enviar Cadastro</button></div>
+
+    </div>
+    
+    
+    
+    <div id="menuRodapeCirculo" class="backGround01" ></div>
+   <div id="menuRodapeBotoes" class="backGround01" style="max-width: 260px;" >
+        <div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+        </div></div></div></div>
+       <input id="novo_id_do_servico" style="width: 120px; padding: 10px;margin: 5px;margin-bottom: 15px;margin-top: 0px;" type="number"  >
+       <button style="width: 50px; margin: 5px;margin-top: 10px;" onClick="checkNovoIdDoServico()">
+           <img style="width: auto; height: 20px;" src="../../img/ok.png" alt=""/>
+       </button>
+    </div>
+    <img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+
+</body>
+	
+	
+<script>
+
+$(document).ready(function(){
+
+	getUser();
+	checkIdDoServico();	
+	//getStockDosTecnicos();
+        
+        var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+        
+        app.go = true;
+	
+});
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+function selecao(thi){
+	//console.log($(thi).css('border'));
+	////console.log($(thi).css('color'));
+	var clas = (thi.className);
+	$("." + clas).animate({'padding-bottom':'7px','background-color':'rgb(239, 239, 239)' , 'color': '#000'},300, function(){
+		$("." + clas).css({'background-color':'rgb(239, 239, 239)' , 'color': '#000', 'border':'none'});
+		$(thi).animate({'padding-bottom':'25px','background-color':'rgb(11, 141, 65)' , 'color': 'white'},300,function(){
+			$(thi).css({'background-color':'rgb(11, 141, 65)' , 'color': 'white', 'border':'1px solid #000', 'border-radius':'2px'});
+		});
+	});
+	
+	////console.log($(thi).class());
+}
+	
+	
+function getDadosDoCliente(){
+
+    stopDefaultEvent();
+    if(app.ficha.servicos.id_do_cliente){
+
+        var select = [{'nome':'origem',valor:app.origemDeClientes}]
+
+        var param = {'tabela': 'clientes', 'operador': app.operador, 'bd': 'netcoaos_cachv3', 'valor': app.ficha.servicos.id_do_cliente, 'coluna': 'id','select': select }
+        aguarde(1);
+        $.ajax({
+            url:"../../php/cadastro/getDadosDoCliente.php",
+            data: { 'dados':JSON.stringify(param) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+               //console.log(data);
+               aguarde();
+                if(data.status){
+                    $("#dadosDoCadastroDiv01").html(data.dadosDoCliente ).
+                    append('<br><div style="width:100%;"><button class="btn0" onClick="selecao(this),getDadosDoServico()">Dados do serviço</button></div>'+
+                               '<div id="divGetDadosDoServico" style="width:100%"></div>');
+                    $("#divGetDadosDoServico").focus();
+                    
+                    if($("#dadosDoCadastroDiv02").css('display') == 'block'){
+                        $("#dadosDoCadastroDiv02").fadeOut();
+                    }
+                    
+
+                }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+
+    }else{
+            alerta('Não há serviços selecionados');
+            $("#searchString").focus();
+    }
+	
+}
+	
+	
+	
+	
+		
+function getDadosDoServico(){
+
+	stopDefaultEvent();
+	if(app.ficha.servicos.id){
+		
+		var select = [{'nome':'servico',valor:app.servicos},
+					  {'nome':'tipo_de_servico',valor:[ {nome:"INSTALAÇÃO"}, {nome:"MANUTENÇÃO"} ]},
+					  {'nome':'servico_para',valor:[ {nome:"MÓVEL"}, {nome:"IMÓVEL"} ]},]
+	
+		var param = {'tabela': 'servicos', 'operador': app.operador, 'bd': 'netcoaos_cachv3',  'valor': app.ficha.servicos.id, 'coluna': 'id','select': select }
+                aguarde(1);
+		$.ajax({
+			url:"../../php/cadastro/getDadosDoServico.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+			   //console.log(data);
+                           aguarde();
+                            if(data.status){
+                                $("#divGetDadosDoServico").html(data.dadosDoCliente ).
+                                append('<br><div style="width:100%">'+
+                                    '<button class="btn1" onClick="selecao(this),getDadosDoMovelOuImovel(\'MÓVEL\')"> Dados do Movel </button>'+
+                                    '<button class="btn1" onClick="selecao(this),getDadosDoMovelOuImovel(\'IMÓVEL\')"> Dados do Imovel </button>'+
+                                    '</div>'+
+                                    '<div id="divGetDadosDoMovelOuImovel" style="width:100%"></div>');
+
+                                $("#divGetDadosDoMovelOuImovel ").focus();
+                                
+                                if($("#dadosDoCadastroDiv02").css('display') == 'block'){
+                                    $("#dadosDoCadastroDiv02").fadeOut();
+                                }
+
+                            }else{ 
+                                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                            }
+			}
+		});
+
+	}else{
+		alerta('Não há serviços selecionados');
+	}
+        
+       	
+}
+	
+	
+		
+	
+	
+	
+
+	
+	
+		
+function getDadosDoMovelOuImovel(para){
+
+	stopDefaultEvent();
+	if(app.ficha.servicos.id){
+		
+		var ok = true;
+		var i = 0;
+		var dadosDoServico = getDadosDeFormsAnteriores('dadosDoServico');
+		console.log(dadosDoServico);
+		console.log(para);
+		if( dadosDoServico.servico_para && dadosDoServico.servico_para != para ){
+			alerta('Este serviço é para um móvel (veiculo) ou imóvel (residência) ?');
+			ok = false;
+		}
+		
+                kit = false;
+		while(app.servicos[i]){
+                    if( dadosDoServico.servico == app.servicos[i].nome ){
+                            kit = app.servicos[i].kit;
+                    }
+                    i++;
+		}
+		
+                
+		
+		if(ok){
+			
+			if(para == 'MÓVEL'){ url = "../../php/cadastro/getDadosDoMovel.php"; }
+			else{ url = "../../php/cadastro/getDadosDoImovel.php"; }
+		
+			var select = [{'nome':'kit',valor:kit},];
+
+			var param = {'tabela': 'servicos', 'operador': app.operador, 'bd': 'netcoaos_cachv3',  'id_do_servico': app.ficha.servicos.id, 'id_do_cliente': app.ficha.servicos.id_do_cliente,'select': select,'dadosDoServico' : dadosDoServico }
+                        aguarde(1);
+			$.ajax({
+				url:url,
+				data: { 'dados':JSON.stringify(param) },
+				dataType:"json",
+				async:true,
+				type:"POST",
+				error: function (data){
+					if(navigator.onLine) { 
+						alerta('<b style="color:red">Houve um erro actualize a página</b>');
+					}else{  
+						alerta('Não há Internet') ;
+					}
+				},
+				success: function(data){
+				   //console.log(data);
+                                   aguarde();
+					if(data.status){
+						$("#divGetDadosDoMovelOuImovel").html(data.dadosDoCliente ).
+						append('<br><div style="width:100%">'+
+									'<button class="btn2" onClick="selecao(this),getDadosDosTecnicos(\''+para+'\',false)"> Selecione os Tecnicos </button>' +
+							    '</div>'+
+							  '<div id="divGetDadosDosTecnicos" style="width:100%"></div>');
+						
+						$("#divGetDadosDosTecnicos ").focus();
+                                                
+                                                if($("#dadosDoCadastroDiv02").css('display') == 'block'){
+                                                    $("#dadosDoCadastroDiv02").fadeOut();
+                                                }
+
+					}else{ 
+						if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+					}
+				}
+			});
+		}
+
+	}else{
+		alerta('Não há serviços selecionados');
+		$("#searchString").focus();
+	}
+	
+}
+
+	
+	
+	
+	
+
+	
+	
+		
+function getDadosDosTecnicos(para,novoId){
+
+	stopDefaultEvent();
+	if(app.ficha.servicos.id){
+		
+		var ok = true;
+		var i = 0;
+		var dadosDoServico = getDadosDeFormsAnteriores('dadosDoServico');
+		var dadosDoMovelOuImovel = getDadosDeFormsAnteriores('dadosDoMovelOuImovel');
+		
+
+		var param = {'tabela': 'tecnico', 'operador': app.operador, 'bd': 'netcoaos_cachv3',  'id_do_servico': app.ficha.servicos.id, 'id_do_cliente': app.ficha.servicos.id_do_cliente,'dadosDoMovelOuImovel': dadosDoMovelOuImovel,'dadosDoServico' : dadosDoServico }
+                aguarde(1);
+		$.ajax({
+			url:"../../php/cadastro/getDadosDosTecnicos.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+			   console.log(data);
+                           aguarde();
+				if(data.status){
+					if(novoId){
+
+						$("#outrosTecnicos").append('<h5>OUTRO TECNICO</h5>' + data.dadosDoCliente );
+
+					}else{
+
+						$("#divGetDadosDosTecnicos").html(data.dadosDoCliente ).
+							append('<div style="width:100%;" id="outrosTecnicos"></div> <br><div style="width:100%">'+
+								   '<button class="btn3" onClick="selecao(this),getDadosDosTecnicos(\''+para+'\',true)"> + Outro Tecnico </button>' +
+									'<button class="btn3" onClick="selecao(this),getDadosInstalacao(\''+para+'\')"> Dados da instalação </button>' +
+							  '<div id="divGetDadosInstalacao" style="width:100%"></div>');
+						app.tabelaSelectComOsFuncionarios = data.dadosDoCliente;
+                                                
+                                                if($("#dadosDoCadastroDiv02").css('display') == 'block'){
+                                                    $("#dadosDoCadastroDiv02").fadeOut();
+                                                }
+						
+						setTimeout(function(){ $("#divGetDadosInstalacao ").focus(); },300);
+					}
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+
+	}else{
+		alerta('Não há serviços selecionados');
+		$("#searchString").focus();
+	}
+
+}
+	
+		
+	
+
+	
+	
+		
+function getDadosInstalacao(para){
+
+    stopDefaultEvent();
+    if(app.ficha.servicos.id){
+
+        //getStockDosTecnicos();
+        
+        var ok = true;
+        var i = 0;
+        var tabela = '';
+        var dadosDoMovelOuImovel = getDadosDeFormsAnteriores('dadosDoMovelOuImovel');		
+        var dadosDoServico = getDadosDeFormsAnteriores('dadosDoServico');
+        var nomeDosTecnicos = $('.nomeDosTecnicos').serializeArray();
+
+        if( dadosDoServico.servico_para && dadosDoServico.servico_para != para ){
+            alerta('Este serviço é para um móvel (veiculo) ou imóvel (residência) ?');
+            ok = false;
+        }
+
+
+        if(ok){
+
+            var select = [{'nome':'local_do_dispositivo',valor:app.local_do_dispositivo},
+                {'nome':'comudo',valor:app.comudos},
+                {'nome':'visualizacoes',
+                    valor: [{nome:"TELEFONE"}, {nome:"COMPUTADOR"}, {nome:"NVR"}, {nome:"TELA INTERNA"}, {nome:"TV"}, 
+                        {nome:"TELEFONE E NVR"}, {nome:"TELEFONE E COMPUTADOR"}, {nome:"TELEFONE E TELA INTERNA"}, {nome:"TELEFONE E TV"},
+                        {nome:"TELEFONE, NVR E COMPUTADOR"}, {nome:"OUTRO"}] },
+                {'nome':'local_da_fonte',valor:[{nome:"NA CX DE DERIVAÇÃO"}, {nome:"COMPARTILHADA"}, {nome:"POE"}, {nome:"TEJADILHO"}, 
+                        {nome:"BARRA LATERAL DO VIDRO DE FRENTE"}, {nome:"ATRAS DO QUADRO DE INSTRUMENTOS"}, 
+                        {nome:"A ESQUERDA DA COBERTURA DO PEDAL DE EMBREAGEM"}, {nome:"OUTRO"}] },
+                {'nome':'tipo_de_conexao',valor:[{nome:"WIFI"}, {nome:"CABO UTP"}, {nome:"CABO COAXIAL"}, {nome:"CABO ESPECÍFICO"}, {nome:"OUTRO"}] },
+                {'nome':'posicao_da_camara_e_a_cx_de_derivacao',valor:[{nome:"CÂMARA POR CIMA DA CX DE DERIVAÇÃO"}, {nome:"CÂMARA MUITO PROXIMO DA CX DE DERIVAÇÃO"},
+                        {nome:"CÂMARA À 1 METRO DA CX DE DERIVAÇÃO"},{nome:"CÂMARA À 2 METRO DA CX DE DERIVAÇÃO"},{nome:"CÂMARA À 3 METRO DA CX DE DERIVAÇÃO"},
+                        {nome:"CÂMARA À MAIS DE 3 METRO DA CX DE DERIVAÇÃO"}, {nome:"OUTRO"}] },
+                {'nome':'bloqueio',valor:app.bloqueios},];
+
+
+            var param = { 'operador': app.operador, 'bd': 'netcoaos_cachv3',  'id_do_servico': app.ficha.servicos.id, 'id_do_cliente': app.ficha.servicos.id_do_cliente, 'dadosDoMovelOuImovel': dadosDoMovelOuImovel, 'dadosDoServico': dadosDoServico, 'nomeDosTecnicos': nomeDosTecnicos, 'select':select }
+            aguarde(1);
+            $.ajax({
+                url:"../../php/cadastro/getDadosInstalacao.php",
+                data: { 'dados':JSON.stringify(param) },
+                dataType:"json",
+                async:true,
+                type:"POST",
+                error: function (data){
+                    if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                        alerta('Não há Internet') ;
+                    }
+                },
+                success: function(data){
+                   console.log(data);
+                   aguarde();
+                    if(data.status){
+                        $("#divGetDadosInstalacao").html(data.dadosDoCliente ).
+                        append('<br><div style="width:100%">'+
+                            '<button class="btn4" onClick="selecao(this),getDadosDosConsumíveis(\'alarme\', false )">Consumiveis para Alarme</button>' +
+                            '<button class="btn4" onClick="selecao(this),getDadosDosConsumíveis(\'rv\', false )">Consumiveis para RV</button>' +
+                            '<button class="btn4" onClick="selecao(this),getDadosDosConsumíveis(\'imovel\', false )">Consumiveis para Imóveis</button>' +                           
+                            '</div>'+
+                            '<div id="divGetDadosDosConsumíveis" style="width:100%"></div>');
+
+                        setTimeout(function(){ $("#divGetDadosDosConsumíveis ").focus(); },300);
+                        
+                        if($("#dadosDoCadastroDiv02").css('display') == 'block'){
+                            $("#dadosDoCadastroDiv02").fadeOut();
+                        }
+
+                    }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                    }
+                }
+            });
+        }
+
+    }else{
+        alerta('Não há serviços selecionados');
+        $("#searchString").focus();
+    }
+
+}
+	
+
+	
+	
+	
+
+	
+	
+	
+	
+		
+function getDadosDosConsumíveis(tabela, novoId){
+	
+	stopDefaultEvent();
+	if(app.ficha.servicos.id){
+	
+        var tecnicos = [];
+        var t = 0;
+        var n = 0;
+        var classTec = document.getElementsByClassName('tecnico');
+       
+        while(classTec[t]){
+            var dadosDoForm = classTec[t].getElementsByTagName('select');
+            
+            var i = 0;           
+            while(dadosDoForm[i]){
+                if( dadosDoForm[i].value ){
+                    tecnicos[n] =dadosDoForm[i].value;                   
+                    n++;
+                }
+                i++;
+            }
+            t++;
+        }
+        
+	
+	//console.log( app.consumiveis_de_instalacao[tabela]);	
+	var param = {'operador': app.operador, 'bd': 'netcoaos_stockv3', 'consumiveis_de_instalacao':app.consumiveis_de_instalacao, 'tecnicos': tecnicos,'id_do_servico': app.ficha.servicos.id, 
+                'id_do_cliente': app.ficha.servicos.id_do_cliente,'consumivelDoServico': tabela ? app.consumiveis_de_instalacao[tabela] : false ,  }
+
+                aguarde(1);
+            $.ajax({
+                url:"../../php/cadastro/getDadosDosConsumiveis.php",
+                data: { 'dados':JSON.stringify(param) },
+                dataType:"json",
+                async:true,
+                type:"POST",
+                error: function (data){
+                        if(navigator.onLine) { 
+                                alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                        }else{  
+                                alerta('Não há Internet') ;
+                        }
+                },
+                success: function(data){
+                   console.log(data);
+                   aguarde();
+                    if(data.status){
+                        if(novoId){
+
+                            $("#consumiveis_outro").append('<h5>OUTROS CONSUMÍVEIS</h5>' + data.dadosDoCliente );
+                            setTimeout(function(){ $("#divGetDadosDoPagamento ").focus(); },300);
+
+                        }else{
+
+                            $("#divGetDadosDosConsumíveis").html(data.dadosDoCliente ).
+                                append('<div style="width:100%;margin:0;padding:0" id="consumiveis_outro"></div> <br>'+
+                                           '<div style="width:100%;margin:0;padding:0">'+
+                                   '<button class="btn5" onClick="selecao(this),getDadosDosConsumíveis(\'\', true )">Outros Consumiveis </button>'+		   
+                                   '<button class="btn5" onClick="selecao(this),getDadosDoPagamento()">Dados do Pagamento</button></div>'+
+                                  '<div id="divGetDadosDoPagamento" style="width:100%;margin:0;padding:0"></div>');
+
+                            setTimeout(function(){ $("#divGetDadosDoPagamento ").focus(); },300);
+                            
+                            if($("#dadosDoCadastroDiv02").css('display') == 'block'){
+                                $("#dadosDoCadastroDiv02").fadeOut();
+                            }
+                        }
+
+
+                    }else{ 
+                        if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                    }
+                }
+            });
+
+	}else{
+		alerta('Não há serviços selecionados');
+	}
+	
+}
+
+
+
+function getCodigoDoProdutoUsado(produtoUsado,idDaTd){
+    var tex = '<p><input onKeyUp="checkCodigoDoProdutoUsado(\''+produtoUsado+'\',\''+idDaTd+'\',this)" type="text" style="font-size:20px;text-align:center;" placeHolder="Insira o codigo" ></p>\n\
+        <div id="resultadoDaBuscaPeloCodigoUsado" style="position:relative;" align="enter">\n\
+        <div style="text-align:center;background-color:#000;padding:15px;color:#fff;"> Encontre o dispositivo usado digitando o seu codigo</div></div>';
+    alerta(tex);
+}
+
+
+function checkCodigoDoProdutoUsado(produtoUsado,idDaTd,thi){
+    
+    stopDefaultEvent();
+    var codigo = thi.value;
+    var param = {'operador': app.operador, 'bd': 'netcoaos_cachv3', 'codigo': codigo, 'nome_do_produto':produtoUsado, 'idDaTd':idDaTd,'id_do_servico': app.ficha.servicos.id }
+    
+    $("#resultadoDaBuscaPeloCodigoUsado div").html('aguarde...');
+    $.ajax({
+        url:"../../php/cadastro/checkCodigoDoProdutoUsado.php",
+        data: { 'dados':JSON.stringify(param) },
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                    alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){
+           console.log(data);
+           
+            if(data.status){						
+                $("#resultadoDaBuscaPeloCodigoUsado div").html(data.sucesso);
+            }else{ 
+                $("#resultadoDaBuscaPeloCodigoUsado div").html('<b style="color:red"> '+data.erro+' </b>');
+            }
+        }
+    });
+
+}
+
+
+function setCodigoDoProdutoUsado(id,valor,codigo){
+   var inp__ = '<input type="hidden" value="'+valor+'" name="codigo'+id+'" >';
+   $("#"+id).html(codigo+inp__);
+   alerta();
+}
+
+
+function verificarQuantidades(thi){
+    
+    var nome = thi.name;
+    var indice = nome.replace('codigo','').replace('quantidade','');
+    
+    var cod = 'codigo'+indice;
+    cod = "name='"+cod+"'";
+    var qua = 'quantidade'+indice;
+    qua = "name='"+qua+"'";
+       
+    if($("["+qua+"]").val() && $("["+cod+"]").val()){
+        cod = $("["+cod+"]").val().split('»»');
+        qua = $("["+qua+"]").val();
+       
+        if( parseFloat(cod[3]) < parseFloat(qua) ){
+            alerta('A quantidade em stock é insuficiente');
+            
+            $(thi).css('border-color','red');
+        }else{
+            
+            $(thi).css('border-color','green');
+        }
+    }
+    
+}
+
+	
+/*
+	
+function getCodigo(thi){
+	
+	var fun = thi.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('outro_consumivel_origem');
+	
+	var funcionariosSelect = app.tabelaSelectComOsFuncionarios.replace('<form class="tecnico" >','').replace('<table class="tabelaDeResultados" align="center"><tbody><tr><td><select onChange="selectOutro(this)" class="nomeDosTecnicos" name="nome_do_tecnico"><option >Selecione</option>','').replace('</select></td></tr></tbody></table></form>','');
+		
+	var funcOnSelect = '<select  onChange="selectOutro(this)" name="origem"><option ></option>'+funcionariosSelect+'</select>';
+	$(fun[0]).html(funcOnSelect).fadeIn();
+	
+	if(thi.value.toLowerCase() == 'outro' || thi.value.toLowerCase() == 'outra' ){
+		selectOutro(thi);
+		var sel = '<select onChange="selectOutro(this)" name="codigo" ><option></option><option value="OUTRO">Outro(a)</option></select>';
+		var cod = thi.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('outro_consumivel_codigo');
+		$(cod[0]).html(sel).fadeIn();	
+		
+		
+	}else{
+		var id_do_produto_ = thi.value.split('»»')[0];
+		var param = {'tabela': 'stock_tecnicos', 'operador': app.operador, 'bd': 'netcoaos_stockv3',  'id_do_servico': app.ficha.servicos.id, 'id_do_cliente': app.ficha.servicos.id_do_cliente, 'id_do_produto':id_do_produto_ }
+                aguarde(1);
+		$.ajax({
+                    url:"../../php/cadastro/getCodigo.php",
+                    data: { 'dados':JSON.stringify(param) },
+                    dataType:"json",
+                    async:true,
+                    type:"POST",
+                    error: function (data){
+                        if(navigator.onLine) { 
+                                alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                        }else{  
+                                alerta('Não há Internet') ;
+                        }
+                    },
+                    success: function(data){
+                       console.log(data);
+                       aguarde();
+                        if(data.status){						
+                            var cod = thi.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('outro_consumivel_codigo');
+                            $(cod[0]).html(data.sucesso).fadeIn();					
+
+                        }else{ 
+                                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                        }
+                    }
+		});
+
+		
+	}
+}
+	
+*/	
+	
+	
+function getOrigem(thi){
+	
+	if(thi.value.toLowerCase() == 'outro' || thi.value.toLowerCase() == 'outra' ){
+		selectOutro(thi);
+	}else{
+
+		var fun = thi.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('outro_consumivel_origem');
+	
+		var funcionariosSelect = app.tabelaSelectComOsFuncionarios.replace('<form class="tecnico" >','').replace('<table class="tabelaDeResultados" align="center"><tbody><tr><td><select onChange="selectOutro(this)" class="nomeDosTecnicos" name="nome_do_tecnico"><option >Selecione</option>','').replace('</select></td></tr></tbody></table></form>','');
+		
+		//var nomeDoReceptor = $("#_nome_do_receptor_"+thi.value).val();
+		var funcOnSelect = '<select  onChange="selectOutro(this)" name="origem"><option ></option>'+funcionariosSelect+'</select>';
+		$(fun[0]).html(funcOnSelect).fadeIn();
+	}
+
+}
+	
+	
+	
+	
+	
+	
+		
+function getDadosDoPagamento(){
+
+	stopDefaultEvent();
+	if(app.ficha.servicos.id){
+		
+		
+		var select = [{'nome':'forma_de_pagamento',valor:[{nome:'TPA'},{nome:'TRANSFERÊNCIA'},{nome:'DINHEIRO'},{nome:'OUTRO'},]},
+						{'nome':'tipo_de_pagamento',valor:[{nome:'A PRONTO'},{nome:'PARCELADO'},{nome:'A CRÉDITO'},{nome:'OUTRO'},]},]
+
+		var param = {'tabela': 'pagamento', 'operador': app.operador, 'bd': 'netcoaos_cachv3',  'id_do_servico': app.ficha.servicos.id, 'id_do_cliente': app.ficha.servicos.id_do_cliente,'select': select,'dadosDoServico' : dadosDoServico }
+
+                aguarde(1);
+		$.ajax({
+                    url:"../../php/cadastro/getDadosDoPagamento.php",
+                    data: { 'dados':JSON.stringify(param) },
+                    dataType:"json",
+                    async:true,
+                    type:"POST",
+                    error: function (data){
+                        if(navigator.onLine) { 
+                                alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                        }else{  
+                                alerta('Não há Internet') ;
+                        }
+                    },
+                    success: function(data){
+                       //console.log(data);
+                       aguarde();
+                        if(data.status){
+                            $("#divGetDadosDoPagamento").html(data.dadosDoCliente ).
+                            append('<br>'+
+                                '<div id="divGetDadosDasDespesas" style="width:100%"></div>'+
+                                '<div style="width:100%">'+
+                                '<br>'+
+                                '<button class="btn6" onClick="selecao(this),getDadosDasDespesas(\'despesas_deslocacao\', \'Despesas de deslocacao\' )">Deslocação</button>'+						   
+                                '<button class="btn6" onClick="selecao(this),getDadosDasDespesas(\'despesas_alimentacao\', \'Despesas de alimentação\' )">Alimentação</button>'+						   
+                                '<button class="btn6" onClick="selecao(this),getDadosDasDespesas(\'despesas_comunicacao\', \'Despesas de comunicação\' )">Comunicação</button>'+						   
+                                '<button class="btn6" onClick="selecao(this),getDadosDasDespesas(\'despesas_outro\', \'Outras despesas\' )">Outras</button>'+						   
+                                '</div>' );
+
+
+                            $("#dadosDoCadastroDiv02").fadeIn('fast',function(){
+                                $("#dadosDoCadastroDiv02 button").focus();
+                            });
+
+                        }else{ 
+                                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                        }
+                    }
+		});
+
+	}else{
+		alerta('Não há serviços selecionados');
+	}
+	
+}
+
+	
+
+	
+		
+function getDadosDasDespesas(tabela , titulo ){
+
+	stopDefaultEvent();
+	if(app.ficha.servicos.id){
+
+		var param = {'tabela': tabela, 'operador': app.operador, 'bd': 'netcoaos_cachv3',  'id_do_servico': app.ficha.servicos.id, 'id_do_cliente': app.ficha.servicos.id_do_cliente, }
+                aguarde(1);
+		$.ajax({
+			url:"../../php/cadastro/getDadosDasDespesas.php",
+			data: { 'dados':JSON.stringify(param) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+			   //console.log(data);
+                           aguarde();
+				if(data.status){
+					if(titulo){
+						var clas = 'btn5'+ ( $("#divGetDadosDasDespesas").html().length ) ;
+						$("#divGetDadosDasDespesas").append('<h5>'+titulo+'</h5>'+data.dadosDoCliente );
+						$("#dadosDoCadastroDiv02 button").focus();
+					
+					}
+					
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+
+	}else{
+		alerta('Não há serviços selecionados');
+	}
+	
+}
+
+	
+	
+	
+function enviarCadastro(){
+    
+    if(app.go){
+        aguarde(1);
+	var i = 0;
+	var tabelas = [];
+	
+	while($("#dadosDoCadastroDiv01 form")[i]){
+		
+		var form = $("#dadosDoCadastroDiv01 form")[i];
+		var seri = $(form).serializeArray();
+		tabelas[i] = {};
+		tabelas[i].tabela = form.className;
+		tabelas[i][form.className] =  seri ;
+		
+		i++;
+	}
+	
+	console.log(tabelas);
+	
+	aguarde(1);
+	$.ajax({
+            url:"../../php/cadastro/enviarCadastro.php",
+            data: { 'dados':JSON.stringify(tabelas) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+               console.log(data);
+               aguarde();
+                if(data.status){
+                    
+                    $("#dadosDoCadastroDiv02").fadeOut();
+                     $("#dadosDoCadastroDiv01").slideUp('600',function(){
+                        $("#dadosDoCadastroDiv01").html('<p style="color:green;padding 40px;">Serviço Cadastrado com sucesso</p>');
+                    });
+                    setTimeout(function(){
+                        $("#dadosDoCadastroDiv01").slideDown();
+                    },800);
+                    
+                    if(data.meusConsumiveis) {
+                        movimentarStock(data.meusConsumiveis); 
+                    } else {
+                        checkProximaFicha(app.ficha.servicos.id);        
+                    }                      
+
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+	});
+    }else{
+        alerta('Parece que há erro no preenchimento do formulario,<br>Revisa');
+    }
+	                       
+}
+
+
+
+
+
+
+
+function movimentarStock(meusConsumiveis){
+    
+    if(app.ficha.servicos.id && meusConsumiveis){
+        $.ajax({
+            url:"../../php/cadastro/movimentarStock.php",
+            data: { 'dados':JSON.stringify({id_do_servico: app.ficha.servicos.id, 'operador': app.operador, 'bd': 'netcoaos_stockv3', 'meusConsumiveis' : meusConsumiveis}) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+               console.log(data);
+                if(data.status){                  
+                     var i = 0;
+                     while(data.sucesso[i]){
+                         var daddos = data.sucesso[i];
+                         if(daddos.id){
+                             alterarcaoDiretaNaBD(daddos.id, 'consumiveis_de_servicos', 'id_do_movimento_de_entrada', daddos.id_do_movimento_de_entrada, 'netcoaos_cachv3');
+                             setTimeout(alterarcaoDiretaNaBD(daddos.id, 'consumiveis_de_servicos', 'id_de_origem', daddos.id_de_origem, 'netcoaos_cachv3'),300);
+                             setTimeout(alterarcaoDiretaNaBD(daddos.id, 'consumiveis_de_servicos', 'historico', daddos.historico, 'netcoaos_cachv3'),600);
+                         }
+                                                  
+                         i++;
+                     }
+                                          
+                    checkProximaFicha(app.ficha.servicos.id);    
+                     
+                }else{ 
+
+                }
+            }
+        });
+    }
+}
+
+
+
+
+
+function checkProximaFicha(){
+    
+    if(app.ficha.servicos.id){
+        $.ajax({
+            url:"../../php/cadastro/checkProximaFicha.php",
+            data: { 'dados':JSON.stringify({id_do_servico: app.ficha.servicos.id, 'operador': app.operador, 'bd': 'netcoaos_cachv3',}) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+               console.log(data);
+                if(data.status){
+
+                    if ( window.confirm("Dezeja cadastrar o serviço nº "+data.id_do_servico) ){
+                        window.location = "index.html?di="+app.id_do_operador+"&op="+app.operador+"&id="+data.id_do_servico;
+
+                    }                   
+
+                }
+            }
+        });
+    }
+}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+function getDadosDeFormsAnteriores(idDoForm){
+    var dadosDoForm = $("#"+idDoForm).serializeArray();
+    var i = 0;
+    var arrSer = {};
+    while(dadosDoForm[i]){
+        if( dadosDoForm[i].value ){
+            arrSer[dadosDoForm[i].name] = dadosDoForm[i].value;
+        }
+        i++;
+    }
+    return(arrSer);
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	
+function getUser(){
+	if(window.location.href.indexOf('&') > -1){
+            aguarde(1);
+            $.ajax({
+                url:"../../php/ficha/getUser.php",
+                data: { 'url':window.location.href },
+                dataType:"json",
+                async:true,
+                type:"POST",
+                error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+                },
+                success: function(data){
+
+                    if(data.status){
+
+                        app.operador = data.operador ? data.operador : false
+                        app.email = data.email ? data.email : false
+                        app.telefone = data.telefone ? data.telefone : false;				
+                        app.foto = data.foto ? data.foto : false
+                        app.id_do_operador = data.id ? data.id : false
+                        app.estado = data.estado ? data.estado : false
+
+                        if(app.foto)$("#fotoDoOperador").attr('src',app.foto);				
+                        if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+                        //getStockDosTecnicos();
+                        getNotificacoesNaoRespondidas();
+
+                    }else{ 
+                            if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+                    }
+                }
+            });
+	}
+
+	stopDefaultEvent();
+	
+}
+
+	
+	
+		
+function getStockDosTecnicos(){
+
+	stopDefaultEvent();
+	
+        var tecnicos = [];
+        var t = 0;
+        var n = 0;
+        var classTec = document.getElementsByClassName('tecnico');
+       
+        while(classTec[t]){
+            var dadosDoForm = classTec[t].getElementsByTagName('select');
+            
+            var i = 0;           
+            while(dadosDoForm[i]){
+                if( dadosDoForm[i].value ){
+                    tecnicos[n] =dadosDoForm[i].value;                   
+                    n++;
+                }
+                i++;
+            }
+            t++;
+        }
+        
+	
+		
+	var param = {'operador': app.operador, 'bd': 'netcoaos_stockv3', 'consumiveis_de_instalacao':app.consumiveis_de_instalacao, 'tecnicos': tecnicos  }
+
+	$.ajax({
+		url:"../../php/cadastro/getStockDosTecnicos.php",
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+		   console.log(data);
+			if(data.status){
+				app.consumiveisDeInstalacao = data.sucesso;
+                                
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+			}
+		}
+	});
+
+	
+
+	
+}
+	
+	
+
+	
+	
+	
+	
+	
+function checkIdDoServico(){
+	
+	//pegar a referencia do id no link href do brouser
+	var i = parseFloat(window.location.href.indexOf('&id=')) + 3;
+	var href = window.location.href;
+
+	if(href[i] == '='){
+		i++;
+		var id = '';
+		while( href[i] && href[i] != '&' ){
+			id = id +''+href[i];
+			i ++;
+		}
+	}
+
+	if(id > 1){
+		
+		$("#numeroDaFicha").html('Ficha nº ' + id);
+		
+		var param = {'tabela': 'servicos', 'operador': app.operador, 'bd': 'netcoaos_cachv3',  'valor': id, 'coluna': 'id' }
+		
+		$.ajax({
+		url:"../../php/cadastro/checkExistencia.php",
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+		   console.log(data);
+			if(data.status){
+                            app.ficha = {};
+                            app.ficha.servicos = data.sucesso;
+                            //setMenu();
+
+                            setTimeout(function(){
+                                    getDadosDoCliente();
+                            },500);
+
+			}else{ 
+                            if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                            if(data.id_do_servico) {
+                                $("#dadosDoCadastroDiv01").slideUp('300',function(){
+                                $("#dadosDoCadastroDiv01").html('<p style="color:green;padding 40px;"> Este ID '+data.id_do_servico+'<br> Ja foi Cadastrado pelo colega <br>'+data.operador+'</p>');
+                                })
+                                alerta('<p style="color:green;"> Este ID '+data.id_do_servico+'<br> Ja foi Cadastrado pelo colega <br>'+data.operador+'</p>');
+                                
+
+                            }
+				
+			}
+		}
+	});
+		
+	}else{
+		alerta("prencha os campos");
+	}
+	
+	 stopDefaultEvent();
+
+}
+
+
+
+	
+function checkNovoIdDoServico(){
+	
+    var id = $("#novo_id_do_servico").val();
+    if(id){
+        aguarde(1);	
+        window.location = "index.html?di="+app.id_do_operador+"&op="+app.operador+"&id="+id;
+
+    }else{
+            alerta("prencha os campos");
+    }
+     stopDefaultEvent();
+}
+
+
+
+
+function setMenu(){
+
+var Res = '';
+var style = '';
+for(var i = 0 ; i < app.servicos.length ; i ++ ) {				
+        if ( app.servicos[i] && app.servicos[i] != 'undefined' ){	
+                if(app.servicos[i].nome == app.ficha.servicos.servico) { style = ' style="background-color: green; border: 1px solid red;" '; }
+                else { style = '';  }
+                Res = Res + '<div><button onClick="menu(this)" '+style+' >'+app.servicos[i].nome+'</button></div>';				
+        }			
+}
+$("#menuDiv01").html(Res);
+
+}
+
+
+
+function menu(thi){
+        var url = $(thi).text().toLowerCase().replace(' ','_') + '.html'
+
+        $("#menuDiv01").load(url);
+}
+
+
+</script>
+</html>

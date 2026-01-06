@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+<script src="../../js/fichaDeServico.js"></script>
+	
+<script> var app = {}; setVariaveisApp(); </script>
+	
+	
+	<style>
+		
+            #titulo {width: 100%;padding: 5px 0px; min-height: 60px;}
+            #botaoNovaFicha {height: 40px; width: 40px;border-radius: 24px;border: 3px solid #fff;}
+            #botaoNovaFicha :hover{background-color: #0c26b9;;cursor: pointer}            
+                
+            #nomeDoCliente{text-shadow: 1px 1px #fff , -1px -1px #fff ,-1px 1px #fff , 1px -1px #fff ; margin-bottom: 10px;font-size: 23px;}
+            #nomeDoCliente:hover{color: red;}
+            .classTelWhatsSms{position: relative ; width: 170px;height: 25px; margin: 5px; padding-top: 3px; border-radius: 17px; overflow: hidden; background-color: rgb(11, 141, 65); color: white; font-size: 20px;}
+            .imgSms , .imgWhatsApp{position: absolute; width: 20px;top: 0px;  height: 20px; border-radius: 17px; padding: 2px; margin: 2px; background-color: blueviolet;}
+            .imgWhatsApp { left: 0px;}
+            .imgSms{right: 0px;}
+            .outrosIcones{height: 28px; width: 28px; margin: 5px; background-color: white; border-radius: 13px;overflow: hidden; }
+            .outrosIcones img{height: 22px; width: 22px; margin: 2px;background-color: rgb(11, 141, 65); border-radius: 13px;overflow: hidden;padding: 1px; }
+            #resumoDosServicos{ margin-top: 20px; margin-bottom: 20px; }
+            #resumoDosServicos .resumoDosServicos { font-size: 12px; margin: 1px; text-transform: uppercase; background-color: #eee; color: #333;margin-left: 5px;margin-right: 5px;display: flex;flex-direction: row;flex-wrap: wrap;}
+            #resumoDosServicos .resumoDosServicos div {  cursor: pointer; margin:1px;padding: 5px; background-color: #fff; }
+            #resumoDosServicos .resumoDosServicos:hover{ background-color: #444;}
+            #resumoDosServicos .resumoDosServicos div:hover{background-color: pink;}
+            #resumoDosServicos .resumoDosServicos div a:hover{}
+            /*#resumoDosServicos .resumoDosServicos a:visited{ background-color: red; color: white;}*/
+            #td_TituloDoCliente img:hover{background-color: pink;}
+		
+            #nomeDoOperador{ max-width:100px; background-color: red;}
+		
+            #searchBar{float: right;margin-top: 2px; margin-right: 2px;position: relative;max-width:95%;}
+            #searchBar td{padding: 5px;background-color: white; }
+            #searchBar :hover{cursor: pointer}
+            #searchBar #firstSearchResult{position: absolute; display:none;right: 2px;left: 2px;top: 60px; padding: 5px;max-width: 95%;}
+		
+		#td_searchString .searchString{border-bottom-left-radius: 18px;border-top-left-radius: 18px; border: 1px solid pink; border-right: none;}
+		#td_firstSearchSelectSelected select {border: 1px solid pink; border-left: none; }
+		
+		#conteudoDiv01 table {max-width: 700px;width: 99%;}
+                
+                #conteudoDiv01  .tabelaDeResultados{ margin: 0px; margin-top: 40px;}
+		
+		#tituloTable01 img:hover,#tituloTable01 input:hover, #tituloTable01 select:hover, .tb_servicos:hover { box-shadow: 1px 1px #aaa , -1px -1px #aaa ,-1px 1px #aaa , 1px -1px #aaa ; }
+		
+		.tb_servicos{background-color: white; padding: 4%; margin: 4px; width: 90%; font-size: 11px; text-transform: uppercase; border: none; border-radius: 4px; text-align: left;}
+		.tb_servicos div{width: 100%;  text-align: left; font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif";color: blueviolet;}
+		
+		.tb_servicos div{cursor: default;}
+		
+		.classNovoRegisto{width: 100%; margin-bottom: 20px;}
+		.classNovoRegisto button {width: 150px; }
+		
+		#menuLateral td {cursor: default; }
+                
+                
+            #resultado{ width: 100%; height: 100%;}
+
+            #barra{ color: rgb(11, 141, 65);}
+            #barraDiv01{ padding: 7px; border-radius: 5px;}
+            #barra .firstSearchResult{background-color: transparent;}
+            
+            #alertaDeDivida{width: 100%;position: fixed;bottom: 0px;height: auto; max-height: 50%; display: none; }
+            #alertaDeDivida #alertaDeDivida_Div01{width: 80%; margin-left: 18%;border: 1px pink solid; padding: 7px;background-color: red; color: white;position: relative; border-radius: 10px;
+                box-shadow: 1px 1px #333 , -1px -1px #333 ,-1px 1px #333 , 1px -1px #333 ;}
+            #alertaDeDivida h3{text-shadow: 1px 1px #333 , -1px -1px #333 ,-1px 1px #333 , 1px -1px #333 ;}
+            #alertaDeDivida .resumoDasRenovacoes b:hover, #alertaDeDivida .resumoDasRenovacoes i:hover{ cursor: pointer; text-shadow: 1px 1px #333 , -1px -1px #333 ,-1px 1px #333 , 1px -1px #333 ;}
+            #alertaDeDivida .resumoDasRenovacoes b:hover{background-color: violet;}
+            .menuRodapeBotoes_div01 button{ width: 90px; overflow: hidden; }
+            
+            @media screen and (max-width : 755px){
+                #conteudoDiv01{width: 99%;overflow: hidden;}
+                #conteudoDiv01 table {width: 98%; overflow: hidden; margin-left: 0px;margin-right: 0px;}                
+                #conteudoDiv01  .tabelaDeResultados{ width: 98%; overflow: hidden; margin-left: 0px;margin-right: 0px;}
+                #conteudoDiv01  .tabelaDeResultados td { max-width: 70%;}
+                
+                #searchBar {margin-left: 0px ; margin-right: 0px; width: auto; max-width: 99%; float: none; align-items: center;  }
+                #searchBar td{ width: auto;  }
+                #searchBar .searchString{border-bottom-left-radius: 18px;border-top-left-radius: 18px; border: 1px solid pink; border-right: none;width: auto;}
+		#searchBar select {border: 1px solid pink; border-left: none; width: auto; }
+                #titulo {width: 100%;padding: 0px; min-height: 60px;}
+                #alertaDeDivida h3{padding-top: 23px; }
+                #alertaDeDivida{width: 80%;position: fixed;bottom: 0px;height: auto; max-height: 50%; display: none;right: 0; }
+                #alertaDeDivida #alertaDeDivida_Div01{width: 80%; margin-left: 0px; }
+                #firstSearchSelected{background-color: white;}
+
+            }
+		
+		
+	</style>
+	
+	
+<title> Ficha de Serviço </title>
+	
+</head>
+
+<body>
+    
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('../../html/notificacao/recebidas.html')" ></button>
+    
+    
+    <div id="alertas" class="centralizarDiv alertas" style="display: none;">
+        <div id="alertasDiv01" align="center">
+            <img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+            <p class="resutado">  </p>
+        </div>
+    </div>
+	
+    <div id="titulo" class="backGround03" >
+        <div style="width: 100%;display: table;">
+            
+            <img  id="botaoNovaFicha"  onClick="novoAgendamento()" src="../../img/plus.png" />
+            <div  id="searchBar" align="center" >
+            <table ><tr>
+                <td >
+                    <input class="searchString" id="searchString" type="number" onKeyUp="getFirstSearch(this)"  >
+                    <div id="firstSearchResult" class="firstSearchResult backGround03" >
+                        <img src="../../img/cruz.png" onClick="$('#firstSearchResult').slideUp(), $('#firstSearchResult .firstSearchResultDiv01').html('')"  class="botaoSair" alt=""/>
+                        <div class="firstSearchResultDiv01"></div>					
+                    </div>
+                </td><td >
+                    <select id="firstSearchSelected" onChange="firstSearchSelectSelected(this)"><!-- Aterar o type do input -->
+                        <option>Telefone</option><option>Nome</option><option>Id da ficha</option><option>SIM</option><option>Imei</option><option>Matrícula</option><option>Marca</option><option>Modelo</option><option>Camara UID</option><option>Data(aaaa-mm-dd)</option>
+                    </select>
+                </td>
+            </tr></table>
+            </div>
+        </div>  
+       
+       
+        <div style="width: 100%;" align="center" id="td_TituloDoCliente" ></div>
+    </div>
+	
+	
+	
+	
+	
+	<div style=" width: 100%; height: 100%; margin-bottom: 40px;">
+		
+
+            <div id="corpo" style="width: 100%; padding: 0px;">
+
+                <div id="resultado" class="centralizarDiv">
+
+                    <div id="barra" class="centralizarDiv backGround02" style="display: none;">
+                        <div id="barraDiv01" style="position: relative;" >
+                            <img src="../../img/cruz.png" onClick="fecharBarra()"  class="botaoSair" alt=""/>
+                            <div id="barraDiv02">  </div>
+                        </div>				
+                    </div>
+
+                    <div id="conteudo">
+                        <div id="conteudoDiv01" align="center"> </div>
+                    </div>		
+                </div>
+            </div>
+	
+	</div>
+	
+	
+	
+	<div id="menuRodapeCirculo" class="backGround01" ></div>
+	<div id="menuRodapeBotoes" class="backGround01" >
+            
+            <div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">
+                    <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                    <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                    <img onClick='novoAgendamento(),$("#menuRodapeBotoes").fadeOut()' src="../../img/plus.png" alt="agendamento"/>
+                    <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+            </div></div></div></div>
+		
+            <div style="position: relative ; width: 100%; max-width: 300px; " class="centralizarDiv menuRodapeBotoes_div01" >
+
+                <img onClick="$('#menuRodapeBotoes').fadeToggle()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+                
+                <button onClick="getDadosDestasTabelas(['clientes']),$('#menuRodapeBotoes').fadeOut()">Cliente</button>
+                <button onClick="getDadosDestasTabelas(['movel','imovel']),$('#menuRodapeBotoes').fadeOut()">(I)Móvel</button>
+                <button onClick="getDadosDestasTabelas(['tecnico']),$('#menuRodapeBotoes').fadeOut()">Tecnicos</button>               
+                <button onClick="getDadosDestasTabelas(['operador']),$('#menuRodapeBotoes').fadeOut()">Operadores</button>
+                <button onClick="getDadosDestasTabelas(['consumiveis_de_servicos']),$('#menuRodapeBotoes').fadeOut()">Consumiveis</button>
+                <button onClick="getDadosDestasTabelas(['requisicao']),$('#menuRodapeBotoes').fadeOut()">Requisições</button>
+                <button onClick="getDadosDestasTabelas(['agendamento']),$('#menuRodapeBotoes').fadeOut()">Agendamentos</button>
+                <button onClick="getDadosDestasTabelas(['levantamento']),$('#menuRodapeBotoes').fadeOut()">Levantamentos</button>
+                <button onClick="getDadosDestasTabelas(['movel_instalacao','movel_intervencao','imovel_instalacao','imovel_intervencao']),$('#menuRodapeBotoes').fadeOut()">Instalações</button>
+                <button onClick="getDadosDestasTabelas(['fatura']),$('#menuRodapeBotoes').fadeOut()">Faturas</button><br>
+                <button onClick="getDadosDestasTabelas(['cobranca']),$('#menuRodapeBotoes').fadeOut()">Cobranças</button>
+                <button onClick="getDadosDestasTabelas(['pagamento']),$('#menuRodapeBotoes').fadeOut()">Pagamentos</button>
+                <button onClick="getDadosDestasTabelas(['renovacao']),$('#menuRodapeBotoes').fadeOut()">Renovações</button>
+                <button onClick="getDadosDestasTabelas(['notificacao']),$('#menuRodapeBotoes').fadeOut()">Notificações</button>
+                <button onClick="getDadosDestasTabelas(['reclamacao']),$('#menuRodapeBotoes').fadeOut()">Reclamações</button>
+                <button onClick="getDadosDestasTabelas(['recarga']),$('#menuRodapeBotoes').fadeOut()">Recargas</button>
+            </div>
+	</div>
+	<img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+	
+        <div id="alertaDeDivida"><div id="alertaDeDivida_Div01">
+                <button style="right: 45px;width: 55px;background-color: greenyellow" class="botaoSair"  onClick="$('#alertaDeDivida').slideUp(),cobrarAnualidade()" >cobrar</button>
+                <img src="../../img/cruz.png" onClick="$('#alertaDeDivida').slideUp()"  class="botaoSair" alt=""/>                       
+                <div> </div>                    
+            </div></div>
+	
+</body>
+	
+<script>
+	
+	
+	
+$(document).ready(function() {
+	
+	getUser();
+
+	var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + 				rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+	
+	//console.log(app);
+	
+});
+
+	
+
+	
+	
+	
+</script>
+	
+</html>

@@ -1,0 +1,856 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+	
+<style>
+	
+    
+	#botaoDoMenuLateralEsquerdo, #botaoDoMenuLateralDireito{display: none;}
+        #botaoSairDoMenuLateral{display: none;}
+        
+	#tituloTable01{ height: 60px; border: none;}
+	#tituloTable01 td{vertical-align: middle;}
+	.identificadorDoUsuario a {margin-right: 5px;}
+
+	#nomeDoOperador{ max-width:100px; background-color: red;}
+
+	#firstSearchResult{top: 60px; padding: 5px;}
+
+	#td_searchString .searchString{border-bottom-left-radius: 18px;border-top-left-radius: 18px; border: 1px solid pink; border-right: none;}
+	#td_firstSearchSelectSelected select {border: 1px solid pink; border-left: none; }
+	
+	
+
+	/*#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0; position: relative;	display: flex;justify-content: center;}
+	*/#menuDiv01{ width: 95%; max-width: 450px; }
+	#menuDiv01 div{  vertical-align: middle; align-items: center; justify-content: center; width: 120px; height: 60px; background-color: red; margin: 5px; background-color:rgb(11, 141, 65) ; color: white; border-radius: 4px; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+
+
+	#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+	#menuDiv01 div button:hover {background-color:#0c26b9;}
+	#menuDiv01 div button img {width: 20px; height: 20px; border-radius: 11px; border: 1px solid #fff;}
+	
+	#dadosDoCadastro {padding-bottom: 20px;}
+	#dadosDoCadastro table {width: 100%; max-width: 400px; margin: 0 auto;}
+	#dadosDoCadastro input , #dadosDoCadastro select { width: 93%; border: 1px solid #eee; }
+	#dadosDoCadastro select { width: 98%; }
+	#dadosDoCadastro button { padding: 7px 2px; min-width: 80px; max-width: 100px; min-height: 65px; margin: 0px 1px; }
+	
+	#dadosDoCadastroDiv02{ padding: 20px;}
+	
+	
+	#menuEsquerdo{position: fixed; left: 0px; overflow: scroll; height: 97%; width: 19%; }
+	#menuDireito{position: fixed; right: 0px; overflow: scroll; height: 97%; width: 19%; }
+	#corpo{ width: 100%;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades {background-color: cornsilk; width: 100%;color: rgb(11, 141, 65);  margin: 0; text-transform: uppercase; font-size: 10px; text-align: center; border-left: 1px solid pink; border-right: 1px solid pink;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades tr{ border:none; border-top: 1px solid pink;cursor: pointer; }
+	.menuLateral .tabelaDeProdutos_e_Quantidades tr:hover, .menuLateral tr:hover { font-weight: bold;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades td{ border:none; padding: 7px; border: none; text-shadow: 1px 1px 1px #eee;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades .imgDoProd{position: relative;padding:0px; width:55px;border:none;overflow: hidden;}
+	.menuLateral .tabelaDeProdutos_e_Quantidades .imgDoProd img { position: absolute;margin: 0px; padding: 0; width:50px;height: 50px;top:2px;left:2px }
+	.info_ { margin-top: 5px; width: 24px;height: 24px;border-radius: 12px;text-align: center;background-color: black; color: white;text-transform: lowercase;font-size: 18px; font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";overflow: hidden;}
+	
+	.tabelaDeProdutos_e_Quantidades .miniTab, .tabelaDeProdutos_e_Quantidades .miniTab tr,  .tabelaDeProdutos_e_Quantidades .miniTab td {margin: 0;padding: 0;border: none;}
+	.tabelaDeProdutos_e_Quantidades .miniTab td {padding: 5px;}
+	
+	#tituloTable01 #firstSearchResultDiv01{position: absolute; width:95%;  z-index: 10;  overflow: hidden; padding: 2%; margin-right: 1%; display: none; border-radius: 2px;}
+	#tituloTable01 .firstSearchResultDiv01{ width: 99.4%;  z-index: 10; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; overflow: hidden; }
+	#tituloTable01 .firstSearchResultDiv01 p{ width: 100%; margin: 0; padding: 0px; border: none;}
+	#tituloTable01 .firstSearchResultDiv01 .firstSearchResultInput_class { width: 98%; padding:  7px 5px ; margin: 3px 2px; border: 1px solid red; text-align: left; background-color: transparent; color: rgb(11, 141, 65); }
+	#tituloTable01 .firstSearchResultDiv01 p input { background-color: white; border: none;}
+	#tituloTable01 .firstSearchResultDiv01 p input:hover { box-shadow: 1px 1px #aaa , -1px -1px #aaa ,-1px 1px #aaa , 1px -1px #aaa ; color:darkblue;}
+	#tituloTable01 .firstSearchResultDiv01 p .firstSearchResultInput_class {background-color: white;border: none; border-radius: 2px;}
+	
+	.prod_para_movimentar td {border-right: 1px solid pink;}
+	.prod_para_movimentar .tdValor input {width: 50px;}
+	.prod_para_movimentar td img { position: absolute; top: 7px; left: 5px; background-color: red;width: 35px;height: 35px; border-radius: 18px; padding: 1px;}
+        #botaoSearch { position:absolute;right:15px; top: -10px;height:30px; width: 30px;border-radius:21px;border:solid 1px #eee;padding:5px;}
+        #botaoSearch:hover { background-color: #E9C5F4;}
+        
+        #search { display: none; z-index: 90; width: 100%; margin: 0; padding: 0; position: fixed;}        
+        #search #alertasDiv01 { box-shadow: 0 0 10px #eee;border-radius: 3px; width: 300px;}			
+        #search #alertasDiv01 #inputCodigo { margin: 5px;text-align: center;font-size: 18px;}			
+        #search #alertasDiv01 .botaoSair { position:relative;margin-bottom: 10px;}			
+        
+    
+    @media screen and (max-width : 755px){
+        #dadosDoCadastro {margin: 0px auto; width: 100%; }
+        #corpo {margin: 0px auto; width: 100%; }
+        #dadosDoCadastroDiv02 { margin: 0px auto;  }
+        #menuEsquerdo,#menuDireito{display: none; height: 85%; width: 78%;left: 20%; max-width: 300px; z-index: 80;background-color: white;top: 40px;
+                       box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+        #botaoDoMenuLateralEsquerdo, #botaoDoMenuLateralDireito {display: block; position: fixed; top: 0px; width: 35px; height: 35px; border-radius: 18px;
+                    background-color: black;color: white;text-align: center;padding: 0px; margin: 0px;font-size: 32px;  
+                    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+        #botaoDoMenuLateralEsquerdo {left: 0px; }
+        #botaoDoMenuLateralDireito {right: 0px; }
+        #botaoSairDoMenuLateral{display: block;left: 10px;z-index: 91;top: -4px;}
+        #dadosDoCadastroDiv01_Div01{width: 100%;margin-left: 0px; margin-right: 0px;}
+        #dadosDoCadastroDiv01_Div01_tb01{width: 100%;margin-left: 0px; margin-right: 0px;}
+        .tabelaDeResultados{width: 100%; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px;}
+        
+    }
+
+</style>
+	
+<title> Guia De Marcha </title>
+</head>
+
+<body>
+    
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('../../html/notificacao/recebidas.html')" >23</button>
+    
+    <div id="search" align="center" >
+        <div id="alertasDiv01" align="center" class="backGround01" >			
+            <div class="resutado">
+                <input id="inputCodigo" type="search" placeholder="Codigo" onkeyup="getProdutosNaTabelaEspecificaPorCodigo(this)" > 
+                <img  onClick="botaoSairDoSearch()" class="botaoSair"  src="../../img/cruz.png"  alt=""/>
+            </div>
+      </div>
+    </div>
+    <!--
+	<div id="search" class="centralizarDiv  alertas" style="display: none; z-index: 90;" >
+            <div id="alertasDiv01" align="center" class="backGround01" style="box-shadow: 0 0 10px #eee;border-radius: 3px;">			
+                <div class="resutado">
+                    <input type="search" placeholder="Codigo" onkeyup="getProdutosNaTabelaEspecificaPorCodigo(this)" style="margin: 5px;text-align: center;" > 
+                    <img   class="botaoSair" style="position:relative;margin-bottom: 10px;" src="../../img/cruz.png"  alt=""/>
+                </div>
+	  </div>
+	</div>
+    -->
+	<div id="alertas" class="centralizarDiv  alertas" style="display: none; z-index: 90;" >
+		<div id="alertasDiv01" align="center" style="box-shadow: 0 0 10px #eee;">
+			<img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+			<div class="resutado"> </div>
+	  </div>
+	</div>
+    
+    <div id="botaoDoMenuLateralEsquerdo"  onClick="$('#menuEsquerdo').fadeToggle(),$('#menuDireito').fadeOut()" >O</div>
+    <div id="botaoDoMenuLateralDireito"  onClick="$('#menuDireito').fadeToggle(),$('#menuEsquerdo').fadeOut()" >D</div>
+    	
+	<div id="corpoGeral" style=" width: 100%; height: 100%; margin-bottom: 40px;">
+		<div class="menuLateral" id="menuEsquerdo">		</div>	
+		<div class="menuLateral" id="menuDireito">		</div>
+
+		<div id="corpo" align="center" style="width: 100%;">
+
+			<div id="dadosDoCadastro" align="center">
+				<h4 align="center" style="margin: 15px;">Guia de Marcha </h4>
+				<p align="center" style="font-size: 12px;margin: 0px;margin-bottom: 30px;" >Selecione a origem e o destino do produto / Duplo click no produto para adiciona-lo </p> 
+				
+				<div id="dadosDoCadastroDiv01">
+
+					<div style="width:100%;">
+						<form id="tabelasDeEntrada_e_saida">
+							<table class="tabelaDeResultados " align="center"><tr><td>		
+								<select id="tabela_de_origem" name="tabela_de_origem" onChange="getProdutosNaTabelaEspecifica(this,'menuEsquerdo')" >
+									<option >Seleccione a Orígem</option>
+									<option value="stock_central" > stock central </option>		
+									<option value="stock_lojas" > stock das lojas </option>		
+									<option value="stock_tecnicos" > stock dos tecnicos </option>		
+									<option value="stock_escritorio" > stock do escritorio </option>		
+									<option value="stock_cozinha" > stock da cozinha </option>
+
+								</select>
+							</td><td>
+								<select id="tabela_de_distino" name="tabela_de_distino" onChange="getProdutosNaTabelaEspecifica(this,'menuDireito')">
+									<option  >Seleccione o Distino</option>		
+									<option value="stock_central" > stock central </option>		
+									<option value="stock_lojas" > stock das lojas </option>		
+									<option value="stock_tecnicos" > stock dos tecnicos </option>		
+									<option value="stock_escritorio" > stock do escritorio </option>		
+									<option value="stock_cozinha" > stock da cozinha </option>		
+								</select>
+
+							</td></tr></table>
+						</form>
+						<br>
+						
+						
+						<div id="dadosDoCadastroDiv01_Div01"><p align="center" >Duplo click no produto para adicionar produtos</p> </div>
+						<br>
+						<form id="formNovoProduto">
+							<div id="dadosDoCadastroDiv01_Div02"> </div>
+						</form>
+						
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		
+		
+		
+	</div>
+	
+	
+	<div id="menuRodapeCirculo" class="backGround01" ></div>
+	<div id="menuRodapeBotoes" class="backGround01"  style="width: 260px">
+		<div  align="center" style="width: 100%; margin: 0; padding: 0;"><div style="position: relative;"><div id="menuRapido"><div class="centralizarDiv">                            
+                        <img onClick='novaPagina("../configuracaoDoUsuario/configuracao.html")' id="fotoDoOperador" src="../../img/user.svg" alt="perfil"/>
+                        <img onClick='novaPagina("../../index.html")' src="../../img/logotipo_home.png" alt="home"/>
+                        <img onClick='novaPagina("../fichas/fichaDeServico.html")' src="../../img/plus.png" alt="agendamento"/>
+                        <img onClick='novaPagina("../notificacao/recebidas.html")' src="../../img/sms.png" alt="notificações"/>
+                </div></div></div></div>
+                <button style="width: 120px" onClick='novaPagina("guiaDeMarcha.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Marcha</button>
+		<button style="width: 120px" onClick='novaPagina("guiaDeCompra.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Compra</button>
+		<button style="width: 120px" onClick='novaPagina("guiaDeConsumo.html"),$("#menuRodapeBotoes").fadeOut()' >Guia de Consumo</button>
+		<button style="width: 120px" onClick='novaPagina("existencias.html"),$("#menuRodapeBotoes").fadeOut()' >Existências</button>
+		<button style="width: 120px" onClick='novaPagina("cadastrosDefeituosos.html"),$("#menuRodapeBotoes").fadeOut()' >Limpeza</button>
+		<button style="width: 120px" onClick='novaPagina("relatorios.html"),$("#menuRodapeBotoes").fadeOut()' >Relatórios</button>
+            </div>
+	<img  id="menuRodapeLogo" onClick="$('#menuRodapeBotoes').fadeToggle()" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+
+	
+</body>
+	
+	
+<script>
+
+$(document).ready(function(){
+
+	getUser();
+	
+	getOperadores();
+	
+	
+	var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+	
+	
+	
+});
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+function  mostrarProdutosEmStockNaOrigem(thi){
+
+	if(thi.value != 'Seleccione a Orígem'){
+		
+		
+	}
+	
+	
+	
+}
+	
+	
+
+
+
+	
+		
+		
+function getProdutosNaTabelaEspecifica(thi,id){
+
+	stopDefaultEvent();
+        
+	app.onkeyup == null; //reniciar e limpar a selecao por codigo
+	//Resetar a selecao e os dados
+	app.stock.produtos = [];
+	$("#dadosDoCadastroDiv01_Div01").html('<p align="center" >Duplo click no produto para adicionar produtos</p>');
+	$("#dadosDoCadastroDiv01_Div02").html("");
+	
+	if($("#tabela_de_distino").val() == 'stock_central' && $("#tabela_de_origem").val() == 'stock_central' ){
+		alerta("A Origem deve ser diferente do distino");
+		
+	}else if(!(thi.value == 'Seleccione a Orígem' || thi.value == 'Seleccione o Distino')){
+		
+		var tabela = thi.value;
+		
+		var param = {'bd': 'netcoaos_stockv3', 'tabela':tabela, 'operador':app.operador, 'id_do_operador': app.id_do_operador }
+
+		aguarde(1);        
+                $.ajax({
+                    url:"../../php/stock/getProdutosNaTabelaEspecifica.php",
+                    data: { 'dados':JSON.stringify(param) },
+                    dataType:"json",
+                    async:true,
+                    type:"POST",
+                    error: function (data){
+                            if(navigator.onLine) { 
+                                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                            }else{  
+                                    alerta('Não há Internet') ;
+                            }
+                    },
+                    success: function(data){
+                        aguarde();
+                        console.log(data);
+                        if(data.status){
+
+                           $("#"+id).html('<h4 align="center" style="position:relative">'
+                                    +'<img id="botaoSairDoMenuLateral" onClick="botaoSairDosMenusLaterais()" class="botaoSair" src="../../img/cruz.png"  alt=""/>'
+                                    +'<img id="botaoSearch" onClick="openSearch(\''+tabela+'\',\''+id+'\')"   src="../../img/search.png">'
+                                    +(id=="menuEsquerdo"?"Origem":"Distino")+'</h4>'+data.sucesso );
+
+                        }else{ 
+                                if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                        }
+                    }
+		});
+	}
+}
+
+
+
+function openSearch(tabela,div){
+   $('#search').fadeToggle();
+   document.getElementById('search').getElementsByTagName('input')[0].name = div;
+   document.getElementById('search').getElementsByTagName('input')[0].className = tabela;
+   $("#inputCodigo").focus();
+}
+
+
+
+	
+		
+		
+function getProdutosNaTabelaEspecificaPorCodigo(thi){
+
+
+    stopDefaultEvent();
+    
+    var id = thi.name;
+    var tabela = thi.className;
+
+    //Resetar a selecao e os dados
+    console.log (app.onkeyup);
+    if(app.onkeyup == null){
+        app.stock.produtos = [];
+        $("#dadosDoCadastroDiv01_Div01").html('<p align="center" >Duplo click no produto para adicionar produtos</p>');
+        $("#dadosDoCadastroDiv01_Div02").html("");
+    }
+
+    if($("#tabela_de_distino").val() == 'stock_central' && $("#tabela_de_origem").val() == 'stock_central' ){
+            alerta("A Origem deve ser diferente do distino");
+
+    }else if(!($("#tabela_de_distino").val() == 'Seleccione a Orígem' || $("#tabela_de_origem").val() == 'Seleccione o Distino')){
+
+	if(!(app.onkeyup)){
+            setTimeout(function(){
+    			
+		var param = {'bd': 'netcoaos_stockv3', 'tabela':tabela, 'operador':app.operador, 'id_do_operador': app.id_do_operador , codigo:thi.value }
+		 
+                $.ajax({
+                    url:"../../php/stock/getProdutosNaTabelaEspecificaPorCodigo.php",
+                    data: { 'dados':JSON.stringify(param) },
+                    dataType:"json",
+                    async:true,
+                    type:"POST",
+                    error: function (data){
+                            if(navigator.onLine) { 
+                                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                            }else{  
+                                    alerta('Não há Internet') ;
+                            }
+                    },
+                    success: function(data){
+                        
+                        console.log(data);
+                        if(data.status){
+                            
+                            thi.style.color = 'green';
+                            
+                            var htmml = ('<h4 align="center" style="position:relative">'
+                                    +'<img id="botaoSairDoMenuLateral" onClick="botaoSairDosMenusLaterais()" class="botaoSair" src="../../img/cruz.png"  alt=""/>'
+                                    +'<img id="botaoSearch" onClick="openSearch(\''+tabela+'\',\''+id+'\')"   src="../../img/search.png">'
+                                    +(id=="menuEsquerdo"?"Origem":"Distino")+'</h4>'+data.sucesso );
+                            
+                          
+                            $("#"+id).html(htmml );
+                            
+                        }else{
+                            $("#"+id).html('<p style="color:red" align="center"><b>"'+thi.value+'"<br>Não Encontrado</b></p>' );
+                            thi.style.color = 'red';
+                        }
+                        
+                        app.onkeyup = false;
+                    }
+		});
+                
+            },1500);
+
+            app.onkeyup = true;
+        }
+    }
+}
+
+
+
+
+
+
+function botaoSairDosMenusLaterais(){
+    $('#menuDireito').fadeOut();
+    $('#menuEsquerdo').fadeOut(); 
+    botaoSairDoSearch();
+    
+    setTimeout(function(){
+       document.getElementById("menuDireito").style.display = 'none'; 
+       document.getElementById("menuEsquerdo").style.display = 'none'; 
+    },600)
+    
+}
+	
+
+
+function botaoSairDoSearch(){
+    $('#search').fadeOut(); 
+    document.getElementById('search').getElementsByTagName('input')[0].name = '';
+    document.getElementById('search').getElementsByTagName('input')[0].className = '';
+}
+	
+
+function selecionarProduto_(id,nome_do_produto,codigo,qtd,thi){
+	
+	var origem = $("#tabela_de_origem").val();
+	var distino = $("#tabela_de_distino").val()
+
+	if( origem == 'Seleccione a Orígem' || distino == 'Seleccione o Distino' ){
+		alerta("Selecione a origem e o destino do produto");
+
+	}else if( origem == 'stock_central' && distino == 'stock_central' ){
+		alerta("A origem deve ser diferente do distino");
+		
+	}else{
+		
+		var stop = true;
+
+		if(thi.parentElement.parentElement.parentElement.parentElement.id != 'menuEsquerdo'){
+			stop = false;
+			alerta("Mova os produdutos da origem para o distino");
+		}
+
+		$(".td_produto").css('backgroundColor','transparent').css('color','rgb(148, 0, 211)');
+		setTimeout(function(){
+			$(thi).css('background-color','rgb(148, 0, 211)').css('color','rgb(254, 254, 254)');
+		},250);
+
+		var i = 0;
+		
+
+		while(app.stock.produtos && app.stock.produtos[i]){
+			if(app.stock.produtos[i].id == id && app.stock.produtos[i].nome_do_produto == nome_do_produto){
+				alerta("Este Produto já foi selecionado");
+				stop = false;
+				break;
+			}
+			i++;
+		}
+		
+
+		if(stop){
+
+			var n = 0;
+			while($("#menuDireito .nome_do_produto_")[n]){
+				var nomeDoProduto_distino = $("#menuDireito .nome_do_produto_")[n];
+				if($(nomeDoProduto_distino).text() == nome_do_produto){
+					$(nomeDoProduto_distino).css('border','red 2px solid');
+					break;
+				}
+				n++;
+			}
+
+
+			var input = '<input style="width:50px;" type="number" value="1" name="quantidade" ><input type="hidden" value="'+id+'" name="id_de_origem" >';
+			
+			if(i == 0){
+
+				app.stock.produtos[i] = {};
+				app.stock.produtos[i].id = id;
+				app.stock.produtos[i].nome_do_produto = nome_do_produto;
+				app.stock.produtos[i].quantidade = qtd;
+				app.stock.produtos[i].codigo = codigo;
+
+				getDadosDaGuiaDeMarcha(); 
+
+				var tb = '<h4>Produtos Selecionados</h4><table class="tabelaDeResultados " align="center" ><tbody id="dadosDoCadastroDiv01_Div01_tb01"></tbody></table>';
+				var tr = '<tr id="prod_para_movimentar'+i+'" class="prod_para_movimentar" >'+
+					'<td style="width:40%;padding:20px 2px;" class="tdNome">'+nome_do_produto+'</td>'+
+					'<td style="width:40%;padding:20px 2px;" class="tdNome">'+codigo+'</td>'+
+					'<td class="tdNome" align="center" >'+qtd+'<br>un</td>'+
+					'<td class="tdValor" align="center" >'+input+'</td>'+
+					'<td style="position: relative;width:40px;padding:0;margin:0;border:none;" ><img onClick="removerProdutoSelecionado(\''+i+'\')" src="../../img/cruz.png"  alt=""/></td></tr>';
+				
+				$("#dadosDoCadastroDiv01_Div01").html(tb);
+				$("#dadosDoCadastroDiv01_Div01_tb01").append(tr);
+				$("#dadosDoCadastroDiv01_Div01").slideDown();
+
+			}else{
+
+				app.stock.produtos[i] = {};
+				app.stock.produtos[i].id = id;
+				app.stock.produtos[i].nome_do_produto = nome_do_produto;
+				app.stock.produtos[i].quantidade = qtd;
+				app.stock.produtos[i].codigo = codigo;
+
+				var tr = '<tr id="prod_para_movimentar'+i+'" class="prod_para_movimentar" >'+
+					'<td style="width:40%;padding:20px 2px;" class="tdNome">'+nome_do_produto+'</td>'+
+					'<td style="width:40%;padding:20px 2px;" class="tdNome">'+codigo+'</td>'+
+					'<td class="tdNome" align="center" >'+qtd+'<br>un</td>'+
+					'<td class="tdValor" align="center" >'+input+'</td>'+
+					'<td style="position: relative;width:40px;padding:0;margin:0;border:none;" ><img onClick="removerProdutoSelecionado(\''+i+'\')" src="../../img/cruz.png"  alt=""/></td></tr>';
+				
+				$("#dadosDoCadastroDiv01_Div01_tb01").append(tr);
+
+			}
+		}
+		//window.scrollTo(0, 0);
+	}
+	
+}
+	
+	
+	
+
+	
+	
+function getDadosDaGuiaDeMarcha(){
+
+	stopDefaultEvent();
+	$("#dadosDoCadastroDiv01_Div01").slideUp();
+	
+	if(app.stock.produtos && app.stock.produtos[0]){
+
+		var origem = $("#tabela_de_origem").val();
+		var distino = $("#tabela_de_distino").val()
+
+		if( origem == 'Seleccione a Orígem' || distino == 'Seleccione o Distino' ){
+			alerta("Selecione a origem e o destino do produto");
+			
+		}else{
+
+			var select = [{'nome':'nome_do_receptor',valor:app.stock.operadores},{'nome':'nome_do_emissor',valor:app.stock.operadores}];
+
+			var param = {'bd': 'netcoaos_stockv3', 'operador':app.operador, 'tabela_de_origem':origem, 'tabela_de_distino':distino, 'id_do_operador': app.id_do_operador,'id_do_produto': app.stock.produtos.id_do_produto , 'select': select ,'nome_da_guia':'Guia de Marcha'};
+
+			aguarde(1);        
+                        $.ajax({
+				url:"../../php/stock/getDadosDaGuiaDeMarcha.php",
+				data: { 'dados':JSON.stringify(param) },
+				dataType:"json",
+				async:true,
+				type:"POST",
+				error: function (data){
+					if(navigator.onLine) { 
+						alerta('<b style="color:red">Houve um erro actualize a página</b>');
+					}else{  
+						alerta('Não há Internet') ;
+					}
+				},
+				success: function(data){
+                                    aguarde();
+				   console.log(data);
+					if(data.status){
+						$("#dadosDoCadastroDiv01_Div02").html(data.sucesso + '<br><br><div id="divbotoes_" style="width:100%"></div>').slideDown();
+
+						$("#divbotoes_").html('<div>'+
+								    '<button class="btn2" onClick="selecao(this),cancelar()"> Cancelar Guia </button>'+
+									'<button class="btn2" onClick="selecao(this),criarGuia()"> Criar Guia </button>'+
+								    '</div>');
+
+					}else{ 
+						if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+					}
+				}
+			});
+		}
+		
+	}else{
+		alerta("Seleccione um Produto");
+	}
+	
+}
+	
+	
+	
+	
+	
+function removerProdutoSelecionado(i){
+	app.stock.produtos[i]={};
+	$("#prod_para_movimentar"+i).html('');
+}
+
+	
+	
+	
+	
+	
+	
+function criarGuia(){
+	
+	stopDefaultEvent();
+	var i = 0;
+	var p = 0;
+	var produtosSelecionados = [];
+	var prods = document.getElementsByClassName("prod_para_movimentar");
+	while(prods[i] || prods[(i+1)]){
+		
+		var inpuut = (prods[i].getElementsByTagName('input'))
+
+		if(prods[i] && inpuut &&  inpuut[0].value && inpuut[1].value){
+			produtosSelecionados[p] = {};
+			produtosSelecionados[p][inpuut[0].name] = inpuut[0].value;
+			produtosSelecionados[p][inpuut[1].name] = inpuut[1].value;
+			p++;
+		}
+		i++;
+	}
+	
+	var dados_da_guia = $("#formNovoProduto").serializeArray();
+	dados_da_guia.status = true;
+	
+	i = 0;
+	while(dados_da_guia[i]){
+		if( dados_da_guia[i].name == 'detalhes_da_guia' || dados_da_guia[i].name == 'nome_do_emissor' || dados_da_guia[i].name == 'nome_do_receptor' ){
+			if(!(dados_da_guia[i].value)) {
+				dados_da_guia.status = false; 
+				alerta('Preencha os campos todos !')
+				break;
+			}
+		}
+		i++;
+	}
+	
+	if(dados_da_guia.status && confirm('Pretende efectuar movimentos no stock ?')){
+		
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/stock/criarGuiaDeMarcha.php",
+			data: { 'dados':JSON.stringify({dados_da_guia:dados_da_guia,produtosSelecionados:produtosSelecionados}) },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+			   console.log(data);
+				if(data.status){
+                                    
+
+					$("#dadosDoCadastroDiv01_Div01").slideUp('300',function(){
+						$("#dadosDoCadastroDiv01_Div01").html('<p style="color:green;padding 40px;">Guia de Marcha Nº '+data.numero_da_guia+'</p>');
+						$("#dadosDoCadastroDiv01_Div01").slideDown();
+						$("#dadosDoCadastroDiv01_Div02").fadeOut();
+						$("#menuEsquerdo").html('');
+						$("#menuDireito").html('');
+                                                document.getElementById("tabelasDeEntrada_e_saida").reset();
+
+					})
+
+				}else{ 
+					if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+				}
+			}
+		});
+
+	}
+}
+
+		
+	
+
+		
+	
+	
+	
+	
+	
+function cancelar(texto){
+	if(!(texto)) {
+		texto = 'Cadastrado cancelado';
+	}
+	app.stock.produtos = [];
+	$("#dadosDoCadastroDiv01_Div01").slideUp('300',function(){
+		$("#dadosDoCadastroDiv01_Div01").html('<p style="color:green;padding 40px;"> '+texto+'</p>');
+		$("#dadosDoCadastroDiv01_Div02").html('');
+	})
+}
+	
+	
+	
+	
+		
+	
+function getUser(){
+	if(window.location.href.indexOf('&') > -1){
+		aguarde(1);        
+                $.ajax({
+			url:"../../php/ficha/getUser.php",
+			data: { 'url':window.location.href },
+			dataType:"json",
+			async:true,
+			type:"POST",
+			error: function (data){
+				if(navigator.onLine) { 
+					alerta('<b style="color:red">Houve um erro actualize a página</b>');
+				}else{  
+					alerta('Não há Internet') ;
+				}
+			},
+			success: function(data){
+                            aguarde();
+
+                            if(data.status){
+
+                                app.operador = data.operador ? data.operador : false
+                                app.email = data.email ? data.email : false
+                                app.telefone = data.telefone ? data.telefone : false;				
+                                app.imagem = data.imagem ? data.imagem : false
+                                app.id_do_operador = data.id ? data.id : false
+                                app.estado = data.estado ? data.estado : false
+                                app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                                app.categoria = data.categoria ? data.categoria : false
+                                app.funcao = data.funcao ? data.funcao : false
+                                app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                                if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                                if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+                                getNotificacoesNaoRespondidas();
+                                
+                            }else{ 
+                                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+
+                            }
+			}
+		});
+	}
+
+	stopDefaultEvent();
+	
+}
+
+
+	
+	
+
+	
+	
+	
+	
+			
+function getOperadores(){
+
+	stopDefaultEvent();
+		
+	var param = {'bd': 'netcoaos_cachv3', 'tabela':'funcionarios', 'operador':app.operador, 'id_do_operador': app.id_do_operador }
+
+	$.ajax({
+		url:"../../php/stock/getOperadores.php",
+		data: { 'dados':JSON.stringify(param) },
+		dataType:"json",
+		async:true,
+		type:"POST",
+		error: function (data){
+			if(navigator.onLine) { 
+				alerta('<b style="color:red">Houve um erro actualize a página</b>');
+			}else{  
+				alerta('Não há Internet') ;
+			}
+		},
+		success: function(data){
+		   console.log(data);
+			if(data.status){
+				app.stock.operadores = data.sucesso ;
+
+			}else{ 
+				if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+			}
+		}
+	});
+}
+
+	
+	
+	
+	
+function mostrarDetalhesDoProduto(identificador,thi){
+	
+	$(".detalhesDoProduto").fadeOut('200');
+	
+	//console.log($(".imgIndicacaoParaCima")[1].css('display'));
+	
+	var i = 0;
+	while($(".imgIndicacaoParaCima")[i]){
+		var cima = $(".imgIndicacaoParaCima")[i];
+		
+		console.log($(cima).css('display'));
+		if($(cima).css('display') == 'block'){
+			$(cima).slideUp();
+			var baixo = $(".imgIndicacaoParaBaixo")[i];
+			$(baixo).slideDown();
+		}
+		
+		i++;
+	}
+	
+	$(".imgIndicacaoParaCima").fadeOut('200');
+	$(".td_detalhes").css('backgroundColor','transparent').css('color','rgb(148, 0, 211)')
+	setTimeout(function(){
+		if(thi.children[1].style.display == 'block'){
+			$("#"+identificador).fadeOut();
+			thi.children[0].style.display = 'block';
+			thi.children[1].style.display = 'none';
+		}else{
+			$("#"+identificador).fadeIn();
+			thi.children[0].style.display = 'none';
+			thi.children[1].style.display = 'block';
+			$(thi).css('background-color','rgb(148, 0, 211)').css('color','rgb(254, 254, 254)');
+		}
+	},250);
+		
+}
+
+	
+	
+	
+function selecao(thi){
+	var clas = (thi.className);
+	$("." + clas).animate({'padding-bottom':'7px','background-color':'rgb(239, 239, 239)' , 'color': '#000'},300, function(){
+		$("." + clas).css({'background-color':'rgb(239, 239, 239)' , 'color': '#000', 'border':'none'});
+		$(thi).animate({'padding-bottom':'25px','background-color':'rgb(11, 141, 65)' , 'color': 'white'},300,function(){
+			$(thi).css({'background-color':'rgb(11, 141, 65)' , 'color': 'white', 'border':'1px solid #000', 'border-radius':'2px'});
+		});
+	});
+}
+
+
+	</script>
+</html>

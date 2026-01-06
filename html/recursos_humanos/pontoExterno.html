@@ -1,0 +1,508 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/index.css" />
+
+
+	
+<script src="../../jquery/jquery.js"></script>
+<script src="../../js/funcoes.js"></script>
+<script src="../../js/variaveis.js"></script>
+<script src="../../js/index.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+	
+<style>
+
+	/*#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0; position: relative;	display: flex;justify-content: center;}
+	*/#menuDiv01{ width: 95%; max-width: 450px; }
+	#menuDiv01 div{  vertical-align: middle; align-items: center; justify-content: center; width: 120px; height: 60px; background-color: red; margin: 5px; background-color:rgb(11, 141, 65) ; color: white; border-radius: 4px; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+
+
+	#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+	#menuDiv01 div button:hover {background-color:#0c26b9;}
+	#menuDiv01 div button img {width: 20px; height: 20px; border-radius: 11px; border: 1px solid #fff;}
+	
+	#dadosDoCadastro {padding-bottom: 20px;}
+	#dadosDoCadastro table {width: 100%; max-width: 400px; margin: 0 auto;}
+	#dadosDoCadastro input , #dadosDoCadastro select { width: 93%; border: 1px solid #eee; }
+	#dadosDoCadastro select { width: 98%; }
+	#dadosDoCadastro button { padding: 7px 2px; min-width: 80px; max-width: 100px; min-height: 65px; margin: 0px 1px; }
+	
+	#dadosDoCadastroDiv02{ padding: 20px;}
+        
+        .listaDosFuncionarios  { width: 99%; max-width: 500px; color: #222; padding: 10px; }
+        .listaDosFuncionarios form { background-color: pink; margin: 40px 0px; padding: 10px; border-radius: 3px; }
+        .listaDosFuncionarios form b { max-width: 100px; cursor: pointer; margin: 3px; padding: 3px; border-radius: 15px; font-size: 16px; font-weight: 100; border: 1px solid #444;}
+        .listaDosFuncionarios #tb_selectBtn td {cursor: pointer; font-size: 16px; font-weight: 100;  width: 30%;}
+        .listaDosFuncionarios #tb_selectBtn div { background-color: #eee;margin: 10px;padding: 10px; border-radius: 3px;border: 1px solid #ddd;}
+        .listaDosFuncionarios #tb_selectBtn td input {margin: 5px;margin-left: 0px;}
+        .listaDosFuncionarios td img {height: auto; width: 100px;}
+        
+        .listaDosFuncionarios button:hover,.listaDosFuncionarios b:hover,.listaDosFuncionarios td div:hover ,
+        .listaDosFuncionarios #tb_selectBtn div:hover { cursor: pointer; box-shadow: 1px 1px #333 , -1px -1px #333 ,-1px 1px #333 , 1px -1px #333 ;background-color: violet; color: white;}
+        .listaDosFuncionarios td div { background-color: #eee;margin: 10px;padding: 10px; border-radius: 3px;border: 1px solid #ddd;}   
+        .listaDosFuncionarios td div strong {font-size: 12px;}   
+        .listaDosFuncionarios td div input { width: 85%;max-width: 120px;}   
+        .listaDosFuncionarios td div textarea { width: 90%; margin: 5px; min-height: 55px;padding: 5px;} 
+        
+        #data_{ background-color: rgb(11, 141, 65); color: white; font-weight: 500; width: 150px; height: 150px; border-radius: 75px;overflow: hidden;}
+        #dia {padding-top: 40px; margin: 0;}
+        #hora{font-size: 180%; margin: 0px;}
+        #relogio{position: fixed; left: 20px;bottom: 65px;}
+        #relogio b {font-size: 180%;}
+        
+
+</style>
+	
+<title> Livro de ponto </title>
+</head>
+
+<body>
+    	
+    <div id="alertas" class="centralizarDiv  alertas" style="box-shadow: 0 0 10px #eee;display: none; z-index: 90;" >
+            <div id="alertasDiv01" align="center">
+            <img onClick="alerta()" class="botaoSair" src="../../img/cruz.png"  alt=""/>
+            <div class="resutado"> </div>
+      </div>
+    </div>
+
+
+
+
+    <div id="dadosDoCadastro" align="center" >
+        
+        <div class="centralizarDiv" style="margin: 20px;">
+            <img id="fotoDoOperador" style="width: 150px; height: 150px; border-radius: 75px;overflow: hidden;border: 1px solid rgb(11, 141, 65); " src="../../img/user.svg" alt="perfil"/>
+            <div id="data_">
+                <p id="dia"></p>
+                <p id="hora"></p>
+            </div>
+        </div>
+        
+        <div id="falta"></div>
+
+        <div align="center">
+            <button style="border:2px solid green;border-radius:3px;margin: 20px;margin-left: 50px;" onclick="getLivroDePontoExterno('entrada')" >ENTRADA</button> 
+            <button style="border:2px solid blue;border-radius:3px;margin: 20px;margin-left: 50px;" onclick="getLivroDePontoExterno('saida')"  >SAÍDA</button> 
+        </div>
+
+        <div id="dadosDoCadastroDiv01" ></div>	
+        
+         <div align="center">
+            <button style="border:2px solid red;border-radius:3px;margin: 20px;color:red;margin-left: 50px;" onclick="window.history.back();" >FECHAR JANELA</button> 
+           
+        </div>
+        
+    </div>
+
+
+    <div id="relogio"></div>
+    <img onclick="window.history.back()"  id="menuRodapeLogo" src="../../img/logotipo_cachtec.png" alt=""/>
+	
+</body>
+	
+	
+<script>
+
+$(document).ready(function(){
+
+	getUser();
+        
+        var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+	var cores = [];
+	for(var a = 0; a < 3 ; a++){
+		cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] ;
+	}
+
+	$(".backGround01").css("background-color",cores[0]);
+	$(".backGround02").css("background-color",cores[1]);
+	$(".backGround03").css("background-color",cores[2]);
+	
+});
+
+
+
+
+	
+function getUser(){
+   
+    stopDefaultEvent();
+    if(window.location.href.indexOf('=') > -1){
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/recursos_humanos/login.php",
+            data: { 'url':window.location.href },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                    alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+                aguarde();
+                console.log(data);
+                    if(data.status){
+
+                    app.operador = data.operador ? data.operador : false
+                    app.email = data.email ? data.email : false
+                    app.telefone = data.telefone ? data.telefone : false;				
+                    app.imagem = data.imagem ? data.imagem : false
+                    app.id_do_operador = data.id ? data.id : false
+                    app.estado = data.estado ? data.estado : false
+                    app.telefone_2 = data.telefone_2 ? data.telefone_2 : false
+                    app.categoria = data.categoria ? data.categoria : false
+                    app.funcao = data.funcao ? data.funcao : false
+                    app.idPrincipal = data.idPrincipal ? data.idPrincipal : false
+
+                    if(app.imagem)$("#fotoDoOperador").attr('src','../../'+app.imagem);				
+                    if(app.operador)$("#nomeDoOperador").text(app.operador);
+
+                    if( app.estado > 0 ){
+                        getDataHora();
+                    }else{
+                        alerta("Voce não esta autorizado ! ! !");
+                        setTimeout(function (){
+                             window.history.back();
+                        },5000)
+                    }
+                    
+
+                }else{ 
+                    if(data.erro){
+                        alerta('<b style="color:red"> '+data.erro+' </b>');
+                    
+                        setTimeout(function (){
+                            window.history.back();
+                       },5000)
+                    }
+
+                }
+            }
+        });
+    }	
+}
+
+
+	
+	
+	
+	
+function selecao(thi){
+    var clas = (thi.className);
+    $("." + clas).animate({'padding-bottom':'7px','background-color':'rgb(239, 239, 239)' , 'color': '#000'},300, function(){
+        $("." + clas).css({'background-color':'rgb(239, 239, 239)' , 'color': '#000', 'border':'none'});
+        $(thi).animate({'padding-bottom':'25px','background-color':'rgb(11, 141, 65)' , 'color': 'white'},300,function(){
+                $(thi).css({'background-color':'rgb(11, 141, 65)' , 'color': 'white', 'border':'1px solid #000', 'border-radius':'2px'});
+        });
+    });
+
+}
+
+
+function getDataHora(){
+     var dados = JSON.stringify( { 'operador': app.operador, 'bd': 'netcoaos_cachv3',id_do_operador:app.id_do_operador,});
+    $.ajax({
+        url: "../../php/recursos_humanos/getDataHora.php",
+        data: { dados : dados},
+        dataType:"json",
+        async:true,
+        type:"POST",
+        error: function (data){
+            if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+            }else{  
+                    alerta('Não há Internet') ;
+            }
+        },
+        success: function(data){
+           console.log(data);
+            if(data.status){
+               $("#dia").html(data.dia );
+               $("#hora").html(data.hora );
+               
+               $("#falta").html(data.faltas );
+               setCornometro()
+            }
+        }
+    });
+
+    
+}
+
+
+function setCornometro(){
+    app.cornometro = 1000;
+    clearInterval(app.setCornometro);
+    app.setCornometro = setInterval(function (){
+        app.cornometro --;
+       $("#relogio").html('<b>'+app.cornometro+'</b>' ); 
+       if(app.cornometro < 0){
+           window.history.back();
+       }
+       if( app.cornometro < 50 ){
+          $("#relogio b ").css('color','red');
+       }else if( app.cornometro < 150 ){
+          $("#relogio b ").css('color','orange');
+       }
+    },1000);
+    
+}
+
+
+function justificarFalta(thi){
+
+    stopDefaultEvent();
+    
+    var formm = checkFormulario(false, thi.id, ['porque_faltou', ]);
+
+    console.log(formm);
+
+    if(formm.status){
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/recursos_humanos/gravarPresenca.php",
+            data: { 'dados':JSON.stringify(formm) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                if(data.status){
+                    thi.style.backgroundColor = 'green';                        
+                    $(thi).slideUp();
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+    }
+
+}
+	
+function getLivroDePontoExterno(origem){
+
+    stopDefaultEvent();
+    
+    	if(origem == 'entrada'){
+            var url = "../../php/recursos_humanos/getLivroDePontoExternoEntrada.php"
+        }else{
+           var url = "../../php/recursos_humanos/getLivroDePontoExternoSaida.php" 
+        }
+        //alert(1);
+        var dados = JSON.stringify( { 'operador': app.operador,'funcao': app.funcao, 'bd': 'netcoaos_cachv3',id_do_operador:app.id_do_operador,hora:$("#hora").html()});
+        $.ajax({
+            url: url,
+            data: { dados : dados},
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                        alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                        alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+               console.log(data);
+                if(data.status){
+                   $("#dadosDoCadastroDiv01").html('<div>'+data.sucesso+'</div>' );
+
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+    
+}
+	
+
+
+
+function assinarAusencia(thi){
+
+    stopDefaultEvent();
+    
+    
+    var formm = checkFormulario(false, 'formAusencia', ['servicos_executados','porque_adiantou']);
+
+    console.log(formm);
+
+    if(formm.status){
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/recursos_humanos/assinarAusencia.php",
+            data: { 'dados':JSON.stringify(formm) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                if(data.status){
+                    thi.style.backgroundColor = 'green';                        
+                    setTimeout(function (){
+                        window.history.back();
+                    },500);
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+    }
+
+}
+	
+
+
+function assinarPresenca(thi){
+
+    stopDefaultEvent();
+    
+    var formm = checkFormulario(false, thi.id, ['porque_atrazou','servicos_previstos', ]);
+
+    console.log(formm);
+
+    if(formm.status){
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/recursos_humanos/gravarPresenca.php",
+            data: { 'dados':JSON.stringify(formm) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                    if(navigator.onLine) { 
+                            alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                    }else{  
+                            alerta('Não há Internet') ;
+                    }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                if(data.status){
+                    thi.style.backgroundColor = 'green';                        
+                    setTimeout(function (){
+                        window.history.back();
+                    },500);
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+    }
+
+}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+function validarPresenca(thi,id){
+    var i = 0, go = false;
+    var tabelas = [];
+    stopDefaultEvent();
+    
+    var form = ($(thi).serializeArray());
+   
+    var d = 0;
+    var novoArr = {};
+    while (form[d]){
+
+        var valor = form[d].value;
+        var nome = form[d].name;
+
+        if(valor){
+            novoArr[nome] = valor;
+        }
+
+        d ++;
+    }
+
+    if( novoArr.presenca != 'falta' ){
+        
+        if( novoArr.entrada && novoArr.saida  ){
+            go = true;
+        }
+    }else{
+        go = true;
+    }
+   
+  
+    if(go){
+        aguarde(1);        
+        $.ajax({
+            url:"../../php/recursos_humanos/validarPresenca.php",
+            data: { 'dados':JSON.stringify(novoArr) },
+            dataType:"json",
+            async:true,
+            type:"POST",
+            error: function (data){
+                if(navigator.onLine) { 
+                    alerta('<b style="color:red">Houve um erro actualize a página</b>');
+                }else{  
+                    alerta('Não há Internet') ;
+                }
+            },
+            success: function(data){
+                aguarde();
+               console.log(data);
+                if(data.status){
+                    thi.style.backgroundColor = 'green';                     
+                }else{ 
+                    if(data.erro) alerta('<b style="color:red"> '+data.erro+' </b>');
+                }
+            }
+        });
+    }else{
+        alerta("Preencha os campos <br>ENTRADA e SAÍDA");
+    }
+
+}
+
+	
+
+
+	</script>
+</html>
