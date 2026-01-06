@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/index.css" />
+
+	
+<script src="jquery/jquery.js"></script>
+<script src="js/funcoes.js"></script>
+<script src="js/variaveis.js"></script>
+<script src="js/index.js"></script>
+<script src="js/paginaInicial.js"></script>
+	
+<script> var app = {}; setVariaveisApp();  </script>
+	
+<title>Cachtec app</title>
+	
+
+	<style>
+		
+		body{background-color: black;}
+		#cabecalho{width: 100%; margin: 0 auto; border-bottom: 1px solid #C1C4C4; position: relative;	display: flex;justify-content: center; background-color: #E9C5F4; padding: 10px 0px;	}
+		
+		
+		#cabecalhoDiv01 a {height: 40px; color: white;border-radius: 20px;}		
+		#cabecalhoDiv01 #cabecalhoDiv01Table{background-color: red;border-radius: 20px; margin: 0; padding: 0;}
+		#cabecalhoDiv01 #cabecalhoDiv01Table .td0{ margin: 0; padding: 0; background-color: darkolivegreen; margin: 0; }
+		#cabecalhoDiv01 #cabecalhoDiv01Table .td0 img{ margin: 2px;margin-top: 4px;  padding: 3px;height: 35px;width: 35px;  border-radius: 18px;background-color: white; }
+		#cabecalhoDiv01 #cabecalhoDiv01Table #nomeDoOperador{max-width: 180px;vertical-align: middle; background-color: rgb(11, 141, 65);height: auto;padding: 0px 8px;margin: 0; color: white;}
+		#cabecalhoDiv01 #cabecalhoDiv01Table #nomeDoOperador button{background-color: transparent;border: 1px solid #ddd; color: #ddd;}
+		#cabecalhoDiv01 #cabecalhoDiv01Table .td2{ margin: 0; padding: 0; background-color: orange; margin: 0; }
+		#cabecalhoDiv01 #cabecalhoDiv01Table .td2 img{ margin: 2px; margin-top: 4px; padding:3px;height: 35px;width: 35px; border-radius: 18px;background-color: white; }
+		#fotoDoOperador {width: 36px; height: 36px;}
+		
+		.imgUser{width: 36px; height: 36px;}
+		.imglogo {width: 80px; height: 38px;}
+
+		#paginaDeLogin, #resetarSenha{width: 100%;  }
+		.paginaDeLoginDiv01{padding:10px 20px; width: 250px; background-color: #0c26b9;position: relative; border-radius: 5px; margin: 10px;box-shadow: 0 0 10px #eee;}		
+		.paginaDeLoginDiv01 h3 {border: none; margin:auto;box-shadow: none;text-align: center; padding: 15px;} 			
+		.paginaDeLoginDiv01 input {width: 180px;margin: 5px; padding:10px;border:1px solid #555;border-radius:3px;}
+		.paginaDeLoginDiv01 button {width: 180px; height: 50px; margin: 5px; border:1px solid #555;border-radius:3px; padding: 0px;}
+		.paginaDeLoginDiv01 a { font-size: 8px; text-transform: uppercase; color: white; margin: 5px 15px;}
+		
+		#searchBar{ padding-top: 25px; width: 100% auto ;}
+		
+		#searchBar table{width: 95%; max-width: 380px; padding: 3px; position: relative;border-radius: 18px;background-color: #fff;table-layout: auto; overflow: hidden;}
+		#searchBar table .td0{width: 35px;border-top-left-radius: 18px;border-bottom-left-radius: 18px;position: relative;}
+		#searchBar table .td0 img {position: absolute; top: 8px; left: 7px;}
+		#searchBar table .td1{max-width: 200px;}
+		#searchBar table .td1 input{margin: 0; width: 90%; border: 1px solid #eee; font-size: 16px; margin: 2px;}
+		#searchBar table .td2{max-width: 150px;border-top-right-radius: 15px;border-bottom-right-radius: 15px;}
+		#searchBar table .td2 select{margin: 0; width: 100%;border-top-right-radius: 18px;border-bottom-right-radius: 18px;border: 1px solid #fff; font-size: 15px;background-color: #eee;}
+		.searchBarDiv01{width: 90%; background-color: aqua;  }
+		.searchBarDiv01_div01{ width: 350px;  position: relative;  }
+		.searchBarDiv01 #firstSearchResult{position: absolute; width: 92%;}
+					
+
+		#menu{width: 100%; margin: 0 auto; margin-top: 15px; padding: 0; }
+		#menuDiv01{ width: 95%; max-width: 450px;}
+		#menuDiv01 div{ vertical-align: middle; align-items: center; justify-content: center; margin: 5px; background-color:rgb(11, 141, 65) ; border-radius: 4px; border: none; }
+		#menuDiv01 div button {width: 110px; margin: 5px; height: 50px; line-height: 20px; background-color:rgb(11, 141, 65) ; color: white; border: none; font-weight: bold; font-family: "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" }
+		#menuDiv01 div button:hover {background-color:#0c26b9;}
+		#menuDiv01 div button img {width: 16px; height: 16px; border-radius: 11px; border: 1px solid #fff;}
+
+	</style>
+
+</head>
+
+
+
+<body class="backGround02">
+	
+    <button id="notificacoesNaoRespondidas" onclick=" novaPagina('html/notificacao/alertas.html')" ></button>
+    
+    <div id="alertas" class="centralizarDiv  alertas" style="box-shadow: 0 0 10px #eee;display: none; z-index: 90;" >
+        <div id="alertasDiv01" align="center">
+            <img onClick="alerta()" class="botaoSair" src="img/cruz.png"  alt=""/>
+            <div class="resutado"> </div>
+        </div>
+    </div>
+	
+
+    <div id="paginaDeLogin" class="alertas">
+        <div  align="center" >
+            <form id="formularioDeLogin" onsubmit="login()" >
+                <div class="paginaDeLoginDiv01" >
+                    <img onClick="$('#paginaDeLogin').fadeOut()" class="botaoSair" src="img/cruz.png"  alt=""/>
+                    <h3 >Autenticação</h3>			
+                    <input id="telefoneLogin" class="input" type="number" placeholder="Telefone" >
+                    <input id="codigoLogin" type="password" placeholder="Pass" >
+                    <button type="submit"><img src="img/ok.png" alt=""/></button>
+                    <p style="text-align: center; margin: 0; padding: 0;" align="center">
+                        <a href="#">Esqueci a senha</a>
+                        <a href="#"  onClick="$('#resetarSenha').fadeIn(),$('#paginaDeLogin').fadeOut()" >Alterar a senha</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+	
+	
+
+    <div id="numeroDaFicha" class="alertas" >
+        <div align="center" >
+            <form id="formNumeroDaFicha" onsubmit="checkIdDoServico()" >
+                <div  class="paginaDeLoginDiv01">
+                    <img onClick="$('#numeroDaFicha').fadeOut()" class="botaoSair" src="img/cruz.png"  alt=""/>
+                    <h3 > ID DO SERVIÇO </h3>
+                     <input id="id_do_servico" class="input" type="number" placeholder="numero da ficha" >			 
+                    <button type="submit"><img src="img/ok.png" alt=""/></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="paginaDeSelecao" class="alertas" >
+        <div align="center" >
+            <div  class="paginaDeLoginDiv01">
+                <img onClick="$('#paginaDeSelecao').fadeOut()" class="botaoSair" src="img/cruz.png"  alt=""/>
+                <div class="seleccao"></div>				
+            </div>
+        </div>
+    </div>
+
+
+	
+
+    <div id="cabecalho" align="center" class="backGround03">
+        <div id="cabecalhoDiv01"  class="identificadorDoUsuario"  align="center">
+            <table id="cabecalhoDiv01Table"><tr>
+                <td class="backGround02 td0" >
+                    <img id="fotoDoOperador" onClick="configUser()" src="img/user.svg" alt=""/>
+                </td>
+                <td id="nomeDoOperador" align="center" >
+                    <button onClick="$('#paginaDeLogin').fadeIn()"> Entrar na minha conta</button>
+                </td>
+                <td class="backGround01 td2" >
+                    <img  src="img/mail-violeta.png" alt=""/>
+                </td>
+            </tr></table>
+        </div>		
+    </div>
+	
+
+    <div id="searchBar" align="center" class="centralizarDiv" >
+        <table >
+            <tr>
+                <td class="td0"  align="center" valign="bottom" >
+                <img src="img/search.png" width="22" height="22" alt=""/>
+                </td>
+                <td class="td1"  >
+                        <input class="searchString" id="searchString" type="number" onKeyUp=" getFirstSearch(this)"  >
+                </td>
+                <td class="td2" >
+                    <select  id="firstSearchSelected" onChange="firstSearchSelectSelected(this)"><!-- Aterar o type do input -->
+                        <option></option><option>Telefone</option><option>Nome</option><option>Id da ficha</option><option>SIM</option><option>Imei</option><option>Matrícula</option><option>Camara UID</option><option>Data(aaaa-mm-dd)</option><option>Guia</option>
+                    </select>
+
+                </td>
+            </tr>
+        </table>
+
+        <div class="searchBarDiv01" align="center" >
+            <div class="searchBarDiv01_div01" align="center" >
+                <div id="firstSearchResult" class="firstSearchResult" style="background-color: #fff;" >
+                    <img src="img/cruz.png" onClick="$('#firstSearchResult').slideUp(), $('#firstSearchResult .firstSearchResultDiv01').html('')"  class="botaoSair" alt=""/>
+                    <div class="firstSearchResultDiv01"></div>					
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="menu" class="backGround02" align="center">
+
+        <div id="menuDiv01" class="centralizarDiv">
+            <div><button onClick="menu(this)"><img src="img/plus.png" alt=""/><br>Fichas</button></div>
+            <div><button onClick="menu(this)">Cadastrar Serviço</button></div>
+            <div><button onClick="menu(this)">Requisições</button></div>
+            <!--<div><button onClick="menu(this)">Requisição de Equipamentos</button></div>-->
+            <div><button onClick="menu(this)">Registar Despesas</button></div>
+            <!--<div><button onClick="menu(this)">Meus Serviços</button></div>-->
+            <div><button onClick="menu(this)">Stock</button></div>
+            <div><button onClick="menu(this)">Faturas</button></div>
+            <div><button onClick="menu(this)">Recursos Humanos</button></div>
+            <div><button onClick="menu(this)">Validações</button></div>
+            <div><button onClick="menu(this)">Saldo e Comunicação</button></div>
+            <div><button onClick="menu(this)">Notificação</button></div>
+            <!--<div><button onClick="menu(this)">Reclamações</button></div>-->
+        </div>
+
+    </div>
+    <br><br>
+
+
+  <!-- Botão do chatbot personalizado -->
+  <button class="chatbot-button" id="open-chat">
+    💬
+  </button>
+
+  <!-- Scripts da Botpress -->
+  
+    <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2025/05/16/09/20250516093455-88HOK8BX.js"></script>
+    
+      
+  <script>
+    // Quando o botão é clicado, o chat da Botpress aparece
+    document.getElementById('open-chat').addEventListener('click', function () {
+      window.botpressWebChat.sendEvent({ type: 'show' });
+    });
+  </script>
+
+    <div id="rodape" class="backGround01 centralizarDiv">
+        <img style="margin: 2px;width: 75px;height: 32px;" onclick="window.location = 'index.html'" class="imglogo" src="img/logotipo_cachtec.png" alt=""/> 
+        <p id="rodapeDiv01" style="font-family:  Arial, 'sans-serif'"> 924243241 / info@gps.net.co.ao</p>         
+    </div>
+
+
+<script>
+
+
+
+
+
+$(document).ready(function() {
+
+    getUser();
+
+    var rgb = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+    var cores = [];
+    for(var a = 0; a < 3 ; a++){
+        cores[a] = "#"+ rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + rgb[getRandomNumber(0,15)] + 				rgb[getRandomNumber(0,15)] ;
+    }
+
+    $(".backGround01").css("background-color",cores[0]);
+    $(".backGround02").css("background-color",cores[1]);
+    $(".backGround03").css("background-color",cores[2]);
+	//getNumerosParaCarregarHoje();
+});
+
+	
+
+</script>
+
+</body>
+
+</html>

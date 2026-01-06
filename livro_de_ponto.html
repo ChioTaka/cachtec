@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	
+<title>LIVRO DE PONTO DA CACHTEC</title>
+	
+
+	<style>
+		
+		
+		
+		.imgUser{width: 36px; height: 36px;}
+		.imglogo {width: 80px; height: 38px;}
+
+		#paginaDeLogin, #resetarSenha{width: 100%; font-size: 130%;  }
+		.paginaDeLoginDiv01{padding:10px 20px;width:100%; max-width: 350px; background-color: #0a79d4;position: relative; border-radius: 5px; margin: 20px;box-shadow: 0 0 10px #eee;}		
+		.paginaDeLoginDiv01 h3 {border: none; margin:auto;box-shadow: none;text-align: center; padding: 35px;color: white;} 			
+		.paginaDeLoginDiv01 input {width: 250px;margin: 10px; padding:15px;border:1px solid #555;border-radius:3px; font-size: 130%;text-align: center;}
+		.paginaDeLoginDiv01 button {width: 130px; height: 130px; margin: 15px; border:1px solid greenyellow;border-radius:65px;text-align: center;font-weight: bold;; font-size: 110% }
+		
+		
+		
+	</style>
+
+</head>
+
+
+
+<body class="backGround02">
+	
+   	
+    <div align="center">
+                
+        <div id="paginaDeLogin">
+            <div  align="center" >
+                <form id="formularioDeLogin" onsubmit="login()" >
+                    <div class="paginaDeLoginDiv01" >                       
+                        <h3 >LIVRO DE PONTO</h3>			
+                        <input id="telefoneLogin" class="input" type="number" placeholder="Telefone" >
+                        <input id="codigoLogin" type="password" placeholder="Pass" >
+                        <button type="submit">ASSINAR</button>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div id="alertas" align="center" style=" width: 100%;margin: 40px 0px;display:" >
+            <div id="alertasDiv01" align="center" style="box-shadow: 0 0 10px pink;max-width: 350px;padding: 30px; font-size: 120%;">                
+                <div id="resutado"> Quando chegas e quando estas de saida deves deixar aqui a tua assinatura, <br>
+                    <br><b> A falta desta assinatura digital servirá como prova da tua ausência no local de serviço</b>
+                </div>
+            </div>
+        </div>
+	
+    </div>
+
+
+<script>
+
+
+function login(){
+    
+    stopDefaultEvent();
+    var tel = document.getElementById("telefoneLogin").value, pass = document.getElementById("codigoLogin").value ;
+
+    if(tel && pass){
+	 window.location = "http://localhost/cachv4/html/recursos_humanos/presencas.html?di=3www3%9234%89918#1932&id=011100110"+pass+"860bg*001101101000*68*65272j$oão032255392#344"+tel+"67371Mig((ue&nom=l046jj8ee1rr76992";	
+    }else{
+         document.getElementById("resutado").textContent = "Prencha os campos";
+    }
+
+    
+}
+
+
+
+function stopDefaultEvent(){
+	 if(window.event){
+    if (window.event.preventDefault) window.event.preventDefault(); // Standard technique
+    if (window.event.returnValue) window.event.returnValue = false; // IE EXPLOR
+    }else{ return false; }
+}
+
+</script>
+
+</body>
+
+</html>
+
+
+

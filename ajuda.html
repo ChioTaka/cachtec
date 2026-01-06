@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<style>
+body {
+  background-color: lightblue;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+</style>
+</head>
+<body>
+<h1>Ola a todos</h1>
+  <!-- Botão do chatbot personalizado -->
+  <button class="chatbot-button" id="open-chat">
+    💬
+  </button>
+
+  <!-- Scripts da Botpress -->
+  <script src="https://cdn.botpress.cloud/webchat/v2.4/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2025/04/15/15/20250415153948-E01XRRDT.js"></script>
+  <script>
+    // Quando o botão é clicado, o chat da Botpress aparece
+    document.getElementById('open-chat').addEventListener('click', function () {
+      window.botpressWebChat.sendEvent({ type: 'show' });
+    });
+  </script>
+</body>
+</html>
